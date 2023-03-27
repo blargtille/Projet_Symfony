@@ -4,11 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "content-hash": "124ddf70956889bd6f5c1dba32d03330",
-=======
+
     "content-hash": "1139e803c5c999f79acc0b4b32f0b54e",
->>>>>>> 32d8f01ccb198df341291006427c8178efbe87a1
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -3256,7 +3253,7 @@
             "time": "2023-02-28T13:26:41+00:00"
         },
         {
-<<<<<<< HEAD
+
             "name": "symfony/options-resolver",
             "version": "v6.2.7",
             "source": {
@@ -3324,8 +3321,7 @@
             "time": "2023-02-14T08:44:56+00:00"
         },
         {
-=======
->>>>>>> 32d8f01ccb198df341291006427c8178efbe87a1
+
             "name": "symfony/password-hasher",
             "version": "v6.2.7",
             "source": {
