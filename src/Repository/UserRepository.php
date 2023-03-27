@@ -20,7 +20,6 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 
-
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 
 {
