@@ -36,7 +36,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/config" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/cache-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/cache" />
-<<<<<<< HEAD
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/validator" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/property-access" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/property-info" />
@@ -47,14 +46,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/security-csrf" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/security-core" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/security-bundle" />
-=======
-      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/security-bundle" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/property-access" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/property-info" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/password-hasher" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/security-csrf" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/security-core" />
->>>>>>> 32d8f01ccb198df341291006427c8178efbe87a1
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/security-http" />
     </content>
     <orderEntry type="inheritedJdk" />
