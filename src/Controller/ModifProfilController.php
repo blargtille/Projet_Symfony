@@ -4,6 +4,8 @@ namespace App\Controller;
 
 
 
+use App\Entity\User;
+use App\Form\ModifyUserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,8 +18,9 @@ class ModifProfilController extends AbstractController
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
 
+        $user = new User();
 
-        $userForm = $this->createForm(Modify, $user);
+        $userForm = $this->createForm(ModifyUserType::class, $user);
 
         // hydrade l'instance wish avec les données de la request
         $userForm->handleRequest($request);
