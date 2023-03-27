@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ModifProfilController extends AbstractController
 {
-    #[Route('/profil/modification', name: 'main_modificationProfil')]
+    #[Route('/modifUser', name: 'main_modifUser')]
     public function index(): Response
     {
         $utilisateurModifié= 1;
