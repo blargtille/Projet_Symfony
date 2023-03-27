@@ -1,0 +1,72 @@
+/**
+global styles
+ */
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    min-width: 360px;
+    max-width: 1000px;
+    margin: auto;
+    padding: 10px 20px;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/**
+header
+ */
+.site-title {
+    display: flex;
+    align-items: center;
+    font-size: 48px;
+}
+
+.site-title img {
+    height: 48px;
+    display: block;
+    margin-right: 5px;
+}
+
+header nav ul {
+    margin: 5px 0;
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+}
+
+header nav a {
+    display: block;
+    padding: 5px 8px;
+    margin-right: 10px;
+}
+
+/**
+main
+ */
+main {
+    padding: 30px 0;
+    border-top: 1px solid #D3D3D3;
+    border-bottom: 1px solid #D3D3D3;
+}
+
+h1 {
+    margin: 0;
+}
+
+/**
+footer
+ */
+footer {
+    padding: 20px 0;
+    text-align: center;
+}
