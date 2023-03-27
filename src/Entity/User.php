@@ -39,9 +39,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $telephone = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $confirmation = null;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo = null;
 
@@ -159,18 +156,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setTelephone(?string $telephone): self
     {
         $this->telephone = $telephone;
-
-        return $this;
-    }
-
-    public function getConfirmation(): ?string
-    {
-        return $this->confirmation;
-    }
-
-    public function setConfirmation(string $confirmation): self
-    {
-        $this->confirmation = $confirmation;
 
         return $this;
     }

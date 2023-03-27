@@ -14,11 +14,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ModifProfilController extends AbstractController
 {
+    //AJOUTER UN ROLE UTILISATEUR
     #[Route('/modifUser', name: 'main_modifUser')]
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
+    // modifier le user qui est connecté
 
-        $user = new User();
+        // recuperer l'id du user connecté
+        $user = $this->getUser();
+
+        // ne pas créer d'utilisateur si il n'est pas connecté
 
         $userForm = $this->createForm(ModifyUserType::class, $user);
 
