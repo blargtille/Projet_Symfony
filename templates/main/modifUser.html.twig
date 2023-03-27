@@ -6,5 +6,12 @@
 
 {% block body %}
 
+    {{ form_start(userForm) }}
+
+    {{ form_widget(userForm) }}
+
+    <button>Create</button>
+    {{ form_end(userForm) }}
+
 {% endblock %}
 
