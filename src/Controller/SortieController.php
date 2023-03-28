@@ -37,18 +37,15 @@ class SortieController extends AbstractController
         ]);
     }
 
-    #[Route('/tri/{param}', name: 'tri')]
-    public function tri(string $param, SortieRepository $repo): Response
+    #[Route('/tri/', name: 'tri')]
+    public function tri(SortieRepository $repo, Request $request): Response
     {
-        // recuperer les parametres du formulaire
+        // recuperer les parametres du formulaire ???
 
-        if ($param == 'capture') {
-            $liste = $repo->findBy([], ["estCapture" => "DESC"]);
-        } else {
-            $liste = $repo->findBy([], ["nom" => "ASC"]);
-        }
-        return $this->render('sortie/liste.html.twig',
-            compact("liste")
+        $nom = $request->get('nom');
+
+
+        return $this->render('sortie/afficher.html.twig.html.twig',
         );
     }
 

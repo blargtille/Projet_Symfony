@@ -10,7 +10,7 @@
 
     <!-- formulaire pour filtrer ? ou juste boutons de filtres comme pokemon ? -->
     <!-- mettre le lien de la route tri dans le form -->
-    <form action="#" method="post">
+    <form action="{{ path('sortie_tri') }}" method="post">
         <label for="site">Site :</label>
        <!-- Recuperer les noms des sites en choices -->
         <select name="listSites" >
@@ -66,12 +66,12 @@
         {% for sortie in listeSortie %}
             <article>
                 <tr>
-                <tr href="{{ path('sortie_detail', {'id': sortie.id}) }}">
+                <tr href="{{ path('sortie_afficher', {'id': sortie.id}) }}">
                     <td>  {{ sortie.nom }} </td>
                     <td>{{ sortie.dateHeureDebut | date('Y-m-d H:i:s') }} </td>
                     <td> {{ sortie.dateLimiteInscription | date('Y-m-d') }}</td>
                     <td> ?/ {{ sortie.nbInscriptionMax }} </td>
-                    <td> {{ sortie.etat.libelle }} </td>
+                    <td> {{ sortie.etatE.libelle }} </td>
                     <td> inscrit ? </td>
                     <td> organisateur ?</td>
                     <td> actions ?</td>
