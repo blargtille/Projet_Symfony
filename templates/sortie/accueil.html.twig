@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <section class="sorties-list">
+        {% for sortie in sorties %}
+            <article>
+                <a href="{{ path('serie_details', {'id': serie.id}) }}" title="{{ serie.seasons | length }} season{{ serie.seasons | length > 1 ? 's' : '' }}">
+                    <img src="{{ asset('img/posters/series/'~serie.poster) }}" alt="{{ serie.name }}">
+                </a>
+            </article>
+        {% endfor %}
+
+
+
+    </section>
+
+{% endblock %}
+
+{% block title %}
+
+    {{ parent() }} | Accueil sorties
+
+{% endblock %}
+

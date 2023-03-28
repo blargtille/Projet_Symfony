@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div>
+        {# balise form ouvrante #}
+        {{ form_start(sortieForm) }}
+
+        {# affiche tous les champs du formulaire #}
+        {{ form_widget(sortieForm) }}
+
+        <button>Create</button>
+
+        {# balise form fermant #}
+        {{ form_end(sortieForm) }}
+
+    </div>
+
+{% endblock %}
+
+{% block title %}
+Créer une nouvelle sortie | {{ parent() }}
+{% endblock %}
+
