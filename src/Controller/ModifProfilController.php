@@ -6,33 +6,42 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\ModifyUserType;
+use App\notification\Sender;
+use App\Security\AppAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class ModifProfilController extends AbstractController
 {
     //AJOUTER UN ROLE UTILISATEUR
     #[Route('/modifUser', name: 'main_modifUser')]
-    public function index(Request $request, EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher,
+                             UserAuthenticatorInterface $userAuthenticator,
+                             AppAuthenticator $authenticator): Response
     {
     // modifier le user qui est connecté
 
-        // recuperer l'id du user connecté
         $user = $this->getUser();
-
-        // ne pas créer d'utilisateur si il n'est pas connecté
-
         $userForm = $this->createForm(ModifyUserType::class, $user);
-
-        // hydrade l'instance wish avec les données de la request
         $userForm->handleRequest($request);
 
         if($userForm->isSubmitted() && $userForm->isValid()){
 
-            // enregistre le souhait en BDD
+            $user->setRoles(['ROLE_USER']);
+
+            // encode the plain password
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $userForm->get('plainPassword')->getData()
+                )
+            );
+
             $entityManager->persist($user);
             $entityManager->flush();
 
