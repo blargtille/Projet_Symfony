@@ -38,6 +38,10 @@ class Sortie
     #[ORM\Column(length: 255)]
     private ?string $etat = null;
 
+    #[ORM\ManyToOne(inversedBy: 'Sorties')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Etat $etatE = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -123,6 +127,18 @@ class Sortie
     public function setEtat(string $etat): self
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getEtatE(): ?Etat
+    {
+        return $this->etatE;
+    }
+
+    public function setEtatE(?Etat $etatE): self
+    {
+        $this->etatE = $etatE;
 
         return $this;
     }
