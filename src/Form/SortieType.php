@@ -43,21 +43,13 @@ class SortieType extends AbstractType
                 'label' => 'Infos sur la sortie : '
             ])
             ->add('etat', EntityType::class, [
-                'class' => Sortie::class,[
+                'class' => Sortie::class,
                     'choice_label' => 'name',
                     'query_builder' => function(EntityRepository $er){
                         return $er->createQueryBuilder('e')
                             ->orderBy('e.libelle', 'ASC');
-                    }
-                    'Créée' => 'Créée',
-                    'Ouverte' => 'Ouverte',
-                    'Clôturée' => 'Clôturée',
-                    'Activité en cours' => 'Activité en cours',
-                    'Passée' => 'Passée',
-                    'Annulée' => 'Annulée'
-                ],
-                'multiple' => false
-            ])
+                    },
+                 ])
         ;
     }
 
