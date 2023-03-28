@@ -16,7 +16,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Assert\Regex(pattern: '^[\w\.=-]+@[\w\.-]+\.[\w]{2,3}$',
+    #[Assert\Regex(pattern: '/^[\w\.=-]+@[\w\.-]+\.[\w]{2,3}$/',
     message: 'Le format de l\'email n\'est pas valide')]
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
