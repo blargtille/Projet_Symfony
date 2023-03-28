@@ -17,9 +17,10 @@ class SortieController extends AbstractController
     #[Route('', name: 'accueil')]
     public function list(SortieRepository $sortieRepository): Response
     {
-        return $this->render('sortie/accueil.html.twig', [
-            'controller_name' => 'SortieController',
-        ]);
+        $liste = $sortieRepository->findAll();
+        return $this->render('sortie/accueil.html.twig',
+            compact("liste")
+        );
     }
 
 
