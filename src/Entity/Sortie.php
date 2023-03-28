@@ -38,6 +38,10 @@ class Sortie
     #[ORM\Column(length: 255)]
     private ?string $etat = null;
 
+    #[ORM\ManyToOne(inversedBy: 'Sorties')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Etat $etatE = null;
+
     #[ORM\ManyToOne(inversedBy: 'sorties')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Site $site = null;
@@ -131,6 +135,18 @@ class Sortie
         return $this;
     }
 
+    public function getEtatE(): ?Etat
+    {
+        return $this->etatE;
+    }
+
+    public function setEtatE(?Etat $etatE): self
+    {
+        $this->etatE = $etatE;
+
+        return $this;
+    }
+
     public function getSite(): ?Site
     {
         return $this->site;
@@ -142,4 +158,7 @@ class Sortie
 
         return $this;
     }
+
+
+
 }
