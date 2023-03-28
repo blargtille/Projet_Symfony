@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -15,6 +16,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\Regex(pattern: '^[\w\.=-]+@[\w\.-]+\.[\w]{2,3}$',
+    message: 'Le format de l\'email n\'est pas valide')]
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
@@ -36,9 +39,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
+    #[Assert\Regex(pattern: '/^(?:\+?\d{1,3}[- ]?)?\d{7,11}$/',
+        message: 'Le format de du téléphone n\'est pas valide')]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $telephone = null;
 
+    #[Assert\Regex(pattern: '/^.+\.(jpg|jpeg|png|gif|bmp)$/',
+        message: 'La photo n\'est pas une image')]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo = null;
 
