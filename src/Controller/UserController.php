@@ -59,7 +59,7 @@ class UserController extends AbstractController
         ]);
 
     }
-    #[Route('/details/{id}', name: 'main_detailsUser')]
+    #[Route('main/detailsUser/{id}', name: 'main_detailsUser')]
     public function detailsUser(int $id, UserRepository $userRepository): Response{
         //aller chercher l'utilisateur en BDD
         $user = $userRepository->find($id);
