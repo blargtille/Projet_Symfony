@@ -18,13 +18,11 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class ModifProfilController extends AbstractController
 {
-    //AJOUTER UN ROLE UTILISATEUR
     #[Route('/modifUser', name: 'main_modifUser')]
-    public function index(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher,
+    public function modifUser(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher,
                              UserAuthenticatorInterface $userAuthenticator,
                              AppAuthenticator $authenticator): Response
     {
-    // modifier le user qui est connecté
 
         $user = $this->getUser();
         $userForm = $this->createForm(ModifyUserType::class, $user);
@@ -32,13 +30,14 @@ class ModifProfilController extends AbstractController
 
         if($userForm->isSubmitted() && $userForm->isValid()){
 
+
             $user->setRoles(['ROLE_USER']);
 
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
-                    $userForm->get('plainPassword')->getData()
+                    $userForm->get('password')->getData()
                 )
             );
 
@@ -47,12 +46,15 @@ class ModifProfilController extends AbstractController
 
             $this->addFlash('success', 'Idea successfully added!');
 
-            return $this->redirectToRoute('main_modifUser', ['id' => $user->getId()]);
-
+            return $userAuthenticator->authenticateUser(
+                $user,
+                $authenticator,
+                $request
+            );
         }
 
         return $this->render('main/modifUser.html.twig', [
-            'userForm' => $userForm
+            'userForm' => $userForm->createView(),
         ]);
 
     }
