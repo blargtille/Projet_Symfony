@@ -45,7 +45,7 @@ class SortieType extends AbstractType
             ])
             ->add('etat', EntityType::class, [
                 'class' => Etat::class,
-                    'choice_label' => 'name',
+                    'choice_label' => 'libelle',
                     'query_builder' => function(EntityRepository $er){
                         return $er->createQueryBuilder('e')
                             ->orderBy('e.libelle', 'ASC');
