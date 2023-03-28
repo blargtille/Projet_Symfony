@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Sortie;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -40,8 +42,13 @@ class SortieType extends AbstractType
             ->add('infosSortie', TextareaType::class, [
                 'label' => 'Infos sur la sortie : '
             ])
-            ->add('etat', ChoiceType::class, [
-                'choices' => [
+            ->add('etat', EntityType::class, [
+                'class' => Sortie::class,[
+                    'choice_label' => 'name',
+                    'query_builder' => function(EntityRepository $er){
+                        return $er->createQueryBuilder('e')
+                            ->orderBy('e.libelle', 'ASC');
+                    }
                     'Créée' => 'Créée',
                     'Ouverte' => 'Ouverte',
                     'Clôturée' => 'Clôturée',
