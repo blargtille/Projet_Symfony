@@ -27,7 +27,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $pseudo = null;
 
     #[ORM\Column(length: 255)]
@@ -41,6 +41,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo = null;
+
+    #[ORM\Column]
+    private ?bool $administrateur = null;
+
+    #[ORM\Column]
+    private ?bool $actif = null;
 
     public function getId(): ?int
     {
@@ -168,6 +174,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPhoto(?string $photo): self
     {
         $this->photo = $photo;
+
+        return $this;
+    }
+
+    public function isAdministrateur(): ?bool
+    {
+        return $this->administrateur;
+    }
+
+    public function setAdministrateur(bool $administrateur): self
+    {
+        $this->administrateur = $administrateur;
+
+        return $this;
+    }
+
+    public function isActif(): ?bool
+    {
+        return $this->actif;
+    }
+
+    public function setActif(bool $actif): self
+    {
+        $this->actif = $actif;
 
         return $this;
     }
