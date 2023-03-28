@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Etat;
 use App\Entity\Sortie;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -43,7 +44,7 @@ class SortieType extends AbstractType
                 'label' => 'Infos sur la sortie : '
             ])
             ->add('etat', EntityType::class, [
-                'class' => Sortie::class,
+                'class' => Etat::class,
                     'choice_label' => 'name',
                     'query_builder' => function(EntityRepository $er){
                         return $er->createQueryBuilder('e')

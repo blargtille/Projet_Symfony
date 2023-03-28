@@ -16,12 +16,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     #[Route('', name: 'accueil')]
-    public function list(SortieRepository $sortieRepository): Response
+    public function list(SortieRepository $sortieRepository, SiteRepository $siteRepository): Response
     {
-        $liste = $sortieRepository->findAll();
+        $listeSortie = $sortieRepository->findAll();
+        $listeSite = $siteRepository->findAll();
 
-        return $this->render('sortie/accueil.html.twig',
-            compact("liste")
+        return $this->render('sortie/accueil.html.twig', compact("listeSortie"),
         );
     }
 
