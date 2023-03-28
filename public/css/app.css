@@ -43,6 +43,18 @@ header nav ul {
     list-style: none;
     padding-left: 0;
 }
+label {
+    display: block;
+}
+
+input,
+textarea,
+select {
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    max-width: 50%;
+    width: 200px;
+}
 
 header nav a {
     display: block;
@@ -61,6 +73,7 @@ main {
 
 h1 {
     margin: 0;
+    text-align: center;
 }
 
 /**
