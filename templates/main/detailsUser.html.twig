@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} | {{ user.pseudo }}
+{% endblock %}
+
+{% block body %}
+    <h2>{{ user.pseudo }}</h2>
+        <div>Prénom: {{ user.prenom }}</div>
+        <div>Nom: {{ user.nom }}</div>
+        <div>Téléphone: {{ user.telephone }}</div>
+        <div>Email: {{ user.email }}</div>
+      {#  <div>Site de rattachement{{ user.site.nom }}</div> #}
+
+    <button>Retour</button>
+{% endblock %}
+
+

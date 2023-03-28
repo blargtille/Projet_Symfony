@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\ModifyUserType;
 use App\notification\Sender;
+use App\Repository\UserRepository;
 use App\Security\AppAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,7 +17,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
-class ModifProfilController extends AbstractController
+class UserController extends AbstractController
 {
     #[Route('/modifUser', name: 'main_modifUser')]
     public function modifUser(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher,
@@ -57,5 +58,17 @@ class ModifProfilController extends AbstractController
             'userForm' => $userForm->createView(),
         ]);
 
+    }
+    #[Route('/details/{id}', name: 'main_detailsUser')]
+    public function detailsUser(int $id, UserRepository $userRepository): Response{
+        //aller chercher l'utilisateur en BDD
+        $user = $userRepository->find($id);
+            if(!$user){
+                throw $this->createNotFoundException('User does not exists');
+            }
+
+        return $this->render('main/detailsUser.html.twig', [
+            'user' => $user
+        ]);
     }
 }
