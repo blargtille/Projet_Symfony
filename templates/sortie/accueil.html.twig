@@ -3,10 +3,11 @@
 {% block body %}
 
     <section class="sorties-list">
-        {% for sortie in sorties %}
+        {% for sortie in liste %}
             <article>
-                <a href="{{ path('serie_details', {'id': serie.id}) }}" title="{{ serie.seasons | length }} season{{ serie.seasons | length > 1 ? 's' : '' }}">
-                    <img src="{{ asset('img/posters/series/'~serie.poster) }}" alt="{{ serie.name }}">
+                <a href="{{ path('sortie_detail', {'id': sortie.id}) }}">
+                    {{ sortie.nom }} {{ sortie.dateHeureDebut }} {{ sortie.dateLimiteInscription }} ?/ {{ sortie.nbInscriptionMax }} {{ sortie.etat.nom }}
+                    date sortie cloture inscrits/place etat inscrit organisateur actions
                 </a>
             </article>
         {% endfor %}
