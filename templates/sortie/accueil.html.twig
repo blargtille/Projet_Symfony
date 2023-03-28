@@ -9,7 +9,7 @@
         <p> Participant : </p> </div>
 
     <!-- formulaire pour filtrer ? ou juste boutons de filtres comme pokemon ? -->
-
+    <!-- mettre le lien de la route tri dans le form -->
     <form action="#" method="post">
         <label for="site">Site :</label>
        <!-- Recuperer les noms des sites en choices -->
@@ -71,7 +71,7 @@
                     <td>{{ sortie.dateHeureDebut | date('Y-m-d H:i:s') }} </td>
                     <td> {{ sortie.dateLimiteInscription | date('Y-m-d') }}</td>
                     <td> ?/ {{ sortie.nbInscriptionMax }} </td>
-                    <td> sortie.etat.nom </td>
+                    <td> {{ sortie.etat.libelle }} </td>
                     <td> inscrit ? </td>
                     <td> organisateur ?</td>
                     <td> actions ?</td>

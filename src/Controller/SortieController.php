@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Sortie;
 use App\Form\SortieType;
+use App\Repository\PokemonRepository;
 use App\Repository\SiteRepository;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -34,6 +35,21 @@ class SortieController extends AbstractController
         return $this->render('sortie/afficher.html.twig', [
             'sortie' => $sortie
         ]);
+    }
+
+    #[Route('/tri/{param}', name: 'tri')]
+    public function tri(string $param, SortieRepository $repo): Response
+    {
+        // recuperer les parametres du formulaire
+
+        if ($param == 'capture') {
+            $liste = $repo->findBy([], ["estCapture" => "DESC"]);
+        } else {
+            $liste = $repo->findBy([], ["nom" => "ASC"]);
+        }
+        return $this->render('sortie/liste.html.twig',
+            compact("liste")
+        );
     }
 
 
