@@ -37,13 +37,13 @@ class SortieController extends AbstractController
     }
 
     #[Route('/tri', name: 'tri')]
-    public function tri(SortieRepository $repo, Request $request): Response
+    public function tri(SortieRepository $sortieRepository, Request $request): Response
     {
         // recuperer les parametres du formulaire ???
 
         $nom = $request->get('nom');
         dump($nom);
-
+        $listeSortie = $sortieRepository->findAll();
 
         return $this->render('sortie/accueil.html.twig',
         );
