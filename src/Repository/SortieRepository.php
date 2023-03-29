@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @extends ServiceEntityRepository<Sortie>
@@ -38,6 +39,25 @@ class SortieRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+/*
+     public function findSortieByDate(){
+         // recherche des sorties
+         $entityManager = $this->getEntityManager($dateDebut, $dateFin);
+
+         $dql = "SELECT s
+                 FROM App\Entity\Sortie s 
+                 WHERE s.dateHeureDebut < $dateDebut
+                 AND s.dateHeureDebut> $dateFin";
+
+         $query = $entityManager->createQuery($dql);
+
+         $query->setMaxResults(30);
+
+         return $query->getResult();
+     }
+*/
+
 
 //    /**
 //     * @return Sortie[] Returns an array of Sortie objects

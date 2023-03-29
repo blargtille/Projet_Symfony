@@ -43,8 +43,9 @@ class SortieType extends AbstractType
             ->add('infosSortie', TextareaType::class, [
                 'label' => 'Infos sur la sortie : '
             ])
-            ->add('etat', EntityType::class, [
+            ->add('etatE', EntityType::class, [
                 'class' => Etat::class,
+                    'label' => 'Etat : ',
                     'choice_label' => 'libelle',
                     'query_builder' => function(EntityRepository $er){
                         return $er->createQueryBuilder('e')
