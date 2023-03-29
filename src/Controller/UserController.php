@@ -54,7 +54,7 @@ class UserController extends AbstractController
             );
         }
 
-        return $this->render('main/modifUser.html.twig', [
+        return $this->render('sortie/accueil.html.twig', [
             'userForm' => $userForm->createView(),
         ]);
 
