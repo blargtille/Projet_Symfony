@@ -22,8 +22,10 @@ class SortieController extends AbstractController
         $listeSortie = $sortieRepository->findAll();
         $listeSite = $siteRepository->findAll();
 
-        return $this->render('sortie/accueil.html.twig', compact("listeSortie"),
-        );
+        return $this->render('sortie/accueil.html.twig', [
+            'listeSortie' => $listeSortie,
+            'listeSite' => $listeSite
+        ]);
     }
 
 
@@ -41,12 +43,13 @@ class SortieController extends AbstractController
     public function tri(SortieRepository $sortieRepository, Request $request): Response
     {
         // recuperer les parametres du formulaire ???
+        $dateStart = $request->get('date-start');
+        $dateEnd = $request->get('date-end');
+        $dateEnd = $request->get('site');
+        dump($dateStart);
+        $listeSortie = $sortieRepository->findBy();
 
-        $nom = $request->get('nom');
-        dump($nom);
-        $listeSortie = $sortieRepository->findAll();
-
-        return $this->render('sortie/accueil.html.twig',
+        return $this->redirectToRoute('sortie_accueil', compact($listeSortie)
         );
     }
 
@@ -63,7 +66,7 @@ class SortieController extends AbstractController
         dump($sortie);
 
         if($sortieForm->isSubmitted() && $sortieForm->isValid()){
-            $sortie->setEtatE("creee");
+           $sortie->setEtatE("creee");
             $entityManager->persist($sortie);
             $entityManager->flush();
 

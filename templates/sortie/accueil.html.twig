@@ -5,18 +5,18 @@
     <h1> Sorties </h1>
     <h2> Filtrer les sorties </h2>
 
-    <div> <p> Date du jour : </p>
-        <p> Participant : </p> </div>
+        <p> Date du jour : </p>
+        <p> Participant : </p>
 
     <!-- formulaire pour filtrer ? ou juste boutons de filtres comme pokemon ? -->
     <!-- mettre le lien de la route tri dans le form -->
     <form action="{{ path('sortie_tri') }}" method="post">
         <label for="site">Site :</label>
-       <!-- Recuperer les noms des sites en choices -->
-        <select name="listSites" >
-            <!-- boucle pour recuperer les sites en bdd ? -->
-            <option>un</option>
-          <!-- recuperer les sites -->
+
+        <select name="site" >
+            {% for site in listeSite %}
+            <option>{{ site.nom }}</option>
+            {% endfor %}
         </select>
 
         <label for="recherche">Le nom de la sortie contient :</label>
@@ -45,7 +45,7 @@
         <label for="passees">Sorties passées</label>
 
 
-     <input type="button" name="Rechercher" value="Rechercher">
+     <input type="submit" name="Rechercher" value="Rechercher">
 
     </form>
 
