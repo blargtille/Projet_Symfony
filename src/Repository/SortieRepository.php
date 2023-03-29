@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Validator\Constraints\Date;
 
@@ -40,23 +41,39 @@ class SortieRepository extends ServiceEntityRepository
         }
     }
 
-/*
-     public function findSortieByDate(){
-         // recherche des sorties
-         $entityManager = $this->getEntityManager($dateDebut, $dateFin);
 
-         $dql = "SELECT s
-                 FROM App\Entity\Sortie s 
-                 WHERE s.dateHeureDebut < $dateDebut
-                 AND s.dateHeureDebut> $dateFin";
+    public function findSortieByDate($dateDebut, $dateFin){
+        // avec QueryBuilder
+        $queryBuilder = $this->createQueryBuilder('s');
+        $queryBuilder->addSelect('s');
+        $queryBuilder->andWhere('s.dateHeureDebut > :dateDebut');
+        $queryBuilder->andWhere('s.dateHeureDebut < :dateFin');
+        $queryBuilder->setParameter('dateDebut', $dateDebut);
+        $queryBuilder->setParameter('dateFin', $dateFin);
 
-         $query = $entityManager->createQuery($dql);
+        $query = $queryBuilder->getQuery();
 
-         $query->setMaxResults(30);
+        $paginator = new Paginator($query);
 
-         return $query->getResult();
-     }
-*/
+        return $paginator;
+
+    }
+
+    public function findSortieByNameResearch($recherche){
+        // avec QueryBuilder
+        $queryBuilder = $this->createQueryBuilder('s');
+        $queryBuilder->addSelect('s');
+        $queryBuilder->andWhere('s.nom LIKE : %recherche% ');
+        $queryBuilder->setParameter('recherche', $recherche);
+
+
+        $query = $queryBuilder->getQuery();
+
+        $paginator = new Paginator($query);
+
+        return $paginator;
+
+    }
 
 
 //    /**

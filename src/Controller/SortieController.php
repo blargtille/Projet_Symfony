@@ -41,15 +41,30 @@ class SortieController extends AbstractController
     #[Route('/tri', name: 'tri')]
     public function tri(SortieRepository $sortieRepository, Request $request, SiteRepository $siteRepository): Response
     {
-        // recuperer les parametres du formulaire ???
+
+        // tri dates
         $dateStart = $request->get('date-start');
         $dateEnd = $request->get('date-end');
+        //  if ($dateStart!=''&&$dateEnd!=''){
+      //  $listeSortie = $sortieRepository->findSortieByDate($dateStart, $dateEnd);
+        //    }
+        //pb : si on met qu'une date ça ne marche pas, obligé de mettre les deux, à changer
+
+        // tri site
         $site = $request->get('site');
-        $listeSortie = $sortieRepository->findBy(['site'=>$site], []);
-     //   $listeSortie = $sortieRepository->findBy(['site'=>$site], []);
+     //  $listeSortie = $sortieRepository->findBy(['site'=>$site], []);
+
+        // tri barre de recherche
+        //recuperer le mot ecrit dans nom sortie
+        // requete sql avec like !!!
+        $barreRecherche = $request->get('rechercher');
+        //$listeSortie = $sortieRepository->findSortieByNameResearch($barreRecherche);
+
+        //affichage des sites
+        $listeSortie = $sortieRepository->findAll();
         $listeSite = $siteRepository->findAll();
 
-        return $this->render('sortie/accueil.html.twig',  [
+        return $this->render('sortie/accueil.html.twig', [
             'listeSortie' => $listeSortie,
             'listeSite' => $listeSite
         ]);
@@ -59,22 +74,22 @@ class SortieController extends AbstractController
     #[Route('/creer', name: 'creer')]
     public function creer(Request $request, EntityManagerInterface $entityManager): Response
     {
-       $sortie = new Sortie();
+        $sortie = new Sortie();
 
-       $sortieForm = $this->createForm(SortieType::class, $sortie);
+        $sortieForm = $this->createForm(SortieType::class, $sortie);
 
         dump($sortie);
         $sortieForm->handleRequest($request);
         dump($sortie);
 
-        if($sortieForm->isSubmitted() && $sortieForm->isValid()){
-           $sortie->setEtatE("creee");
+        if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
+            $sortie->setEtatE("creee");
             $entityManager->persist($sortie);
             $entityManager->flush();
 
             $this->addFlash('success', 'Votre sortie a été ajoutée !');
-            return $this->redirectToRoute( 'sortie_afficher',
-            ['id'=>$sortie->getId()]);
+            return $this->redirectToRoute('sortie_afficher',
+                ['id' => $sortie->getId()]);
         }
 
         dump($request);
