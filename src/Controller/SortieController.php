@@ -76,7 +76,7 @@ class SortieController extends AbstractController
     #[Route('/creer', name: 'creer')]
     public function creer(Request $request, EntityManagerInterface $entityManager, LieuRepository $lieuRepository, VilleRepository $villeRepository): Response
     {
-        $listeLieu = $lieuRepository->findAll();
+        $lieu = $lieuRepository->findAll();
         $Ville = $villeRepository->findAll();
 
 
@@ -101,7 +101,7 @@ class SortieController extends AbstractController
         dump($request);
         return $this->render('sortie/creer.html.twig', [
             'sortieForm' => $sortieForm->createView(),
-            'listeLieu' => $listeLieu,
+            'lieu' => $lieu,
             'Ville' => $Ville
         ]);
     }
