@@ -54,13 +54,23 @@ class SortieController extends AbstractController
 
         // tri site
         $site = $request->get('site');
-     //  $listeSortie = $sortieRepository->findBy(['site'=>$site], []);
+       $listeSortie = $sortieRepository->findBy(['site'=>$site], []);
 
         // tri barre de recherche
-        //recuperer le mot ecrit dans nom sortie
-        // requete sql avec like !!!
         $barreRecherche = $request->get('rechercher');
-        $listeSortie = $sortieRepository->findSortieByNameResearch($barreRecherche);
+      //  $listeSortie = $sortieRepository->findSortieByNameResearch($barreRecherche);
+
+        // tri par cases à cocher
+        // récuperer la sélection case à cocher
+        $organisateur = $request->get('orga');
+        $inscrit = $request->get('inscrit');
+        $nonInscrit = $request->get('nonInscrit');
+        $passees = $request->get('passees');
+
+        dump($organisateur); // met on ou null
+
+        // en fonction des parametres cochés --> concaténation d'une requête ????????
+
 
         //affichage des sites
        // $listeSortie = $sortieRepository->findAll();

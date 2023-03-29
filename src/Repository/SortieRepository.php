@@ -72,6 +72,21 @@ class SortieRepository extends ServiceEntityRepository
         return $paginator;
 
     }
+/*
+    public function findSortieByCaseACocher($orga, $inscrit, $nonInscrit, $passees){
+        $queryBuilder = $this->createQueryBuilder('s');
+        $queryBuilder->addSelect('s');
+        $queryBuilder->andWhere('s.nom LIKE :recherche');
+        $queryBuilder->setParameter('recherche', '%' . $recherche . '%');
+
+        $query = $queryBuilder->getQuery();
+
+        $paginator = new Paginator($query);
+
+        return $paginator;
+
+    }
+*/
 
 
 //    /**
