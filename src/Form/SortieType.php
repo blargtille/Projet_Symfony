@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Etat;
+use App\Entity\Lieu;
 use App\Entity\Sortie;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -52,6 +53,16 @@ class SortieType extends AbstractType
                             ->orderBy('e.libelle', 'ASC');
                     },
                  ])
+            ->add('Lieu', EntityType::class,[
+                'class' => Lieu::class,
+                'label' => 'Lieu : ',
+                'choice_label' => 'nom',
+                'query_builder' => function(EntityRepository $er){
+                return $er->createQueryBuilder('l')
+                    ->orderBy('l.nom', 'ASC');
+                }
+
+            ])
         ;
     }
 
