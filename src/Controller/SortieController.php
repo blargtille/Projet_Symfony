@@ -60,10 +60,10 @@ class SortieController extends AbstractController
         //recuperer le mot ecrit dans nom sortie
         // requete sql avec like !!!
         $barreRecherche = $request->get('rechercher');
-        //$listeSortie = $sortieRepository->findSortieByNameResearch($barreRecherche);
+        $listeSortie = $sortieRepository->findSortieByNameResearch($barreRecherche);
 
         //affichage des sites
-        $listeSortie = $sortieRepository->findAll();
+       // $listeSortie = $sortieRepository->findAll();
         $listeSite = $siteRepository->findAll();
 
         return $this->render('sortie/accueil.html.twig', [

@@ -60,12 +60,10 @@ class SortieRepository extends ServiceEntityRepository
     }
 
     public function findSortieByNameResearch($recherche){
-        // avec QueryBuilder
         $queryBuilder = $this->createQueryBuilder('s');
         $queryBuilder->addSelect('s');
-        $queryBuilder->andWhere('s.nom LIKE : %recherche% ');
-        $queryBuilder->setParameter('recherche', $recherche);
-
+        $queryBuilder->andWhere('s.nom LIKE :recherche');
+        $queryBuilder->setParameter('recherche', '%' . $recherche . '%');
 
         $query = $queryBuilder->getQuery();
 
