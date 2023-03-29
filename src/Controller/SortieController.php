@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Sortie;
 use App\Form\SortieType;
+use App\Repository\LieuRepository;
 use App\Repository\SiteRepository;
 use App\Repository\SortieRepository;
+use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,8 +59,12 @@ class SortieController extends AbstractController
 
 
     #[Route('/creer', name: 'creer')]
-    public function creer(Request $request, EntityManagerInterface $entityManager): Response
+    public function creer(Request $request, EntityManagerInterface $entityManager, LieuRepository $lieuRepository, VilleRepository $villeRepository): Response
     {
+        $listeLieu = $lieuRepository->findAll();
+        $Ville = $villeRepository->findAll();
+
+
        $sortie = new Sortie();
 
        $sortieForm = $this->createForm(SortieType::class, $sortie);
@@ -79,7 +85,9 @@ class SortieController extends AbstractController
 
         dump($request);
         return $this->render('sortie/creer.html.twig', [
-            'sortieForm' => $sortieForm->createView()
+            'sortieForm' => $sortieForm->createView(),
+            'listeLieu' => $listeLieu,
+            'Ville' => $Ville
         ]);
     }
 
