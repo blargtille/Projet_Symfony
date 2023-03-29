@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1> Sorties </h1>
+    <h2> Filtrer les sorties </h2>
+
+    <div> <p> Date du jour : </p>
+        <p> Participant : </p> </div>
+
+    <!-- formulaire pour filtrer ? ou juste boutons de filtres comme pokemon ? -->
+    <!-- mettre le lien de la route tri dans le form -->
+    <form action="{{ path('sortie_tri') }}" method="post">
+        <label for="site">Site :</label>
+       <!-- Recuperer les noms des sites en choices -->
+        <select name="listSites" >
+            <!-- boucle pour recuperer les sites en bdd ? -->
+            <option>un</option>
+          <!-- recuperer les sites -->
+        </select>
+
+        <label for="recherche">Le nom de la sortie contient :</label>
+        <input type="text" name="Rechercher" value="">
+
+        <label for="start">Entre :</label>
+        <!-- min date du jour -->
+        <input type="date" id="start" name="date-start"
+               min="2018-01-01" max="2025-01-01">
+        <label for="start">Entre :</label>
+        <!-- min date du jour -->
+        <input type="date" id="end" name="date-end"
+               min="2018-01-01" max="2025-01-01">
+
+        <!-- Cases à cocher , boutons , form ??-->
+        <input type="checkbox" id="orga" name="orga" checked>
+        <label for="orga">Sorties dont je suis l'organisateur/trice</label>
+
+        <input type="checkbox" id="inscrit" name="inscrit" checked>
+        <label for="inscrit">Sorties auxquelles je suis inscrit/e</label>
+
+        <input type="checkbox" id="nonInscrit" name="nonInscrit" checked>
+        <label for="nonInscrit">Sorties auxquelles je ne suis pas inscrit/e</label>
+
+        <input type="checkbox" id="passees" name="passees" checked>
+        <label for="passees">Sorties passées</label>
+
+
+     <input type="button" name="Rechercher" value="Rechercher">
+
+    </form>
+
+    <section class="sorties-list">
+        <table>
+        <tbody>
+        <tr>
+            <td>Nom de la sortie</td>
+            <td>Date de la sortie</td>
+            <td>Clôture</td>
+            <td>inscrits/places</td>
+            <td>Etat</td>
+            <td>Inscrit</td>
+            <td>Organisateur</td>
+            <td>Actions</td>
+        </tr>
+
+        {% for sortie in listeSortie %}
+            <article>
+                <tr>
+                <tr href="{{ path('sortie_afficher', {'id': sortie.id}) }}">
+                    <td>  {{ sortie.nom }} </td>
+                    <td>{{ sortie.dateHeureDebut | date('Y-m-d H:i:s') }} </td>
+                    <td> {{ sortie.dateLimiteInscription | date('Y-m-d') }}</td>
+                    <td> ?/ {{ sortie.nbInscriptionMax }} </td>
+                    <td> {{ sortie.etatE.libelle }} </td>
+                    <td> inscrit ? </td>
+                    <td> organisateur ?</td>
+                    <td> actions ?</td>
+                </tr>
+                </a>
+            </article>
+        {% endfor %}
+
+        </tr>
+        </tbody>
+        </table>
+
+    </section>
+
+{% endblock %}
+
+{% block title %}
+
+    {{ parent() }} | Accueil sorties
+
+{% endblock %}
+

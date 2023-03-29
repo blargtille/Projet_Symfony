@@ -46,7 +46,7 @@ class SortieController extends AbstractController
         dump($nom);
 
 
-        return $this->render('sortie/afficher.html.twig.html.twig',
+        return $this->render('sortie/afficher.html.twig',
         );
     }
 
