@@ -20,7 +20,7 @@
         </select>
 
         <label for="recherche">Le nom de la sortie contient :</label>
-        <input type="text" name="Rechercher" value="">
+        <input type="text" name="rechercher" value="">
 
         <label for="start">Entre :</label>
         <!-- min date du jour -->
@@ -31,6 +31,7 @@
         <input type="date" id="end" name="date-end"
                min="2018-01-01" max="2025-01-01">
 
+        <br>
         <!-- Cases à cocher , boutons , form ??-->
         <input type="checkbox" id="orga" name="orga" checked>
         <label for="orga">Sorties dont je suis l'organisateur/trice</label>
@@ -44,6 +45,7 @@
         <input type="checkbox" id="passees" name="passees" checked>
         <label for="passees">Sorties passées</label>
 
+        <br>
 
      <input type="submit" name="Rechercher" value="Rechercher">
 
@@ -73,8 +75,8 @@
                     <td> ?/ {{ sortie.nbInscriptionMax }} </td>
                     <td> {{ sortie.etatE.libelle }} </td>
                     <td> inscrit ? </td>
-                    <td> organisateur ?</td>
-                    <td> actions ?</td>
+                    <td> organisateur ? {{ sortie.organisateur.nom }}</td>
+                    <td> actions ?  <input type="button" name="afficher" value="afficher"></td>
                 </tr>
                 </a>
             </article>

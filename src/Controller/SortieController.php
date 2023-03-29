@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Sortie;
 use App\Form\SortieType;
+use App\Repository\LieuRepository;
 use App\Repository\SiteRepository;
 use App\Repository\SortieRepository;
+use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,15 +43,40 @@ class SortieController extends AbstractController
     #[Route('/tri', name: 'tri')]
     public function tri(SortieRepository $sortieRepository, Request $request, SiteRepository $siteRepository): Response
     {
-        // recuperer les parametres du formulaire ???
+
+        // tri dates
         $dateStart = $request->get('date-start');
         $dateEnd = $request->get('date-end');
+        //  if ($dateStart!=''&&$dateEnd!=''){
+      //  $listeSortie = $sortieRepository->findSortieByDate($dateStart, $dateEnd);
+        //    }
+        //pb : si on met qu'une date ça ne marche pas, obligé de mettre les deux, à changer
+
+        // tri site
         $site = $request->get('site');
-        $listeSortie = $sortieRepository->findBy(['site'=>$site], []);
-     //   $listeSortie = $sortieRepository->findBy(['site'=>$site], []);
+       $listeSortie = $sortieRepository->findBy(['site'=>$site], []);
+
+        // tri barre de recherche
+        $barreRecherche = $request->get('rechercher');
+      //  $listeSortie = $sortieRepository->findSortieByNameResearch($barreRecherche);
+
+        // tri par cases à cocher
+        // récuperer la sélection case à cocher
+        $organisateur = $request->get('orga');
+        $inscrit = $request->get('inscrit');
+        $nonInscrit = $request->get('nonInscrit');
+        $passees = $request->get('passees');
+
+        dump($organisateur); // met on ou null
+
+        // en fonction des parametres cochés --> concaténation d'une requête ????????
+
+
+        //affichage des sites
+       // $listeSortie = $sortieRepository->findAll();
         $listeSite = $siteRepository->findAll();
 
-        return $this->render('sortie/accueil.html.twig',  [
+        return $this->render('sortie/accueil.html.twig', [
             'listeSortie' => $listeSortie,
             'listeSite' => $listeSite
         ]);
@@ -57,29 +84,35 @@ class SortieController extends AbstractController
 
 
     #[Route('/creer', name: 'creer')]
-    public function creer(Request $request, EntityManagerInterface $entityManager): Response
+    public function creer(Request $request, EntityManagerInterface $entityManager, LieuRepository $lieuRepository, VilleRepository $villeRepository): Response
     {
+        $listeLieu = $lieuRepository->findAll();
+        $Ville = $villeRepository->findAll();
+
+
        $sortie = new Sortie();
 
-       $sortieForm = $this->createForm(SortieType::class, $sortie);
+        $sortieForm = $this->createForm(SortieType::class, $sortie);
 
         dump($sortie);
         $sortieForm->handleRequest($request);
         dump($sortie);
 
-        if($sortieForm->isSubmitted() && $sortieForm->isValid()){
-           $sortie->setEtatE("creee");
+        if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
+            $sortie->setEtatE("creee");
             $entityManager->persist($sortie);
             $entityManager->flush();
 
             $this->addFlash('success', 'Votre sortie a été ajoutée !');
-            return $this->redirectToRoute( 'sortie_afficher',
-            ['id'=>$sortie->getId()]);
+            return $this->redirectToRoute('sortie_afficher',
+                ['id' => $sortie->getId()]);
         }
 
         dump($request);
         return $this->render('sortie/creer.html.twig', [
-            'sortieForm' => $sortieForm->createView()
+            'sortieForm' => $sortieForm->createView(),
+            'listeLieu' => $listeLieu,
+            'Ville' => $Ville
         ]);
     }
 
