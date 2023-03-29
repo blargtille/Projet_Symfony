@@ -44,7 +44,7 @@ class SortieType extends AbstractType
             ->add('infosSortie', TextareaType::class, [
                 'label' => 'Infos sur la sortie : '
             ])
-            ->add('etatE', EntityType::class, [
+            /*->add('etatE', EntityType::class, [
                 'class' => Etat::class,
                     'label' => 'Etat : ',
                     'choice_label' => 'libelle',
@@ -52,7 +52,7 @@ class SortieType extends AbstractType
                         return $er->createQueryBuilder('e')
                             ->orderBy('e.libelle', 'ASC');
                     },
-                 ])
+                 ])*/
             ->add('Lieu', EntityType::class,[
                 'class' => Lieu::class,
                 'label' => 'Lieu : ',

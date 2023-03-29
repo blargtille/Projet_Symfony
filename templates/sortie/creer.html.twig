@@ -19,6 +19,41 @@
 
     </div>
 
+    {% block javascripts %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                // Sélectionnez la liste déroulante
+                const selectLieu = document.querySelector('#select-lieu');
+
+                // Ajouter une écoute d'événement pour la sélection d'un lieu
+                selectLieu.addEventListener('change', function() {
+                    // Récupérer l'identifiant du lieu sélectionné
+                    const lieuId = selectLieu.value;
+
+                    // Envoyer une requête Ajax pour récupérer les détails du lieu
+                    fetch(`/lieu/${lieuId}`)
+                        .then(response => response.json())
+                        .then(lieu => {
+                            // Afficher les détails du lieu dans votre fichier Twig
+                            const lieuDetails = document.querySelector('#lieu-details');
+                            lieuDetails.innerHTML = `
+                <h1>${lieu.nom}</h1>
+                <p>Rue : ${lieu.rue}</p>
+                <p>Latitude : ${lieu.latitude}</p>
+                <p>Longitude : ${lieu.longitude}</p>
+                <p>Ville : ${lieu.ville.nom}</p>
+                <p>Code postal : ${lieu.ville.code_postal}</p>
+            `;
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
+                });
+            });
+        </script>
+    {% endblock %}
+
+
 
 
 
