@@ -39,17 +39,20 @@ class SortieController extends AbstractController
     }
 
     #[Route('/tri', name: 'tri')]
-    public function tri(SortieRepository $sortieRepository, Request $request): Response
+    public function tri(SortieRepository $sortieRepository, Request $request, SiteRepository $siteRepository): Response
     {
         // recuperer les parametres du formulaire ???
         $dateStart = $request->get('date-start');
         $dateEnd = $request->get('date-end');
-        $dateEnd = $request->get('site');
-        dump($dateStart);
-        $listeSortie = $sortieRepository->findBy();
+        $site = $request->get('site');
+        $listeSortie = $sortieRepository->findBy(['site'=>$site], []);
+     //   $listeSortie = $sortieRepository->findBy(['site'=>$site], []);
+        $listeSite = $siteRepository->findAll();
 
-        return $this->redirectToRoute('sortie_accueil', compact($listeSortie)
-        );
+        return $this->render('sortie/accueil.html.twig',  [
+            'listeSortie' => $listeSortie,
+            'listeSite' => $listeSite
+        ]);
     }
 
 

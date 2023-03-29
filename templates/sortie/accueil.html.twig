@@ -15,7 +15,7 @@
 
         <select name="site" >
             {% for site in listeSite %}
-            <option>{{ site.nom }}</option>
+            <option value="{{ site.id }}">{{ site.nom }}</option>
             {% endfor %}
         </select>
 
