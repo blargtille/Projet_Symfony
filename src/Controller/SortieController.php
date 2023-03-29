@@ -63,6 +63,7 @@ class SortieController extends AbstractController
         dump($sortie);
 
         if($sortieForm->isSubmitted() && $sortieForm->isValid()){
+            $sortie->setEtatE("creee");
             $entityManager->persist($sortie);
             $entityManager->flush();
 
