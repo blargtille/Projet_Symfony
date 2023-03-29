@@ -22,7 +22,7 @@ class SortieController extends AbstractController
         $listeSortie = $sortieRepository->findAll();
         $listeSite = $siteRepository->findAll();
 
-        return $this->render('afficher.html.twig', compact("listeSortie"),
+        return $this->render('sortie/accueil.html.twig', compact("listeSortie"),
         );
     }
 
@@ -46,7 +46,7 @@ class SortieController extends AbstractController
         dump($nom);
 
 
-        return $this->render('sortie/afficher.html.twig',
+        return $this->render('sortie/accueil.html.twig',
         );
     }
 
