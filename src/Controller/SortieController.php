@@ -37,15 +37,16 @@ class SortieController extends AbstractController
         ]);
     }
 
-    #[Route('/tri/', name: 'tri')]
+    #[Route('/tri', name: 'tri')]
     public function tri(SortieRepository $repo, Request $request): Response
     {
         // recuperer les parametres du formulaire ???
 
         $nom = $request->get('nom');
+        dump($nom);
 
 
-        return $this->render('sortie/afficher.html.twig.html.twig',
+        return $this->render('sortie/accueil.html.twig',
         );
     }
 
@@ -62,6 +63,7 @@ class SortieController extends AbstractController
         dump($sortie);
 
         if($sortieForm->isSubmitted() && $sortieForm->isValid()){
+            $sortie->setEtatE("creee");
             $entityManager->persist($sortie);
             $entityManager->flush();
 
