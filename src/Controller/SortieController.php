@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 #[Route('/sorties', name: 'sortie_')]
 class SortieController extends AbstractController
@@ -46,57 +47,31 @@ class SortieController extends AbstractController
     #[Route('/tri', name: 'tri')]
     public function tri(SortieRepository $sortieRepository, Request $request, SiteRepository $siteRepository): Response
     {
+        $site = $request->get('site');
 
-        // tri dates
         $dateStart = $request->get('date-start');
         $dateEnd = $request->get('date-end');
-      //  $listeSortie = $sortieRepository->findSortieByDate($dateStart, $dateEnd);
-        //pb : si on met qu'une date ça ne marche pas, obligé de mettre les deux, à changer
 
-        // tri site
-        $site = $request->get('site');
-      // $listeSortie = $sortieRepository->findBy(['site'=>$site], []);
-
-        // tri barre de recherche
         $barreRecherche = $request->get('rechercher');
-      //  $listeSortie = $sortieRepository->findSortieByNameResearch($barreRecherche);
 
-        // tri par cases à cocher
-        // récuperer la sélection case à cocher
         $organisateur = $request->get('orga');
         $inscrit = $request->get('inscrit');
         $nonInscrit = $request->get('nonInscrit');
         $passees = $request->get('passees');
 
-        dump($organisateur); // met on ou null
-
-        // en fonction des parametres cochés --> concaténation d'une requête ????????
-        //1) si l'utilisateur connecté est organisateur
         $user = $this->getUser();
-       // if ($organisateur = "on")
-     //  $listeSortie = $sortieRepository->findSortieByOrganisateurUser($user);
 
-        if($inscrit = "on")
-         //   $listeSortie = $sortieRepository->findSortieByInscritUser($user);
+        $date = new \DateTime();
+        $date_str = $date->format('Y-m-d H:i:s');
+        $user = $this->getUser();
 
-
-        //affichage en fonction des dates passées
-
-            $listeSortie = $sortieRepository->findByTri($dateStart, $dateEnd, $barreRecherche, $organisateur);
-
-        //affichage des sites
-    //   $listeSortie = $sortieRepository->findAll();
+        $listeSortie = $sortieRepository->findByTri($site, $dateStart, $dateEnd, $barreRecherche, $organisateur, $user, $passees, $inscrit, $nonInscrit, $date_str);
         $listeSite = $siteRepository->findAll();
-
-        //récuperer la date du jour ?
-
-
-
-        // nb de participant ? table sortie_user et faire une requete avec count ?
 
         return $this->render('sortie/accueil.html.twig', [
             'listeSortie' => $listeSortie,
             'listeSite' => $listeSite,
+            'dateDuJour' => $date
 
         ]);
     }

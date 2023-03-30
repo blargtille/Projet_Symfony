@@ -5,8 +5,8 @@
     <h1> Sorties </h1>
     <h2> Filtrer les sorties </h2>
 
-        <p> Date du jour : </p>
-        <p> Participant : </p>
+        <p> Date du jour : {{ dateDuJour | date ('d-m-Y') }}</p>
+        <p> Participant : {{ app.user.prenom }} </p>
 
 
 
@@ -35,16 +35,16 @@
 
         <br>
         <!-- Cases à cocher , boutons , form ??-->
-        <input type="checkbox" id="orga" name="orga" checked>
+        <input type="checkbox" id="orga" name="orga" >
         <label for="orga">Sorties dont je suis l'organisateur/trice</label>
 
-        <input type="checkbox" id="inscrit" name="inscrit" checked>
+        <input type="checkbox" id="inscrit" name="inscrit" >
         <label for="inscrit">Sorties auxquelles je suis inscrit/e</label>
 
-        <input type="checkbox" id="nonInscrit" name="nonInscrit" checked>
+        <input type="checkbox" id="nonInscrit" name="nonInscrit" >
         <label for="nonInscrit">Sorties auxquelles je ne suis pas inscrit/e</label>
 
-        <input type="checkbox" id="passees" name="passees" checked>
+        <input type="checkbox" id="passees" name="passees" >
         <label for="passees">Sorties passées</label>
 
         <br>
