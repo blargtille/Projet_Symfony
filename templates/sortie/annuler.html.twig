@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-Annuler une sortie |{{ parent() }}
+ {{ parent() }} | Annuler une sortie
 {% endblock %}
 
 {% block body %}
-<h1>Annuler une sortie</h1>
-
+<h1>Annuler {{ sortie.name }}</h1>
+    <div>Date de la sortie: {{ so }}</div>
 {% endblock %}
 
