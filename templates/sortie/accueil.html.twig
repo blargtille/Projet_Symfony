@@ -93,10 +93,15 @@
                         {% if (sortie.participant.contains(app.user)) %}
                          -   <a href="#">Se désister</a>
                         {% endif %}
-                      -  <a href="#">S'inscrire</a>
-                       {#  {% if(sortie.organisateur.actif) %}#}
-                         -  <a href="{{ path('sortie_annuler', {'id': sortie.id}) }}">Annuler</a>
-                       {#  {% endif %}#}
+
+                        {% if (not sortie.participant.contains(app.user)) %}
+                            -  <a href="{{ path('sortie_sinscrire', {'id': sortie.id}) }}">S'inscrire</a>
+                        {% endif %}
+
+                        {% if (sortie.organisateur == app.user) %}
+                            -  <a href="{{ path('sortie_annuler', {'id': sortie.id}) }}">Annuler</a>
+                        {% endif %}
+
                         </td>
                 </tr>
                 </a>
