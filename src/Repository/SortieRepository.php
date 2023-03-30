@@ -42,7 +42,7 @@ class SortieRepository extends ServiceEntityRepository
     }
 
 
-    public function findByTri($dateDebut, $dateFin, $recherche)
+    public function findByTri($dateDebut, $dateFin, $recherche, $userOrganisateur)
     {
         // avec QueryBuilder
 
@@ -62,6 +62,10 @@ class SortieRepository extends ServiceEntityRepository
             $queryBuilder->andWhere('s.nom LIKE :recherche');
             $queryBuilder->setParameter('recherche', '%' . $recherche . '%');
         }
+        if ($userOrganisateur != '') {
+            $queryBuilder->andWhere('s.organisateur = :user');
+            $queryBuilder->setParameter('user', $userOrganisateur);
+        }
 
 
         $query = $queryBuilder->getQuery();
@@ -72,7 +76,7 @@ class SortieRepository extends ServiceEntityRepository
 
     }
 
-
+/*
     public function findSortieByDate($dateDebut, $dateFin)
     {
         // avec QueryBuilder
@@ -119,7 +123,7 @@ class SortieRepository extends ServiceEntityRepository
 
         return $paginator;
 
-    }
+    }*/
 
     public function findSortieByInscritUser($userInscrit)
     {

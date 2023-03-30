@@ -82,7 +82,7 @@ class SortieController extends AbstractController
 
         //affichage en fonction des dates passées
 
-            $listeSortie = $sortieRepository->findByTri($dateStart, $dateEnd, $barreRecherche);
+            $listeSortie = $sortieRepository->findByTri($dateStart, $dateEnd, $barreRecherche, $organisateur);
 
         //affichage des sites
     //   $listeSortie = $sortieRepository->findAll();
