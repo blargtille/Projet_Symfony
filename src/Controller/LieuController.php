@@ -28,7 +28,6 @@ class LieuController extends AbstractController
         if (!$lieu) {
             throw $this->createNotFoundException('Lieu non trouvé');
         }
-        dump($lieu);
 
             return $this->json([
                 'nom' => $lieu->getNom(),
