@@ -27,7 +27,8 @@
         "symfony/twig-bundle": "6.2.*",
         "symfony/validator": "6.2.*",
         "symfony/yaml": "6.2.*",
-        "twbs/bootstrap": "^5.2"
+        "twbs/bootstrap": "^5.2",
+      "ext-mysql_xdevapi": "*"
     },
     "config": {
         "allow-plugins": {

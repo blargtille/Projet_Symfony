@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Etat;
 use App\Entity\Sortie;
+use App\Entity\User;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
 use App\Repository\LieuRepository;
@@ -12,6 +13,7 @@ use App\Repository\SortieRepository;
 use App\Repository\UserRepository;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use mysql_xdevapi\Collection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -88,7 +90,7 @@ class SortieController extends AbstractController
     {
         $lieu = $lieuRepository->findAll();
         $Ville = $villeRepository->findAll();
-        $etatCreer = $etatRepository->findBy(['id'=>1]);
+
 
 
        $sortie = new Sortie();
@@ -98,9 +100,11 @@ class SortieController extends AbstractController
         $sortieForm->handleRequest($request);
 
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
-            $sortie = $sortieForm->getData();
+            $etatCreer = $etatRepository->find(1);
+            $user = $this->getUser();
+            $sortie->setOrganisateur($user);
             $sortie->setEtatE($etatCreer);
-
+            $sortie->setSite($user->getSite());
             $entityManager->persist($sortie);
             $entityManager->flush();
 
@@ -134,6 +138,15 @@ class SortieController extends AbstractController
             $entityManager->remove($sortie);
             $entityManager->flush();
         }
+
+        return $this->redirectToRoute('sortie_accueil');
+    }
+
+    #[Route('/sinscrire/{id}', name: 'sinscrire')]
+    public function inscriptionParticipant (Sortie $sortiesParticipation): Response
+    {
+        $user = $this->getUser();
+        $sortiesParticipation->addParticipant($user);
 
         return $this->redirectToRoute('sortie_accueil');
     }
