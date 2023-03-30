@@ -66,6 +66,8 @@
         </tr>
 
         {% for sortie in listeSortie %}
+
+
             <article>
                 <tr>
                 <tr href="{{ path('sortie_afficher', {'id': sortie.id}) }}">
@@ -73,13 +75,16 @@
                     <td>{{ sortie.dateHeureDebut | date('Y-m-d H:i:s') }} </td>
                     <td> {{ sortie.dateLimiteInscription | date('Y-m-d') }}</td>
                     <td> ?/ {{ sortie.nbInscriptionMax }} </td>
+                    <!-- nb de participant
+                     table sortie_user et faire une requete avec count ? -->
                     <td> {{ sortie.etatE.libelle }} </td>
-                    <td> inscrit ? </td>
-                    <td> organisateur ? {{ sortie.organisateur.nom }}</td>
+                    <td> inscrit ? </td> <!-- if app.user est inscrit ? mettre une croix -->
+                    <td> {{ sortie.organisateur.prenom}}</td>
                     <td> actions ?  <input type="button" name="afficher" value="afficher"></td>
                 </tr>
                 </a>
             </article>
+
         {% endfor %}
 
         </tr>

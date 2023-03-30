@@ -47,9 +47,7 @@ class SortieController extends AbstractController
         // tri dates
         $dateStart = $request->get('date-start');
         $dateEnd = $request->get('date-end');
-        //  if ($dateStart!=''&&$dateEnd!=''){
       //  $listeSortie = $sortieRepository->findSortieByDate($dateStart, $dateEnd);
-        //    }
         //pb : si on met qu'une date ça ne marche pas, obligé de mettre les deux, à changer
 
         // tri site
@@ -71,14 +69,18 @@ class SortieController extends AbstractController
 
         // en fonction des parametres cochés --> concaténation d'une requête ????????
 
-
         //affichage des sites
        // $listeSortie = $sortieRepository->findAll();
         $listeSite = $siteRepository->findAll();
+      //  $listeInscrit = $sortieRepository->findNbInscrit(1);
+      //  dump($listeInscrit);
+
+        // nb de participant ? table sortie_user et faire une requete avec count ?
 
         return $this->render('sortie/accueil.html.twig', [
             'listeSortie' => $listeSortie,
-            'listeSite' => $listeSite
+            'listeSite' => $listeSite,
+        //    'listeInscrit' => $listeInscrit
         ]);
     }
 
