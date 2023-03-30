@@ -15,15 +15,19 @@
         <div>Code postal: {{ sortie.lieu.ville.codePostal }}</div>
         <div>Latitude: {{ sortie.lieu.latitude }}</div>
         <div>Longitude: {{ sortie.lieu.longitude }}</div>
-
-       {# <div>Liste des participants inscrits: {{ sortie. }}</div>#}
+        <br>
+        <div>Liste des participants inscrits:
+            {% for user in usersBySortie %}
+                <li>{{ user.pseudo }} | {{ user.prenom }} {{ user.nom }}</li>
+            {% endfor %}
+        </div>
 
 
 {% endblock  %}
 
 {% block title %}
 
-    {{ parent() }} | Afficher sorties
+    {{ parent() }} | {{ sortie.nom }}
 
 {% endblock %}
 
