@@ -146,7 +146,7 @@ class SortieController extends AbstractController
     }
 
     #[Route('/sinscrire/{id}', name: 'sinscrire')]
-    public function inscriptionParticipant (Sortie $sortiesParticipation, Request $request, EntityManagerInterface $entityManager): Response
+    public function inscriptionParticipant (Sortie $sortiesParticipation, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
         $sortiesParticipation->addParticipant($user);
