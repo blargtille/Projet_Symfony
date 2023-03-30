@@ -75,50 +75,23 @@ class SortieRepository extends ServiceEntityRepository
 
     }
 
-/*
-    public function findNbInscrit($idSortie)
-    {
-        // je veux récupérer le nombre d'inscrit soit
-        // la table sortie_user et faire un max count where id = la sortie qu'on affiche
-
-        $queryBuilder = $this->createQueryBuilder('s');
-        $queryBuilder->addSelect('s');
-        $queryBuilder->join('s.participant', 'p')
-            ->where($queryBuilder->expr()->in('p.id', $idSortie));
-        return $queryBuilder->getQuery()->getResult();
-
-    }*/
-
-    public function findNbInscrit($idSortie)
-    {
-// recuperer tous les participants de chaque sortie
-        //recuperer le nbr de participant de chaque sortie
-        return $this->createQueryBuilder('sortie')
-            ->select('user')
-            ->innerJoin('sortie.participant', 'participant')
-            ->where('sortie.id = :idSortie')
-            ->setParameter('idSortie', $idSortie)
-            ->getQuery()
-            ->getResult();
-
-    }
 }
 
-    /*
-        public function findSortieByCaseACocher($orga, $inscrit, $nonInscrit, $passees){
-            $queryBuilder = $this->createQueryBuilder('s');
-            $queryBuilder->addSelect('s');
-            $queryBuilder->andWhere('s.nom LIKE :recherche');
-            $queryBuilder->setParameter('recherche', '%' . $recherche . '%');
+/*
+    public function findSortieByCaseACocher($orga, $inscrit, $nonInscrit, $passees){
+        $queryBuilder = $this->createQueryBuilder('s');
+        $queryBuilder->addSelect('s');
+        $queryBuilder->andWhere('s.nom LIKE :recherche');
+        $queryBuilder->setParameter('recherche', '%' . $recherche . '%');
 
-            $query = $queryBuilder->getQuery();
+        $query = $queryBuilder->getQuery();
 
-            $paginator = new Paginator($query);
+        $paginator = new Paginator($query);
 
-            return $paginator;
+        return $paginator;
 
-        }
-    */
+    }
+*/
 
 
 //    /**
