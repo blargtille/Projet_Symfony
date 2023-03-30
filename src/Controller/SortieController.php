@@ -65,6 +65,7 @@ class SortieController extends AbstractController
         $nonInscrit = $request->get('nonInscrit');
         $passees = $request->get('passees');
 
+
         $user = $this->getUser();
 
         $date = new \DateTime();
