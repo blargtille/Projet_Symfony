@@ -19,6 +19,8 @@
 
     </div>
 
+{% endblock %}
+
     {% block javascripts %}
         <script>
             document.addEventListener("DOMContentLoaded", function() {
@@ -34,16 +36,16 @@
                     fetch(`/lieu/${lieuId}`)
                         .then(response => response.json())
                         .then(lieu => {
-                            // Afficher les détails du lieu dans votre fichier Twig
+                            // Afficher les détails du lieu dans Twig
                             const lieuDetails = document.querySelector('#lieu-details');
                             lieuDetails.innerHTML = `
-                <h1>${lieu.nom}</h1>
-                <p>Rue : ${lieu.rue}</p>
-                <p>Latitude : ${lieu.latitude}</p>
-                <p>Longitude : ${lieu.longitude}</p>
-                <p>Ville : ${lieu.ville.nom}</p>
-                <p>Code postal : ${lieu.ville.code_postal}</p>
-            `;
+                                <h1>${lieu.nom}</h1>
+                                <p>Rue : ${lieu.rue}</p>
+                                <p>Latitude : ${lieu.latitude}</p>
+                                <p>Longitude : ${lieu.longitude}</p>
+                                <p>Ville : ${lieu.ville.nom}</p>
+                                <p>Code postal : ${lieu.ville.code_postal}</p>
+                                  `;
                         })
                         .catch(error => {
                             console.error(error);
@@ -57,7 +59,7 @@
 
 
 
-{% endblock %}
+
 
 {% block title %}
 Créer une nouvelle sortie | {{ parent() }}
