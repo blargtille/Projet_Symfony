@@ -25,9 +25,13 @@ class SortieController extends AbstractController
         $listeSortie = $sortieRepository->findAll();
         $listeSite = $siteRepository->findAll();
 
+        $date = new \DateTime();
+        $date_str = $date->format('Y-m-d H:i:s');
+
         return $this->render('sortie/accueil.html.twig', [
             'listeSortie' => $listeSortie,
-            'listeSite' => $listeSite
+            'listeSite' => $listeSite,
+            'dateDuJour' => $date
         ]);
     }
 
