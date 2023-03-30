@@ -7,6 +7,7 @@ use App\Form\SortieType;
 use App\Repository\LieuRepository;
 use App\Repository\SiteRepository;
 use App\Repository\SortieRepository;
+use App\Repository\UserRepository;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,21 +32,14 @@ class SortieController extends AbstractController
 
 
     #[Route('/afficher/{id}', name: 'afficher')]
-    public function afficher(int $id, SortieRepository $sortieRepository): Response
+    public function afficher(int $id, SortieRepository $sortieRepository, UserRepository $userRepository): Response
     {
-        $sorties = $sortieRepository->find($id);
-        $usersBySortie = [];
-
-        foreach ($sorties as $sortie) {
-            $users = $sortie->getSorties()->map(function ($sortie) {
-                return $sortie->getUser();
-            });
-            $usersBySortie[$sortie->getName()] = $users;
-        }
+        $sortie = $sortieRepository->find($id);
+        $user = $userRepository->find($id);
 
         return $this->render('sortie/afficher.html.twig', [
-            'sortie' => $sorties,
-            'usersBySortie' => $usersBySortie
+            'sortie' => $sortie,
+            'user' => $user
         ]);
     }
 

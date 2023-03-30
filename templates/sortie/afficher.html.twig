@@ -17,9 +17,12 @@
         <div>Longitude: {{ sortie.lieu.longitude }}</div>
         <br>
         <div>Liste des participants inscrits:
-            {% for user in usersBySortie %}
-                <li>{{ user.pseudo }} | {{ user.prenom }} {{ user.nom }}</li>
-            {% endfor %}
+            <ul>
+                {% for user in sortie.participant %}
+                    <li><a href="{{ path('main_detailsUser', {'id': user.id}) }}">{{ user.pseudo }} : {{ user.prenom }} {{ user.nom }}</a></li>
+
+                {% endfor %}
+            </ul>
         </div>
 
 
