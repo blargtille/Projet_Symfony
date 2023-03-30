@@ -5,8 +5,8 @@
     <h1> Sorties </h1>
     <h2> Filtrer les sorties </h2>
 
-        <p> Date du jour : </p>
-        <p> Participant : </p>
+        <p> Date du jour : {{ dateDuJour | date ('d-m-Y') }}</p>
+        <p> Participant : {{ app.user.prenom }} </p>
 
 
 

@@ -42,7 +42,7 @@ class SortieRepository extends ServiceEntityRepository
     }
 
 
-    public function findByTri($site, $dateDebut, $dateFin, $recherche, $organisateur, $user, $passees, $dateDuJour)
+    public function findByTri($site, $dateDebut, $dateFin, $recherche, $organisateur, $user, $passees, $inscrit, $nonInscrit, $dateDuJour)
     {
 
         $queryBuilder = $this->createQueryBuilder('s');
@@ -63,17 +63,24 @@ class SortieRepository extends ServiceEntityRepository
             $queryBuilder->andWhere('s.nom LIKE :recherche');
             $queryBuilder->setParameter('recherche', '%' . $recherche . '%');
         }
-        if ($organisateur != ''){
+        if ($organisateur != '') {
             $queryBuilder->andWhere('s.organisateur = :user');
             $queryBuilder->setParameter('user', $user);
         }
-        if ($passees != ''){
+        if ($passees != '') {
             $queryBuilder->andWhere('s.dateHeureDebut < :dateDuJour');
             $queryBuilder->setParameter('dateDuJour', $dateDuJour);
         }
+        if ($inscrit != ''){
+            $queryBuilder->andWhere(':user MEMBER OF s.participant');
+            $queryBuilder->setParameter('user', $user);
 
+        }
+        if ($nonInscrit != ''){
+        $queryBuilder->andWhere(':user NOT MEMBER OF s.participant');
+        $queryBuilder->setParameter('user', $user);
 
-
+    }
 
         $query = $queryBuilder->getQuery();
 
@@ -83,40 +90,10 @@ class SortieRepository extends ServiceEntityRepository
 
     }
 
-    public function findSortieByInscritUser($userInscrit)
-    {
-        // il faut que l'utilisateur soit contenu dans la liste des participants
-        $queryBuilder = $this->createQueryBuilder('s');
-        $queryBuilder->addSelect('s');
-        $queryBuilder->andWhere('s.participant = :user');
-        $queryBuilder->setParameter('user', $userInscrit);
-
-        $query = $queryBuilder->getQuery();
-
-        $paginator = new Paginator($query);
-
-        return $paginator;
-
-    }
 
     public function findSortieByNonIscrit($userNonInscrit)
     {
         // findAll - findSortieByInscrit
-
-    }
-
-    public function findSortieByDatePassees($dateDuJour)
-    {
-        $queryBuilder = $this->createQueryBuilder('s');
-        $queryBuilder->addSelect('s');
-        $queryBuilder->andWhere('s.dateHeureDebut < :dateDuJour');
-        $queryBuilder->setParameter('dateDuJour', $dateDuJour);
-
-        $query = $queryBuilder->getQuery();
-
-        $paginator = new Paginator($query);
-
-        return $paginator;
 
     }
 

@@ -61,21 +61,17 @@ class SortieController extends AbstractController
 
         $user = $this->getUser();
 
-        //récuperer la date du jour ?
         $date = new \DateTime();
         $date_str = $date->format('Y-m-d H:i:s');
+        $user = $this->getUser();
 
-
-
-        //   $listeSortie = $sortieRepository->findSortieByInscritUser($user);
-
-        $listeSortie = $sortieRepository->findByTri($site, $dateStart, $dateEnd, $barreRecherche, $organisateur, $user, $passees, $date_str);
-
+        $listeSortie = $sortieRepository->findByTri($site, $dateStart, $dateEnd, $barreRecherche, $organisateur, $user, $passees, $inscrit, $nonInscrit, $date_str);
         $listeSite = $siteRepository->findAll();
 
         return $this->render('sortie/accueil.html.twig', [
             'listeSortie' => $listeSortie,
             'listeSite' => $listeSite,
+            'dateDuJour' => $date
 
         ]);
     }
