@@ -5,7 +5,15 @@
 {% endblock %}
 
 {% block body %}
-<h1>Annuler {{ sortie.name }}</h1>
-    <div>Date de la sortie: {{ so }}</div>
+<h1>Annuler {{ sortie.nom }}</h1>
+    <div>Date de la sortie: {{ sortie.dateHeureDebut | date('d-m-Y') }}</div>
+    <div>Site organisateur: {{ sortie.site.nom }}</div>
+    <div>Lieu: {{ sortie.lieu.rue }} {{ sortie.lieu.ville.codePostal }} {{ sortie.lieu.ville.nom }}</div>
+    <div>Motif: </div>
+
+    <tr>
+        <td><button type="submit"><a href="{{ path('sortie_accueil') }}">Enregistrer</a></button></td>
+        <td><button type="button"><a href="{{ path('sortie_accueil') }}">Annuler</a></button></td>
+    </tr>
 {% endblock %}
 

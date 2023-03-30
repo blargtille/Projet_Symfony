@@ -94,6 +94,9 @@
                          -   <a href="#">Se désister</a>
                         {% endif %}
                       -  <a href="#">S'inscrire</a>
+                       {#  {% if(sortie.organisateur.actif) %}#}
+                         -  <a href="{{ path('sortie_annuler', {'id': sortie.id}) }}">Annuler</a>
+                       {#  {% endif %}#}
                         </td>
                 </tr>
                 </a>
