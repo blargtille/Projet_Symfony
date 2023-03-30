@@ -77,10 +77,25 @@ class SortieController extends AbstractController
         dump($organisateur); // met on ou null
 
         // en fonction des parametres cochés --> concaténation d'une requête ????????
+        //1) si l'utilisateur connecté est organisateur
+        $user = $this->getUser();
+       // if ($organisateur = "on")
+     //  $listeSortie = $sortieRepository->findSortieByOrganisateurUser($user);
+
+        if($inscrit = "on")
+         //   $listeSortie = $sortieRepository->findSortieByInscritUser($user);
+
+
+        //affichage en fonction des dates passées
+
+            $listeSortie = $sortieRepository->findByTri($dateStart, $dateEnd, $barreRecherche);
 
         //affichage des sites
-        $listeSortie = $sortieRepository->findAll();
+    //   $listeSortie = $sortieRepository->findAll();
         $listeSite = $siteRepository->findAll();
+
+        //récuperer la date du jour ?
+
 
 
         // nb de participant ? table sortie_user et faire une requete avec count ?
