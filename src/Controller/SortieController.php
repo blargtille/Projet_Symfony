@@ -145,10 +145,14 @@ class SortieController extends AbstractController
     }
 
     #[Route('/sinscrire/{id}', name: 'sinscrire')]
-    public function inscriptionParticipant(Sortie $sortiesParticipation): Response
+    public function inscriptionParticipant (Sortie $sortiesParticipation, Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
         $sortiesParticipation->addParticipant($user);
+        $entityManager->persist($sortiesParticipation);
+        $entityManager->flush();
+
+        $this->addFlash('success', "Vous êtes inscrit à la sortie");
 
         return $this->redirectToRoute('sortie_accueil');
     }
