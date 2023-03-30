@@ -61,8 +61,9 @@ class UserController extends AbstractController
     }
     #[Route('main/detailsUser/{id}', name: 'main_detailsUser')]
     public function detailsUser(int $id, UserRepository $userRepository): Response{
-        //aller chercher l'utilisateur en BDD
+
         $user = $userRepository->find($id);
+
             if(!$user){
                 throw $this->createNotFoundException('User does not exists');
             }
