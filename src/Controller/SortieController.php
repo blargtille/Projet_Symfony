@@ -67,6 +67,7 @@ class SortieController extends AbstractController
         $nonInscrit = $request->get('nonInscrit');
         $passees = $request->get('passees');
 
+
         $user = $this->getUser();
 
         $date = new \DateTime();
@@ -139,7 +140,9 @@ class SortieController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('sortie_accueil');
+        return $this->render('sortie/annuler.html.twig', [
+            'sortie' => $sortie
+    ]);
     }
 
     #[Route('/sinscrire/{id}', name: 'sinscrire')]
