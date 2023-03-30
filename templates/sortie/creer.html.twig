@@ -12,19 +12,18 @@
         {# affiche tous les champs du formulaire #}
         {{ form_widget(sortieForm) }}
 
-        <button>Modifier</button>
+        <button type="submit">enregistrer</button>
+
+{#        <button type="submit"><a href="{{ path('/') }}">publier la sortie</a></button>}#}
+        <button type="button"><a href="{{ path('sortie_accueil') }}">Annuler</a></button>
+
         {# balise form fermant #}
         {{ form_end(sortieForm) }}
 
     </div>
 
-    <div id="lieu-details">
+    <div id="lieu-details"></div>
 
-    </div>
-
-    <button type="button"><a href="{{ path('sortie_accueil') }}">Retour</a></button>
-{#    <button type="button"><a href="{{ path('/') }}"Enregistrer</button>#}
-    <button>Annuler</button>
 
 {% endblock %}
 
@@ -38,7 +37,6 @@
                 // ici avec event.target.value on récupère la valeur de l'élément sélectionné
                 //const url = "http://localhost/Projet__Symfony/public/lieu/".concat(event.target.value);
                 const url = window.location.origin+"/Projet__Symfony/public/lieu/"+event.target.value
-                //
                 fetch(url)
                     .then(response => response.json())
                     .then(lieu => {

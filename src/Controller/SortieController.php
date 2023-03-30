@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Etat;
 use App\Entity\Sortie;
 use App\Form\SortieType;
+use App\Repository\EtatRepository;
 use App\Repository\LieuRepository;
 use App\Repository\SiteRepository;
 use App\Repository\SortieRepository;
@@ -103,22 +105,23 @@ class SortieController extends AbstractController
 
 
     #[Route('/creer', name: 'creer')]
-    public function creer(Request $request, EntityManagerInterface $entityManager, LieuRepository $lieuRepository, VilleRepository $villeRepository): Response
+    public function creer(Request $request, EntityManagerInterface $entityManager, LieuRepository $lieuRepository, VilleRepository $villeRepository, EtatRepository $etatRepository): Response
     {
         $lieu = $lieuRepository->findAll();
         $Ville = $villeRepository->findAll();
+        $etatCreer = $etatRepository->findBy(['id'=>1]);
 
 
        $sortie = new Sortie();
 
         $sortieForm = $this->createForm(SortieType::class, $sortie);
 
-        dump($sortie);
         $sortieForm->handleRequest($request);
-        dump($sortie);
 
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
-            $sortie->setEtatE("creee");
+            $sortie = $sortieForm->getData();
+            $sortie->setEtatE($etatCreer);
+
             $entityManager->persist($sortie);
             $entityManager->flush();
 
