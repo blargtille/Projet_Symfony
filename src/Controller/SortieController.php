@@ -93,8 +93,7 @@ class SortieController extends AbstractController
         $Ville = $villeRepository->findAll();
 
 
-
-       $sortie = new Sortie();
+        $sortie = new Sortie();
 
         $sortieForm = $this->createForm(SortieType::class, $sortie);
 
@@ -135,14 +134,14 @@ class SortieController extends AbstractController
     {
         $sortie = $sortieRepository->find($id);
 
-        if($this->isCsrfTokenValid('annuler'.$id, $request->get('_token'))){
+        if ($this->isCsrfTokenValid('annuler' . $id, $request->get('_token'))) {
             $entityManager->remove($sortie);
             $entityManager->flush();
         }
 
         return $this->render('sortie/annuler.html.twig', [
             'sortie' => $sortie
-    ]);
+        ]);
     }
 
     #[Route('/sinscrire/{id}', name: 'sinscrire')]
@@ -158,5 +157,17 @@ class SortieController extends AbstractController
         return $this->redirectToRoute('sortie_accueil');
     }
 
+    #[Route('/desiste/{id}', name: 'desiste')]
+    public function desistementParticipant(Sortie $sortiesParticipation, EntityManagerInterface $entityManager): Response
+    {
 
+        $user = $this->getUser();
+        $sortiesParticipation->removeParticipant($user);
+
+        $entityManager->persist($sortiesParticipation);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('sortie_accueil');
+
+    }
 }
