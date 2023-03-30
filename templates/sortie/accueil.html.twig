@@ -8,6 +8,8 @@
         <p> Date du jour : </p>
         <p> Participant : </p>
 
+
+
     <!-- formulaire pour filtrer ? ou juste boutons de filtres comme pokemon ? -->
     <!-- mettre le lien de la route tri dans le form -->
     <form action="{{ path('sortie_tri') }}" method="post">
@@ -58,7 +60,7 @@
             <td>Nom de la sortie</td>
             <td>Date de la sortie</td>
             <td>Clôture</td>
-            <td>inscrits/places</td>
+            <td>Inscrits/places</td>
             <td>Etat</td>
             <td>Inscrit</td>
             <td>Organisateur</td>
@@ -66,20 +68,37 @@
         </tr>
 
         {% for sortie in listeSortie %}
+
+
             <article>
                 <tr>
                 <tr href="{{ path('sortie_afficher', {'id': sortie.id}) }}">
                     <td>  {{ sortie.nom }} </td>
                     <td>{{ sortie.dateHeureDebut | date('Y-m-d H:i:s') }} </td>
                     <td> {{ sortie.dateLimiteInscription | date('Y-m-d') }}</td>
-                    <td> ?/ {{ sortie.nbInscriptionMax }} </td>
+                    <td> {{ sortie.participant | length }} / {{ sortie.nbInscriptionMax }} </td>
+                    <!-- nb de participant
+                     table sortie_user et faire une requete avec count ? -->
                     <td> {{ sortie.etatE.libelle }} </td>
-                    <td> inscrit ? </td>
-                    <td> organisateur ? {{ sortie.organisateur.nom }}</td>
-                    <td> actions ?  <input type="button" name="afficher" value="afficher"></td>
+                    <td>
+
+                        {% if (sortie.participant.contains(app.user)) %}
+                              X
+                        {% endif %}
+
+                        </td> <!-- if app.user est inscrit ? mettre une croix -->
+                    <td> {{ sortie.organisateur.prenom}}</td>
+                    <td>
+                        <a href="{{ path('sortie_afficher', {'id': sortie.id})}}">Afficher</a>
+                        {% if (sortie.participant.contains(app.user)) %}
+                         -   <a href="#">Se désister</a>
+                        {% endif %}
+                      -  <a href="#">Se désinscrire</a>
+                        </td>
                 </tr>
                 </a>
             </article>
+
         {% endfor %}
 
         </tr>

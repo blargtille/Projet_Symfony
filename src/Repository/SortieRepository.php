@@ -42,7 +42,8 @@ class SortieRepository extends ServiceEntityRepository
     }
 
 
-    public function findSortieByDate($dateDebut, $dateFin){
+    public function findSortieByDate($dateDebut, $dateFin)
+    {
         // avec QueryBuilder
         $queryBuilder = $this->createQueryBuilder('s');
         $queryBuilder->addSelect('s');
@@ -59,7 +60,8 @@ class SortieRepository extends ServiceEntityRepository
 
     }
 
-    public function findSortieByNameResearch($recherche){
+    public function findSortieByNameResearch($recherche)
+    {
         $queryBuilder = $this->createQueryBuilder('s');
         $queryBuilder->addSelect('s');
         $queryBuilder->andWhere('s.nom LIKE :recherche');
@@ -72,6 +74,9 @@ class SortieRepository extends ServiceEntityRepository
         return $paginator;
 
     }
+
+}
+
 /*
     public function findSortieByCaseACocher($orga, $inscrit, $nonInscrit, $passees){
         $queryBuilder = $this->createQueryBuilder('s');
@@ -87,7 +92,6 @@ class SortieRepository extends ServiceEntityRepository
 
     }
 */
-
 
 
 //    /**
@@ -114,4 +118,4 @@ class SortieRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
-}
+
