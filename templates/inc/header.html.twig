@@ -1,7 +1,13 @@
 <header>
-    <h1>
-        <a href="#"><img src="{{ asset('img/logo/Logo-Sortir-Ici.png') }}"></a>
-    </h1>
+    {% if app.user %}
+        <div>
+            <a href="{{ path('sortie_accueil') }}"><img src="{{ asset('img/logo/Logo-Sortir-Ici.png') }}" alt="logo Sortir"></a>
+        </div>
+    {% else %}
+        <div>
+            <img src="{{ asset('img/logo/Logo-Sortir-Ici.png') }}" alt="logo Sortir">
+        </div>
+    {% endif %}
     <nav>
 
         <ul>

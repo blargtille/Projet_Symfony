@@ -33,10 +33,19 @@ class SortieController extends AbstractController
     #[Route('/afficher/{id}', name: 'afficher')]
     public function afficher(int $id, SortieRepository $sortieRepository): Response
     {
-        $sortie = $sortieRepository->find($id);
+        $sorties = $sortieRepository->find($id);
+        $usersBySortie = [];
+
+        foreach ($sorties as $sortie) {
+            $users = $sortie->getSorties()->map(function ($sortie) {
+                return $sortie->getUser();
+            });
+            $usersBySortie[$sortie->getName()] = $users;
+        }
 
         return $this->render('sortie/afficher.html.twig', [
-            'sortie' => $sortie
+            'sortie' => $sorties,
+            'usersBySortie' => $usersBySortie
         ]);
     }
 
