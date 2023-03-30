@@ -42,12 +42,13 @@ class SortieRepository extends ServiceEntityRepository
     }
 
 
-    public function findByTri($dateDebut, $dateFin, $recherche, $userOrganisateur)
+    public function findByTri($site, $dateDebut, $dateFin, $recherche, $organisateur, $user, $passees, $dateDuJour)
     {
-        // avec QueryBuilder
 
         $queryBuilder = $this->createQueryBuilder('s');
         $queryBuilder->addSelect('s');
+        $queryBuilder->andWhere('s.site= :site');
+        $queryBuilder->setParameter('site', $site);
         if ($dateDebut != '' || $dateFin != '') {
             if ($dateDebut != '') {
                 $queryBuilder->andWhere('s.dateHeureDebut > :dateDebut');
@@ -62,30 +63,17 @@ class SortieRepository extends ServiceEntityRepository
             $queryBuilder->andWhere('s.nom LIKE :recherche');
             $queryBuilder->setParameter('recherche', '%' . $recherche . '%');
         }
-        if ($userOrganisateur != '') {
+        if ($organisateur != ''){
             $queryBuilder->andWhere('s.organisateur = :user');
-            $queryBuilder->setParameter('user', $userOrganisateur);
+            $queryBuilder->setParameter('user', $user);
+        }
+        if ($passees != ''){
+            $queryBuilder->andWhere('s.dateHeureDebut < :dateDuJour');
+            $queryBuilder->setParameter('dateDuJour', $dateDuJour);
         }
 
 
-        $query = $queryBuilder->getQuery();
 
-        $paginator = new Paginator($query);
-
-        return $paginator;
-
-    }
-
-/*
-    public function findSortieByDate($dateDebut, $dateFin)
-    {
-        // avec QueryBuilder
-        $queryBuilder = $this->createQueryBuilder('s');
-        $queryBuilder->addSelect('s');
-        $queryBuilder->andWhere('s.dateHeureDebut > :dateDebut');
-        $queryBuilder->andWhere('s.dateHeureDebut < :dateFin');
-        $queryBuilder->setParameter('dateDebut', $dateDebut);
-        $queryBuilder->setParameter('dateFin', $dateFin);
 
         $query = $queryBuilder->getQuery();
 
@@ -94,36 +82,6 @@ class SortieRepository extends ServiceEntityRepository
         return $paginator;
 
     }
-
-    public function findSortieByNameResearch($recherche)
-    {
-        $queryBuilder = $this->createQueryBuilder('s');
-        $queryBuilder->addSelect('s');
-        $queryBuilder->andWhere('s.nom LIKE :recherche');
-        $queryBuilder->setParameter('recherche', '%' . $recherche . '%');
-
-        $query = $queryBuilder->getQuery();
-
-        $paginator = new Paginator($query);
-
-        return $paginator;
-
-    }
-
-    public function findSortieByOrganisateurUser($userOrganisateur)
-    {
-        $queryBuilder = $this->createQueryBuilder('s');
-        $queryBuilder->addSelect('s');
-        $queryBuilder->andWhere('s.organisateur = :user');
-        $queryBuilder->setParameter('user', $userOrganisateur);
-
-        $query = $queryBuilder->getQuery();
-
-        $paginator = new Paginator($query);
-
-        return $paginator;
-
-    }*/
 
     public function findSortieByInscritUser($userInscrit)
     {
@@ -159,7 +117,6 @@ class SortieRepository extends ServiceEntityRepository
         $paginator = new Paginator($query);
 
         return $paginator;
-
 
     }
 
