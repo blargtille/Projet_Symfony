@@ -16,6 +16,7 @@
         <label for="site">Site :</label>
 
         <select name="site" >
+            <option value="">Choisissez un site</option>
             {% for site in listeSite %}
             <option value="{{ site.id }}">{{ site.nom }}</option>
             {% endfor %}

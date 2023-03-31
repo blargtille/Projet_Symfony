@@ -47,8 +47,11 @@ class SortieRepository extends ServiceEntityRepository
 
         $queryBuilder = $this->createQueryBuilder('s');
         $queryBuilder->addSelect('s');
-        $queryBuilder->andWhere('s.site= :site');
-        $queryBuilder->setParameter('site', $site);
+
+        if ($site !=''){
+            $queryBuilder->andWhere('s.site= :site');
+            $queryBuilder->setParameter('site', $site);
+        }
         if ($dateDebut != '' || $dateFin != '') {
             if ($dateDebut != '') {
                 $queryBuilder->andWhere('s.dateHeureDebut > :dateDebut');

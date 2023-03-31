@@ -120,27 +120,32 @@ class SortieController extends AbstractController
     public function modifier(int $id, Request $request, EntityManagerInterface $entityManager, LieuRepository $lieuRepository, VilleRepository $villeRepository, SortieRepository $sortieRepository): Response
     {
         //condition pour modifier
-            //
-
-        // modifier le lieu associer à la sortie
+             // je dois être connecté --> rôles !
+            // je dois être le créateur de la sortie
+            // la sortie doit être à l'état crée ou ouvert
+            // je ne peux pas modifier si je modifie le nb de place et qu'il est inférieur au nb de participants
 
         $sortie = $sortieRepository->find($id);
         $lieu = $sortie->getLieu();
+        $user = $this->getUser()->getId();
 
         $modifySortieForm = $this->createForm(ModifySortieType::class, $sortie);
 
         $modifySortieForm->handleRequest($request);
-
+        $valeurNbrPlaces = $modifySortieForm->get('nbInscriptionMax')->getData();
+        dump($valeurNbrPlaces);
         if ($modifySortieForm->isSubmitted() && $modifySortieForm->isValid()) {
+            if ($user == $sortie->getOrganisateur()->getId() and $sortie->getEtatE()->getId() == 1 || $sortie->getEtatE()->getId() == 2 ) {
+                if ($sortie->getParticipant()->count() > 1)
+                $entityManager->persist($lieu);
+                $entityManager->persist($sortie);
+                $entityManager->flush();
 
-            $entityManager->persist($lieu);
-            $entityManager->persist($sortie);
-            $entityManager->flush();
+                $this->addFlash('success', 'Votre sortie a été ajoutée !');
 
-            $this->addFlash('success', 'Votre sortie a été ajoutée !');
-
-            return $this->redirectToRoute('sortie_afficher',
-                ['id' => $sortie->getId()]);
+                return $this->redirectToRoute('sortie_afficher',
+                    ['id' => $sortie->getId()]);
+            }
 
         }
         return $this->render('sortie/modifier.html.twig', [
