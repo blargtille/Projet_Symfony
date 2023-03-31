@@ -167,9 +167,8 @@ class SortieController extends AbstractController
     {
         $sortie = $sortieRepository->find($id);
         $motif = $request->get('motif');
-        dump($motif);
+
         if ($motif != null) {
-            dump($motif);
             $etatAnnuler = $etatRepository->find(6);
             $sortie->setEtatE($etatAnnuler);
             $sortie->setInfosSortie($motif);
@@ -180,7 +179,7 @@ class SortieController extends AbstractController
             return $this->redirectToRoute('sortie_accueil',
                 ['id' => $sortie->getId()]);
         } else {
-            $this->addFlash('error', "Vous devez donner un motif d'annulation");
+            $this->addFlash('error', "Vous devez entrer un motif d'annulation");
         }
 
         return $this->render('sortie/annuler.html.twig', [
@@ -222,6 +221,7 @@ class SortieController extends AbstractController
         $entityManager->persist($sortiesParticipation);
         $entityManager->flush();
 
+        $this->addFlash('success', "Vous n'êtes plus inscrit à cette sortie!");
         return $this->redirectToRoute('sortie_accueil');
 
     }
