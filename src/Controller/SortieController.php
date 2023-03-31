@@ -120,26 +120,50 @@ class SortieController extends AbstractController
     public function modifier(int $id, Request $request, EntityManagerInterface $entityManager, LieuRepository $lieuRepository, VilleRepository $villeRepository, SortieRepository $sortieRepository): Response
     {
 
-
-        // recuperer les champs du formulaire de sortie pour
-        $lieu = $lieuRepository->findAll();
-        $Ville = $villeRepository->findAll();
+        // modifier le lieu associer à la sortie
 
         $sortie = $sortieRepository->find($id);
+        $lieu = $sortie->getLieu();
 
         $modifySortieForm = $this->createForm(ModifySortieType::class, $sortie);
 
         $modifySortieForm->handleRequest($request);
 
+        if ($modifySortieForm->isSubmitted() && $modifySortieForm->isValid()) {
 
+            $entityManager->persist($lieu);
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre sortie a été ajoutée !');
+
+            return $this->redirectToRoute('sortie_afficher',
+                ['id' => $sortie->getId()]);
+
+        }
         return $this->render('sortie/modifier.html.twig', [
             'modifySortieForm' => $modifySortieForm->createView(),
             'sortie' => $sortie
         ]);
     }
+    #[Route('/publier/{id}', name: 'publier')]
+    public function publier(int $id, Request $request, EntityManagerInterface $entityManager, SortieRepository $sortieRepository): Response
+    {
+
+        // modifier le lieu associer à la sortie
+
+        $sortie = $sortieRepository->find($id);
+        $lieu = $sortie->getLieu();
+
+        $modifySortieForm = $this->createForm(ModifySortieType::class, $sortie);
+
+        $modifySortieForm->handleRequest($request);
+
+        return $this->redirectToRoute('sortie/modifier.html.twig');
+    }
 
     #[Route('/annuler/{id}', name: 'annuler')]
-    public function annuler(int $id, SortieRepository $sortieRepository,EtatRepository $etatRepository, EntityManagerInterface $entityManager, Request $request): Response
+    public function annuler(int $id, SortieRepository $sortieRepository, EtatRepository $etatRepository, EntityManagerInterface $entityManager, Request $request): Response
     {
         $sortie = $sortieRepository->find($id);
         $motif = $request->get('motif');
@@ -154,7 +178,7 @@ class SortieController extends AbstractController
             $this->addFlash('success', 'Votre sortie a été annulée!');
             return $this->redirectToRoute('sortie_accueil',
                 ['id' => $sortie->getId()]);
-    }
+        }
 
         return $this->render('sortie/annuler.html.twig', [
             'sortie' => $sortie,
@@ -162,17 +186,17 @@ class SortieController extends AbstractController
     }
 
     #[Route('/sinscrire/{id}', name: 'sinscrire')]
-    public function inscriptionParticipant (Sortie $sortiesParticipation, EntityManagerInterface $entityManager): Response
+    public function inscriptionParticipant(Sortie $sortiesParticipation, EntityManagerInterface $entityManager): Response
     {
 
-       $nbrParticipant = $sortiesParticipation->getParticipant()->count() ;
+        $nbrParticipant = $sortiesParticipation->getParticipant()->count();
         dump($nbrParticipant);
-       $nbInscriptionMax = $sortiesParticipation->getNbInscriptionMax();
-       dump($nbInscriptionMax);
-        
-       $dateCloture = $sortiesParticipation->getDateLimiteInscription();
+        $nbInscriptionMax = $sortiesParticipation->getNbInscriptionMax();
+        dump($nbInscriptionMax);
+
+        $dateCloture = $sortiesParticipation->getDateLimiteInscription();
         $date = new \DateTime();
-        if ($date < $dateCloture and $nbrParticipant < $nbInscriptionMax ){
+        if ($date < $dateCloture and $nbrParticipant < $nbInscriptionMax) {
             $user = $this->getUser();
             $sortiesParticipation->addParticipant($user);
             $entityManager->persist($sortiesParticipation);
