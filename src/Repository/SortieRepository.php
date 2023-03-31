@@ -60,11 +60,11 @@ class SortieRepository extends ServiceEntityRepository
             }
         }
         if ($recherche != '') {
-            $queryBuilder->orWhere('s.nom LIKE :recherche');
+            $queryBuilder->andWhere('s.nom LIKE :recherche');
             $queryBuilder->setParameter('recherche', '%' . $recherche . '%');
         }
         if ($organisateur != '') {
-            $queryBuilder->orWhere('s.organisateur = :user');
+            $queryBuilder->andWhere('s.organisateur = :user');
             $queryBuilder->setParameter('user', $user);
         }
         if ($passees != '') {
