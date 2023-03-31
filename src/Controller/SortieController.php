@@ -134,7 +134,7 @@ class SortieController extends AbstractController
     {
         $sortie = $sortieRepository->find($id);
 
-        if ($this->isCsrfTokenValid('annuler' . $id, $request->get('_token'))) {
+        if ($this->isCsrfTokenValid('annuler'.$id, $request->get('_token'))) {
             $entityManager->remove($sortie);
             $entityManager->flush();
         }
