@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Etat;
 use App\Entity\Sortie;
 use App\Entity\User;
+use App\Form\ModifySortieType;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
 use App\Repository\LieuRepository;
@@ -90,7 +91,6 @@ class SortieController extends AbstractController
         $lieu = $lieuRepository->findAll();
         $Ville = $villeRepository->findAll();
 
-
         $sortie = new Sortie();
 
         $sortieForm = $this->createForm(SortieType::class, $sortie);
@@ -119,11 +119,25 @@ class SortieController extends AbstractController
         ]);
     }
 
-    #[Route('/modifier', name: 'modifier')]
-    public function modifier(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/modifier/{id}', name: 'modifier')]
+    public function modifier(int $id, Request $request, EntityManagerInterface $entityManager, LieuRepository $lieuRepository, VilleRepository $villeRepository, SortieRepository $sortieRepository): Response
     {
+
+
+        // recuperer les champs du formulaire de sortie pour
+        $lieu = $lieuRepository->findAll();
+        $Ville = $villeRepository->findAll();
+
+        $sortie = $sortieRepository->find($id);
+
+        $modifySortieForm = $this->createForm(ModifySortieType::class, $sortie);
+
+        $modifySortieForm->handleRequest($request);
+
+
         return $this->render('sortie/modifier.html.twig', [
-            'sortieForm' => $sortieForm->createView()
+            'modifySortieForm' => $modifySortieForm->createView(),
+            'sortie' => $sortie
         ]);
     }
 

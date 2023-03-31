@@ -2,13 +2,11 @@
 
 namespace App\Form;
 
-use App\Entity\Etat;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -16,9 +14,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\DateTime;
 
-class SortieType extends AbstractType
+class ModifySortieType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -40,39 +37,34 @@ class SortieType extends AbstractType
                 'label' => "Nombre de places"
             ])
             ->add('duree', IntegerType::class, [
-                'data' => 60,
-                'label'=> "Durée"
-                /*'label' => 'Durée (en minutes) : ',
-                'choices' => array_combine(range(30, 240, 15), range(30, 240, 15)), // de 30 à 240 minutes, par tranche de 15 minutes
-                'data' => 30 // durée par défaut*/
+                'label' => "Durée"
             ])
-
-
             ->add('infosSortie', TextareaType::class, [
                 'attr' => [
                     'rows' => 5,
                 ],
             ])
-            /*->add('etatE', EntityType::class, [
-                'class' => Etat::class,
-                    'label' => 'Etat : ',
-                    'choice_label' => 'libelle',
-                    'query_builder' => function(EntityRepository $er){
-                        return $er->createQueryBuilder('e')
-                            ->orderBy('e.libelle', 'ASC');
-                    },
-                 ])*/
-            ->add('Lieu', EntityType::class,[
+            ->add('Lieu', EntityType::class, [
                 'class' => Lieu::class,
                 'label' => 'Lieu : ',
                 'choice_label' => 'nom',
-                'query_builder' => function(EntityRepository $er){
-                return $er->createQueryBuilder('l')
-                    ->orderBy('l.nom', 'ASC');
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('l')
+                        ->orderBy('l.nom', 'ASC');
                 }
 
             ])
-        ;
+            ->add('lieu_latitude', TextType::class, [
+                'mapped' => false,
+                'data' => $builder->getData()->getLieu()->getLatitude(),
+                'label' => "Latitude"
+            ])
+            ->add('lieu_longitude', TextType::class, [
+                'mapped' => false,
+                'data' => $builder->getData()->getLieu()->getLongitude(),
+                'label' => "Longitude"
+            ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
