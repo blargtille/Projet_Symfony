@@ -132,7 +132,7 @@ class SortieController extends AbstractController
     {
         $sortie = $sortieRepository->find($id);
 
-        if ($this->isCsrfTokenValid('annuler' . $id, $request->get('_token'))) {
+        if ($this->isCsrfTokenValid('annuler'.$id, $request->get('_token'))) {
             $entityManager->remove($sortie);
             $entityManager->flush();
         }
@@ -143,7 +143,7 @@ class SortieController extends AbstractController
     }
 
     #[Route('/sinscrire/{id}', name: 'sinscrire')]
-    public function inscriptionParticipant (Sortie $sortiesParticipation, Request $request, EntityManagerInterface $entityManager): Response
+    public function inscriptionParticipant (Sortie $sortiesParticipation, EntityManagerInterface $entityManager): Response
     {
 
        $nbrParticipant = $sortiesParticipation->getParticipant()->count() ;

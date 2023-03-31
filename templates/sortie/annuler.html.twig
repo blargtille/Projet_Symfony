@@ -11,9 +11,15 @@
     <div>Lieu: {{ sortie.lieu.rue }} {{ sortie.lieu.ville.codePostal }} {{ sortie.lieu.ville.nom }}</div>
     <div>Motif: </div>
 
-    <tr>
-        <td><button type="submit"><a href="{{ path('sortie_accueil') }}">Enregistrer</a></button></td>
-        <td><button type="button"><a href="{{ path('sortie_accueil') }}">Annuler</a></button></td>
-    </tr>
+
+    <div>
+        <form action="{{ path('sortie_annuler', {'id': sortie.id}) }}">
+            <input type="hidden" name="_token" value="{{ csrf_token('annuler'~sortie.id) }}">
+            <button>Enregistrer</button>
+        </form>
+    </div>
+
+    <div><button type="button"><a href="{{ path('sortie_accueil') }}">Annuler</a></button></div>
+
 {% endblock %}
 
