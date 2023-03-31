@@ -9,16 +9,14 @@
     <div>Date de la sortie: {{ sortie.dateHeureDebut | date('d-m-Y') }}</div>
     <div>Site organisateur: {{ sortie.site.nom }}</div>
     <div>Lieu: {{ sortie.lieu.rue }} {{ sortie.lieu.ville.codePostal }} {{ sortie.lieu.ville.nom }}</div>
-    <div>Motif: </div>
 
+ <form action="{{ path('sortie_annuler', {'id': sortie.id}) }}" method="post">
+        <label for="motif">Motif d'annulation: </label>
+        <input type="text" name="motif" value="">
+       <input type="submit" name="enregistrer" value="enregistrer">
+ </form>
 
-    <div>
-        <form action="{{ path('sortie_annuler', {'id': sortie.id}) }}">
-            <input type="hidden" name="_token" value="{{ csrf_token('annuler'~sortie.id) }}">
-            <button>Enregistrer</button>
-        </form>
-    </div>
-
+    <div><button type="submit"><a href="{{ path('sortie_accueil') }}">Enregistrer</a></button></div>
     <div><button type="button"><a href="{{ path('sortie_accueil') }}">Annuler</a></button></div>
 
 {% endblock %}

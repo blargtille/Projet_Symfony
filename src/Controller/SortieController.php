@@ -67,9 +67,6 @@ class SortieController extends AbstractController
         $nonInscrit = $request->get('nonInscrit');
         $passees = $request->get('passees');
 
-
-        $user = $this->getUser();
-
         $date = new \DateTime();
         $user = $this->getUser();
 
@@ -142,17 +139,25 @@ class SortieController extends AbstractController
     }
 
     #[Route('/annuler/{id}', name: 'annuler')]
-    public function annuler(int $id, SortieRepository $sortieRepository, EntityManagerInterface $entityManager, Request $request): Response
+    public function annuler(int $id, SortieRepository $sortieRepository,EtatRepository $etatRepository, EntityManagerInterface $entityManager, Request $request): Response
     {
         $sortie = $sortieRepository->find($id);
-
-        if ($this->isCsrfTokenValid('annuler'.$id, $request->get('_token'))) {
-            $entityManager->remove($sortie);
+        $motif = $request->get('motif');
+        dump($motif);
+        if ($motif !== null) {
+            $etatAnnuler = $etatRepository->find(6);
+            $sortie->setEtatE($etatAnnuler);
+            $sortie->setInfosSortie($motif);
+            $entityManager->persist($sortie);
             $entityManager->flush();
-        }
+
+            $this->addFlash('success', 'Votre sortie a été annulée!');
+            return $this->redirectToRoute('sortie_accueil',
+                ['id' => $sortie->getId()]);
+    }
 
         return $this->render('sortie/annuler.html.twig', [
-            'sortie' => $sortie
+            'sortie' => $sortie,
         ]);
     }
 
