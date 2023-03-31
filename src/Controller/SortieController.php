@@ -119,6 +119,8 @@ class SortieController extends AbstractController
     #[Route('/modifier/{id}', name: 'modifier')]
     public function modifier(int $id, Request $request, EntityManagerInterface $entityManager, LieuRepository $lieuRepository, VilleRepository $villeRepository, SortieRepository $sortieRepository): Response
     {
+        //condition pour modifier
+            //
 
         // modifier le lieu associer à la sortie
 
@@ -147,19 +149,23 @@ class SortieController extends AbstractController
         ]);
     }
     #[Route('/publier/{id}', name: 'publier')]
-    public function publier(int $id, Request $request, EntityManagerInterface $entityManager, SortieRepository $sortieRepository): Response
+    public function publier(int $id, Request $request, EntityManagerInterface $entityManager, SortieRepository $sortieRepository, EtatRepository $etatRepository): Response
     {
-
-        // modifier le lieu associer à la sortie
-
+      // condition pour publier
+        // je dois être connecté --> rôles !
+        // je dois être l'organisateur de l'évènement
+        // la sortie doit être à l'état créée
         $sortie = $sortieRepository->find($id);
-        $lieu = $sortie->getLieu();
+       $user = $this->getUser()->getId();
 
-        $modifySortieForm = $this->createForm(ModifySortieType::class, $sortie);
+        if ($user == $sortie->getOrganisateur()->getId() and $sortie->getEtatE()->getId() == 1){
+            $etatOuvert = $etatRepository->find(2);
+            $sortie->setEtatE($etatOuvert);
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+        }
 
-        $modifySortieForm->handleRequest($request);
-
-        return $this->redirectToRoute('sortie/modifier.html.twig');
+        return $this->redirectToRoute('sortie_accueil');
     }
 
     #[Route('/annuler/{id}', name: 'annuler')]

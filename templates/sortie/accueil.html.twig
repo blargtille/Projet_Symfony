@@ -102,7 +102,17 @@
                             -  <a href="{{ path('sortie_annuler', {'id': sortie.id}) }}">Annuler</a>
                         {% endif %}
 
-                        </td>
+                        {% if (sortie.organisateur == app.user) and (sortie.etatE.id == 1) %}
+                            -  <a href="{{ path('sortie_publier', {'id': sortie.id}) }}">Publier</a>
+                        {% endif %}
+
+                        {# seul l'organisateur peut modifier la sortie qu'il a créer #}
+                        {% if (sortie.organisateur == app.user) and (sortie.etatE.id == 1) %}
+                            -  <a href="{{ path('sortie_modifier', {'id': sortie.id}) }}">Modifier</a>
+                        {% endif %}
+
+
+                    </td>
                 </tr>
                 </a>
             </article>
