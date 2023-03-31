@@ -144,7 +144,8 @@ class SortieController extends AbstractController
         $sortie = $sortieRepository->find($id);
         $motif = $request->get('motif');
         dump($motif);
-        if ($motif !== null) {
+        if ($motif != null) {
+            dump($motif);
             $etatAnnuler = $etatRepository->find(6);
             $sortie->setEtatE($etatAnnuler);
             $sortie->setInfosSortie($motif);
@@ -154,7 +155,9 @@ class SortieController extends AbstractController
             $this->addFlash('success', 'Votre sortie a été annulée!');
             return $this->redirectToRoute('sortie_accueil',
                 ['id' => $sortie->getId()]);
-    }
+        } else {
+            $this->addFlash('error', "Vous devez donner un motif d'annulation");
+        }
 
         return $this->render('sortie/annuler.html.twig', [
             'sortie' => $sortie,

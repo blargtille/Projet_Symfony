@@ -98,7 +98,7 @@
                             -  <a href="{{ path('sortie_sinscrire', {'id': sortie.id}) }}">S'inscrire</a>
                         {% endif %}
 
-                        {% if (sortie.organisateur == app.user) %}
+                        {% if (sortie.organisateur == app.user) and (sortie.etatE.id != 6) %}
                             -  <a href="{{ path('sortie_annuler', {'id': sortie.id}) }}">Annuler</a>
                         {% endif %}
 
