@@ -3,6 +3,7 @@
 {% block body %}
 
     <h1>{{ sortie.nom }}</h1>
+    <h2>{{ sortie.etatE.libelle }}</h2>
 
         <div>Date et heure de la sortie: {{ sortie.dateHeureDebut|date('d-m-Y H') }} </div>
         <div>Date limite d'inscription: {{ sortie.dateLimiteInscription|date('d-m-Y') }}</div>

@@ -70,7 +70,7 @@ class SortieController extends AbstractController
         $date = new \DateTime();
         $user = $this->getUser();
 
-        $listeSortie = $sortieRepository->findByTri($site, $dateStart, $dateEnd, $barreRecherche, $organisateur, $user, $passees, $inscrit, $nonInscrit, $date_str);
+        $listeSortie = $sortieRepository->findByTri($site, $dateStart, $dateEnd, $barreRecherche, $organisateur, $user, $passees, $inscrit, $nonInscrit, $date);
         $listeSite = $siteRepository->findAll();
 
         return $this->render('sortie/accueil.html.twig', [
@@ -163,12 +163,13 @@ class SortieController extends AbstractController
     }
 
     #[Route('/annuler/{id}', name: 'annuler')]
-    public function annuler(int $id, SortieRepository $sortieRepository, EtatRepository $etatRepository, EntityManagerInterface $entityManager, Request $request): Response
+    public function annuler(int $id, SortieRepository $sortieRepository,EtatRepository $etatRepository, EntityManagerInterface $entityManager, Request $request): Response
     {
         $sortie = $sortieRepository->find($id);
         $motif = $request->get('motif');
         dump($motif);
-        if ($motif !== null) {
+        if ($motif != null) {
+            dump($motif);
             $etatAnnuler = $etatRepository->find(6);
             $sortie->setEtatE($etatAnnuler);
             $sortie->setInfosSortie($motif);
@@ -178,6 +179,8 @@ class SortieController extends AbstractController
             $this->addFlash('success', 'Votre sortie a été annulée!');
             return $this->redirectToRoute('sortie_accueil',
                 ['id' => $sortie->getId()]);
+        } else {
+            $this->addFlash('error', "Vous devez donner un motif d'annulation");
         }
 
         return $this->render('sortie/annuler.html.twig', [
