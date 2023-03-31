@@ -172,22 +172,24 @@ class SortieController extends AbstractController
     public function annuler(int $id, SortieRepository $sortieRepository,EtatRepository $etatRepository, EntityManagerInterface $entityManager, Request $request): Response
     {
         $sortie = $sortieRepository->find($id);
-        $motif = $request->get('motif');
+        $enregistrer = $request->get('enregistrer');
 
-        if ($motif != null) {
+        if ($enregistrer != null) {
             $etatAnnuler = $etatRepository->find(6);
             $sortie->setEtatE($etatAnnuler);
-            $sortie->setInfosSortie($motif);
-            $entityManager->persist($sortie);
-            $entityManager->flush();
+            $motif = $request->get('motif');
+            if ($motif != null) {
+                $sortie->setInfosSortie($motif);
+                $entityManager->persist($sortie);
+                $entityManager->flush();
 
-            $this->addFlash('success', 'Votre sortie a été annulée!');
-            return $this->redirectToRoute('sortie_accueil',
-                ['id' => $sortie->getId()]);
-        } else {
-            $this->addFlash('error', "Vous devez entrer un motif d'annulation");
+                $this->addFlash('success', 'Votre sortie a été annulée!');
+                return $this->redirectToRoute('sortie_accueil',
+                    ['id' => $sortie->getId()]);
+            } else {
+                $this->addFlash('error', "Vous devez entrer un motif d'annulation");
+            }
         }
-
         return $this->render('sortie/annuler.html.twig', [
             'sortie' => $sortie,
         ]);
