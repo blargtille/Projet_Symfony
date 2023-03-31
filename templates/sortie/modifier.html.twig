@@ -1,17 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-Modifier une sortie | {{ parent() }}
+    {{ parent() }} | Modifier une sortie
 {% endblock %}
 
 {% block body %}
 <h1>Modifier une sortie</h1>
 
     <div>
-        {# balise form ouvrante #}
         {{ form_start(modifySortieForm) }}
 
-        {# affiche tous les champs du formulaire #}
         {{ form_widget(modifySortieForm) }}
 
         {{ sortie.lieu.rue }}
@@ -24,9 +22,7 @@ Modifier une sortie | {{ parent() }}
         <button type="submit"><a href="#">Supprimer la sortie</a></button>
         <button type="button"><a href="{{ path('sortie_accueil') }}">Annuler</a></button>
 
-        {# balise form fermant #}
         {{ form_end(modifySortieForm) }}
-
     </div>
 
 {% endblock %}

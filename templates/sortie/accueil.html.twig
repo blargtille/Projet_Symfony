@@ -5,13 +5,10 @@
     <h1> Sorties </h1>
     <h2> Filtrer les sorties </h2>
 
-        <p> Date du jour : {{ dateDuJour | date ('d-m-Y') }}</p>
+        <p> Nous sommes le : {{ dateDuJour | date ('d-m-Y') }}</p>
         <p> Participant : {{ app.user.prenom }} </p>
 
 
-
-    <!-- formulaire pour filtrer ? ou juste boutons de filtres comme pokemon ? -->
-    <!-- mettre le lien de la route tri dans le form -->
     <form action="{{ path('sortie_tri') }}" method="post">
         <label for="site">Site :</label>
 
@@ -75,7 +72,7 @@
                 <tr>
                 <tr href="{{ path('sortie_afficher', {'id': sortie.id}) }}">
                     <td>  {{ sortie.nom }} </td>
-                    <td>{{ sortie.dateHeureDebut | date('H:i:s d-m-Y') }} </td>
+                    <td>{{ sortie.dateHeureDebut | date('d-m-Y H:i') }} </td>
                     <td> {{ sortie.dateLimiteInscription | date('d-m-Y') }}</td>
                     <td> {{ sortie.participant | length }} / {{ sortie.nbInscriptionMax }} </td>
                     <!-- nb de participant

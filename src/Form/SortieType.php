@@ -47,7 +47,6 @@ class SortieType extends AbstractType
                 'data' => 30 // durée par défaut*/
             ])
 
-
             ->add('infosSortie', TextareaType::class, [
                 'attr' => [
                     'rows' => 5,

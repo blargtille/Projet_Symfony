@@ -6,24 +6,18 @@
     <br>
 
     <div>
-        {# balise form ouvrante #}
         {{ form_start(sortieForm) }}
 
-        {# affiche tous les champs du formulaire #}
         {{ form_widget(sortieForm) }}
 
         <button type="submit">Enregistrer</button>
 
-{#        <button type="submit"><a href="{{ path('/') }}">publier la sortie</a></button>}#}
         <button type="button"><a href="{{ path('sortie_accueil') }}">Annuler</a></button>
 
-        {# balise form fermant #}
         {{ form_end(sortieForm) }}
-
     </div>
 
     <div id="lieu-details"></div>
-
 
 {% endblock %}
 
@@ -59,12 +53,7 @@
     {% endblock %}
 
 
-
-
-
-
-
 {% block title %}
-Créer une nouvelle sortie | {{ parent() }}
+    {{ parent() }} | Créer une nouvelle sortie
 {% endblock %}
 

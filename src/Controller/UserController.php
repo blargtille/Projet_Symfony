@@ -31,10 +31,7 @@ class UserController extends AbstractController
 
         if($userForm->isSubmitted() && $userForm->isValid()){
 
-
             $user->setRoles(['ROLE_USER']);
-
-            // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -45,7 +42,7 @@ class UserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Idea successfully added!');
+            $this->addFlash('success', 'Vos modifications ont bien été enregistrées!');
 
             return $userAuthenticator->authenticateUser(
                 $user,
@@ -65,7 +62,7 @@ class UserController extends AbstractController
         $user = $userRepository->find($id);
 
             if(!$user){
-                throw $this->createNotFoundException('User does not exists');
+                throw $this->createNotFoundException('Utilisateur non trouvé');
             }
 
         return $this->render('main/detailsUser.html.twig', [

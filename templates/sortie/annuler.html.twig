@@ -13,8 +13,9 @@
  <form action="{{ path('sortie_annuler', {'id': sortie.id}) }}" method="post">
         <label for="motif">Motif d'annulation: </label>
         <input type="text" name="motif" value="">
-        <input type="submit" name="enregistrer" value="enregistrer">
-        <div><button type="button"><a href="{{ path('sortie_accueil') }}">Annuler</a></button></div>
+        <br>
+        <input type="submit" name="enregistrer" value="Enregistrer">
+        <button type="button"><a href="{{ path('sortie_accueil') }}">Annuler</a></button>
  </form>
 
 

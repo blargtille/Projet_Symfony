@@ -133,7 +133,7 @@ class SortieController extends AbstractController
 
         $modifySortieForm->handleRequest($request);
         $valeurNbrPlaces = $modifySortieForm->get('nbInscriptionMax')->getData();
-        dump($valeurNbrPlaces);
+
         if ($modifySortieForm->isSubmitted() && $modifySortieForm->isValid()) {
             if ($user == $sortie->getOrganisateur()->getId() and $sortie->getEtatE()->getId() == 1 || $sortie->getEtatE()->getId() == 2 ) {
                 if ($sortie->getParticipant()->count() > 1)
@@ -161,7 +161,7 @@ class SortieController extends AbstractController
         // je dois être l'organisateur de l'évènement
         // la sortie doit être à l'état créée
         $sortie = $sortieRepository->find($id);
-       $user = $this->getUser()->getId();
+        $user = $this->getUser()->getId();
 
         if ($user == $sortie->getOrganisateur()->getId() and $sortie->getEtatE()->getId() == 1){
             $etatOuvert = $etatRepository->find(2);
@@ -205,12 +205,10 @@ class SortieController extends AbstractController
     {
 
         $nbrParticipant = $sortiesParticipation->getParticipant()->count();
-        dump($nbrParticipant);
         $nbInscriptionMax = $sortiesParticipation->getNbInscriptionMax();
-        dump($nbInscriptionMax);
-
         $dateCloture = $sortiesParticipation->getDateLimiteInscription();
         $date = new \DateTime();
+
         if ($date < $dateCloture and $nbrParticipant < $nbInscriptionMax) {
             $user = $this->getUser();
             $sortiesParticipation->addParticipant($user);
@@ -219,7 +217,6 @@ class SortieController extends AbstractController
 
             $this->addFlash('success', "Vous êtes inscrit à la sortie");
         }
-
 
         return $this->redirectToRoute('sortie_accueil');
     }

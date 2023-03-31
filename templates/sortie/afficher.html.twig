@@ -5,7 +5,7 @@
     <h1>{{ sortie.nom }}</h1>
     <h2>{{ sortie.etatE.libelle }}</h2>
 
-        <div>Date et heure de la sortie: {{ sortie.dateHeureDebut|date('d-m-Y H') }} </div>
+        <div>Date et heure de la sortie: {{ sortie.dateHeureDebut|date('d-m-Y H:i') }} </div>
         <div>Date limite d'inscription: {{ sortie.dateLimiteInscription|date('d-m-Y') }}</div>
         <div>Nombres de places: {{ sortie.nbInscriptionMax }}</div>
         <div>Durée: {{ sortie.duree }}  minutes</div>
@@ -17,7 +17,7 @@
         <div>Latitude: {{ sortie.lieu.latitude }}</div>
         <div>Longitude: {{ sortie.lieu.longitude }}</div>
         <br>
-        <div>Liste des participants inscrits:
+        <div>Participants inscrits:
             <ul>
                 {% for user in sortie.participant %}
                     <li><a href="{{ path('main_detailsUser', {'id': user.id}) }}">{{ user.pseudo }} : {{ user.prenom }} {{ user.nom }}</a></li>
