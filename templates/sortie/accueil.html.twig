@@ -74,8 +74,8 @@
                 <tr>
                 <tr href="{{ path('sortie_afficher', {'id': sortie.id}) }}">
                     <td>  {{ sortie.nom }} </td>
-                    <td>{{ sortie.dateHeureDebut | date('Y-m-d H:i:s') }} </td>
-                    <td> {{ sortie.dateLimiteInscription | date('Y-m-d') }}</td>
+                    <td>{{ sortie.dateHeureDebut | date('H:i:s d-m-Y') }} </td>
+                    <td> {{ sortie.dateLimiteInscription | date('d-m-Y') }}</td>
                     <td> {{ sortie.participant | length }} / {{ sortie.nbInscriptionMax }} </td>
                     <!-- nb de participant
                      table sortie_user et faire une requete avec count ? -->
@@ -94,7 +94,7 @@
                          -   <a href="{{ path('sortie_desiste', {'id': sortie.id}) }}">Se désister</a>
                         {% endif %}
 
-                        {% if (not sortie.participant.contains(app.user)) %}
+                        {% if (not sortie.participant.contains(app.user) and (sortie.dateLimiteInscription > dateDuJour)) and sortie.participant.count < sortie.nbInscriptionMax %}
                             -  <a href="{{ path('sortie_sinscrire', {'id': sortie.id}) }}">S'inscrire</a>
                         {% endif %}
 

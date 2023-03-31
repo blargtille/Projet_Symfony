@@ -30,7 +30,6 @@ class SortieController extends AbstractController
         $listeSite = $siteRepository->findAll();
 
         $date = new \DateTime();
-        $date_str = $date->format('Y-m-d H:i:s');
 
         return $this->render('sortie/accueil.html.twig', [
             'listeSortie' => $listeSortie,
@@ -68,7 +67,6 @@ class SortieController extends AbstractController
         $passees = $request->get('passees');
 
         $date = new \DateTime();
-        $date_str = $date->format('Y-m-d H:i:s');
         $user = $this->getUser();
 
         $listeSortie = $sortieRepository->findByTri($site, $dateStart, $dateEnd, $barreRecherche, $organisateur, $user, $passees, $inscrit, $nonInscrit, $date_str);
@@ -151,12 +149,23 @@ class SortieController extends AbstractController
     #[Route('/sinscrire/{id}', name: 'sinscrire')]
     public function inscriptionParticipant (Sortie $sortiesParticipation, EntityManagerInterface $entityManager): Response
     {
-        $user = $this->getUser();
-        $sortiesParticipation->addParticipant($user);
-        $entityManager->persist($sortiesParticipation);
-        $entityManager->flush();
 
-        $this->addFlash('success', "Vous êtes inscrit à la sortie");
+       $nbrParticipant = $sortiesParticipation->getParticipant()->count() ;
+        dump($nbrParticipant);
+       $nbInscriptionMax = $sortiesParticipation->getNbInscriptionMax();
+       dump($nbInscriptionMax);
+        
+       $dateCloture = $sortiesParticipation->getDateLimiteInscription();
+        $date = new \DateTime();
+        if ($date < $dateCloture and $nbrParticipant < $nbInscriptionMax ){
+            $user = $this->getUser();
+            $sortiesParticipation->addParticipant($user);
+            $entityManager->persist($sortiesParticipation);
+            $entityManager->flush();
+
+            $this->addFlash('success', "Vous êtes inscrit à la sortie");
+        }
+
 
         return $this->redirectToRoute('sortie_accueil');
     }
