@@ -216,7 +216,7 @@ class SortieController extends AbstractController
             $entityManager->persist($sortiesParticipation);
             $entityManager->flush();
 
-            $this->addFlash('success', "Vous êtes inscrit à la sortie");
+            $this->addFlash('success', "Vous êtes bien inscrit.e à cette sortie");
         }
 
         return $this->redirectToRoute('sortie_accueil');
@@ -232,7 +232,7 @@ class SortieController extends AbstractController
         $entityManager->persist($sortiesParticipation);
         $entityManager->flush();
 
-        $this->addFlash('success', "Vous n'êtes plus inscrit à cette sortie!");
+        $this->addFlash('success', "Vous n'êtes plus inscrit.e à cette sortie!");
         return $this->redirectToRoute('sortie_accueil');
 
     }
