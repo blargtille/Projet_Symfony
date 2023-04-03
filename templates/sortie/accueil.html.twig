@@ -19,41 +19,41 @@
             <select name="site" >
                 <option value="">Choisissez un site</option>
                 {% for site in listeSite %}
-                <option value="{{ site.id }}">{{ site.nom }}</option>
+                    <option value="{{ site.id }}" {% if app.request.query.get('site') == site.id %}selected{% endif %}>{{ site.nom }}</option>
                 {% endfor %}
             </select>
 
             <label for="recherche">Le nom de la sortie contient :</label>
-            <input type="text" name="rechercher" value="">
+            <input type="text" name="rechercher" value="{{ recherche|default() }}">
 
             <label for="start">Entre :</label>
             <!-- min date du jour -->
             <input type="date" id="start" name="date-start"
-                   min="2018-01-01" max="2025-01-01">
+                   min="2018-01-01" max="2025-01-01" value="{{ dateStart|default() }}">
             <label for="start">Et :</label>
             <!-- min date du jour -->
             <input type="date" id="end" name="date-end"
-                   min="2018-01-01" max="2025-01-01">
+                   min="2018-01-01" max="2025-01-01" value="{{ dateEnd|default() }}">
         </div>
         <div class="contenu-2_form_accueil">
             <!-- Cases à cocher , boutons , form ??-->
             <div class="Checkbel_1">
-                <input class="mon-checkbox" type="checkbox" id="orga" name="orga" >
+                <input class="mon-checkbox" type="checkbox" id="orga" name="orga" {% if orga|default(false) %}checked{% endif %}>
                 <label class="mon-label" for="orga">Sorties dont je suis l'organisateur/trice</label>
             </div>
 
             <div class="Checkbel_2">
-                <input class="mon-checkbox" type="checkbox" id="inscrit" name="inscrit" >
+                <input class="mon-checkbox" type="checkbox" id="inscrit" name="inscrit" {% if inscrit|default(false) %}checked{% endif %}>
                 <label class="mon-label" for="inscrit">Sorties auxquelles je suis inscrit/e</label>
             </div>
 
             <div class="Checkbel_3">
-                <input class="mon-checkbox" type="checkbox" id="nonInscrit" name="nonInscrit" >
+                <input class="mon-checkbox" type="checkbox" id="nonInscrit" name="nonInscrit" {% if nonInscrit|default(false) %}checked{% endif %}>
                 <label class="mon-label" for="nonInscrit">Sorties auxquelles je ne suis pas inscrit/e</label>
             </div>
 
             <div class="Checkbel_4">
-                <input class="mon-checkbox" type="checkbox" id="passees" name="passees" >
+                <input class="mon-checkbox" type="checkbox" id="passees" name="passees" {% if passees|default(false) %}checked{% endif %}>
                 <label class="mon-label" for="passees">Sorties passées</label>
             </div>
         </div>
@@ -103,15 +103,15 @@
                     <td>
                         <a href="{{ path('sortie_afficher', {'id': sortie.id})}}">Afficher</a>
 
-                        {% if (sortie.participant.contains(app.user)) %}
+                        {% if (sortie.participant.contains(app.user) and (sortie.dateLimiteInscription > dateDuJour) and (sortie.etatE.id == 2)) %}
                          -   <a href="{{ path('sortie_desiste', {'id': sortie.id}) }}">Se désister</a>
                         {% endif %}
 
-                        {% if (not sortie.participant.contains(app.user) and (sortie.dateLimiteInscription > dateDuJour)) and sortie.participant.count < sortie.nbInscriptionMax %}
+                        {% if (not sortie.participant.contains(app.user) and (sortie.dateLimiteInscription > dateDuJour) and (sortie.etatE.id == 2) and sortie.participant.count < sortie.nbInscriptionMax) %}
                             -  <a href="{{ path('sortie_sinscrire', {'id': sortie.id}) }}">S'inscrire</a>
                         {% endif %}
 
-                        {% if (sortie.organisateur == app.user) and (sortie.etatE.id != 6) %}
+                        {% if (sortie.organisateur == app.user) and (dateDuJour < sortie.dateHeureDebut) %}
                             -  <a href="{{ path('sortie_annuler', {'id': sortie.id}) }}">Annuler</a>
                         {% endif %}
 
@@ -120,7 +120,7 @@
                         {% endif %}
 
                         {# seul l'organisateur peut modifier la sortie qu'il a créer #}
-                        {% if (sortie.organisateur == app.user) and (sortie.etatE.id == 1) %}
+                        {% if (sortie.organisateur == app.user) and (sortie.etatE.id == 1 or sortie.etatE.id == 2 ) %}
                             -  <a href="{{ path('sortie_modifier', {'id': sortie.id}) }}">Modifier</a>
                         {% endif %}
 

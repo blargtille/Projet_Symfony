@@ -22,6 +22,7 @@ class Sortie
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
+    #[Assert\GreaterThanOrEqual(propertyPath: 'dateLimiteInscription')]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateHeureDebut = null;
 
@@ -34,12 +35,13 @@ class Sortie
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateLimiteInscription = null;
 
+    #[Assert\Range(notInRangeMessage: 'You are not in range',
+        min: 2)]
     #[ORM\Column]
     private ?int $nbInscriptionMax = null;
 
     #[ORM\Column(length: 255)]
     private ?string $infosSortie = null;
-
 
     #[ORM\ManyToOne(inversedBy: 'Sorties')]
     #[ORM\JoinColumn(nullable: false)]
