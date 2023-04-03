@@ -17,6 +17,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
+use Symfony\Component\Validator\Constraints\Range;
 
 class SortieType extends AbstractType
 {
@@ -37,11 +39,14 @@ class SortieType extends AbstractType
                 'label' => "Date limite de l'inscription : "
             ])
             ->add('nbInscriptionMax', IntegerType::class, [
-                'label' => "Nombre de places"
+                'label' => "Nombre de places :"
             ])
             ->add('duree', IntegerType::class, [
                 'data' => 60,
-                'label'=> "Durée"
+                'label'=> "Durée (en minutes) :",
+                'attr' => [
+                    'min' => 30
+                ]
                 /*'label' => 'Durée (en minutes) : ',
                 'choices' => array_combine(range(30, 240, 15), range(30, 240, 15)), // de 30 à 240 minutes, par tranche de 15 minutes
                 'data' => 30 // durée par défaut*/
