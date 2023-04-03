@@ -137,12 +137,14 @@ class SortieController extends AbstractController
         $modifySortieForm = $this->createForm(ModifySortieType::class, $sortie);
         $modifySortieForm->handleRequest($request);
 
-        $nbrPart = $sortie->getParticipant()->count();
+        $nbrPartBdd = $sortie->getParticipant()->count();
 
         if ($modifySortieForm->isSubmitted() && $modifySortieForm->isValid()) {
             $valeurNbrPlaces = $modifySortieForm->get('nbInscriptionMax')->getData();
             if ($user == $sortie->getOrganisateur()->getId() and ($sortie->getEtatE()->getId() == 1 || $sortie->getEtatE()->getId() == 2)) {
-                if ($nbrPart > $valeurNbrPlaces) {
+                dump($valeurNbrPlaces);
+                dump($nbrPartBdd);
+                if ($nbrPartBdd < $valeurNbrPlaces) {
                     $entityManager->persist($sortie);
                     $entityManager->flush();
                     $this->addFlash('success', 'Votre sortie a été modifiée !');
@@ -230,7 +232,7 @@ class SortieController extends AbstractController
             $entityManager->persist($sortiesParticipation);
             $entityManager->flush();
 
-            $this->addFlash('success', "Vous êtes inscrit à la sortie");
+            $this->addFlash('success', "Vous êtes bien inscrit.e à cette sortie");
         }
 
         return $this->redirectToRoute('sortie_accueil');
@@ -246,6 +248,7 @@ class SortieController extends AbstractController
 
         if ($date < $dateCloture and $sortiesParticipation->getParticipant()->contains($user) and $sortiesParticipation->getEtatE()->getId() == 2){
 
+
             $sortiesParticipation->removeParticipant($user);
 
             $entityManager->persist($sortiesParticipation);
@@ -254,6 +257,7 @@ class SortieController extends AbstractController
             $this->addFlash('success', "Vous n'êtes plus inscrit à cette sortie!");
 
         }
+
         return $this->redirectToRoute('sortie_accueil');
     }
 }
