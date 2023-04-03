@@ -29,8 +29,8 @@
                 //console.log(window.location.origin+"Projet_Symfony/public/lieu/"+event.target.value)
                 //console.log(window.location.origin)
                 // ici avec event.target.value on récupère la valeur de l'élément sélectionné
-                //const url = "http://localhost/Projet__Symfony/public/lieu/".concat(event.target.value);
-                const url = window.location.origin+"/Projet__Symfony/public/lieu/"+event.target.value
+                const url = "{{ path('app_login') }}lieu/"+event.target.value;
+                //const url = window.location.origin+"/Projet__Symfony/public/lieu/"+event.target.value
                 fetch(url)
                     .then(response => response.json())
                     .then(lieu => {
