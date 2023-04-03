@@ -3,53 +3,67 @@
 {% block body %}
 
     <h1> Sorties </h1>
-    <h2> Filtrer les sorties </h2>
 
-        <p> Nous sommes le : {{ dateDuJour | date ('d-m-Y') }}</p>
-        <p> Participant : {{ app.user.prenom }} </p>
+    <div class="container_accueil">
+        <div class="head_accueil">
+                <h4> Nous sommes le : {{ dateDuJour | date ('d-m-Y') }}</h4>
+                <h4> Participant : {{ app.user.prenom }} </h4>
+        </div>
 
+    <form class="form_accueil" action="{{ path('sortie_tri') }}" method="post">
+        <h2> Filtrer les sorties </h2>
 
-    <form action="{{ path('sortie_tri') }}" method="post">
-        <label for="site">Site :</label>
+        <div class="contenu-1_form_accueil">
+            <label for="site">Site :</label>
 
-        <select name="site" >
-            <option value="">Choisissez un site</option>
-            {% for site in listeSite %}
-            <option value="{{ site.id }}">{{ site.nom }}</option>
-            {% endfor %}
-        </select>
+            <select name="site" >
+                <option value="">Choisissez un site</option>
+                {% for site in listeSite %}
+                <option value="{{ site.id }}">{{ site.nom }}</option>
+                {% endfor %}
+            </select>
 
-        <label for="recherche">Le nom de la sortie contient :</label>
-        <input type="text" name="rechercher" value="">
+            <label for="recherche">Le nom de la sortie contient :</label>
+            <input type="text" name="rechercher" value="">
 
-        <label for="start">Entre :</label>
-        <!-- min date du jour -->
-        <input type="date" id="start" name="date-start"
-               min="2018-01-01" max="2025-01-01">
-        <label for="start">Entre :</label>
-        <!-- min date du jour -->
-        <input type="date" id="end" name="date-end"
-               min="2018-01-01" max="2025-01-01">
+            <label for="start">Entre :</label>
+            <!-- min date du jour -->
+            <input type="date" id="start" name="date-start"
+                   min="2018-01-01" max="2025-01-01">
+            <label for="start">Et :</label>
+            <!-- min date du jour -->
+            <input type="date" id="end" name="date-end"
+                   min="2018-01-01" max="2025-01-01">
+        </div>
+        <div class="contenu-2_form_accueil">
+            <!-- Cases à cocher , boutons , form ??-->
+            <div class="Checkbel_1">
+                <input class="mon-checkbox" type="checkbox" id="orga" name="orga" >
+                <label class="mon-label" for="orga">Sorties dont je suis l'organisateur/trice</label>
+            </div>
 
-        <br>
-        <!-- Cases à cocher , boutons , form ??-->
-        <input type="checkbox" id="orga" name="orga" >
-        <label for="orga">Sorties dont je suis l'organisateur/trice</label>
+            <div class="Checkbel_2">
+                <input class="mon-checkbox" type="checkbox" id="inscrit" name="inscrit" >
+                <label class="mon-label" for="inscrit">Sorties auxquelles je suis inscrit/e</label>
+            </div>
 
-        <input type="checkbox" id="inscrit" name="inscrit" >
-        <label for="inscrit">Sorties auxquelles je suis inscrit/e</label>
+            <div class="Checkbel_3">
+                <input class="mon-checkbox" type="checkbox" id="nonInscrit" name="nonInscrit" >
+                <label class="mon-label" for="nonInscrit">Sorties auxquelles je ne suis pas inscrit/e</label>
+            </div>
 
-        <input type="checkbox" id="nonInscrit" name="nonInscrit" >
-        <label for="nonInscrit">Sorties auxquelles je ne suis pas inscrit/e</label>
+            <div class="Checkbel_4">
+                <input class="mon-checkbox" type="checkbox" id="passees" name="passees" >
+                <label class="mon-label" for="passees">Sorties passées</label>
+            </div>
+        </div>
 
-        <input type="checkbox" id="passees" name="passees" >
-        <label for="passees">Sorties passées</label>
-
-        <br>
-
-     <input type="submit" name="Rechercher" value="Rechercher">
-
+        <div class="contenu-3_form_accueil">
+             <input type="submit" name="Rechercher" value="Rechercher">
+        </div>
     </form>
+
+
 
     <section class="sorties-list">
         <table>
@@ -122,7 +136,13 @@
         </tbody>
         </table>
 
+        <br>
+        <br>
+
+        <button type="button"><a href="{{ path('sortie_creer') }}">Créer une sortie</a></button>
+
     </section>
+    </div>
 
 {% endblock %}
 
