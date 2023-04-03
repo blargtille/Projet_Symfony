@@ -131,8 +131,6 @@ class SortieController extends AbstractController
     #[Route('/modifier/{id}', name: 'modifier')]
     public function modifier(int $id, Request $request, EntityManagerInterface $entityManager, LieuRepository $lieuRepository, VilleRepository $villeRepository, SortieRepository $sortieRepository): Response
     {
-        // je ne peux pas modifier si je modifie le nb de place et qu'il est inférieur au nb de participants
-
         $sortie = $sortieRepository->find($id);
         $user = $this->getUser()->getId();
 
@@ -142,7 +140,7 @@ class SortieController extends AbstractController
         $nbrPart = $sortie->getParticipant()->count();
 
         if ($modifySortieForm->isSubmitted() && $modifySortieForm->isValid()) {
-            $valeurNbrPlaces = $request->get('nbInscriptionMax');
+            $valeurNbrPlaces = $modifySortieForm->get('nbInscriptionMax')->getData();
             if ($user == $sortie->getOrganisateur()->getId() and ($sortie->getEtatE()->getId() == 1 || $sortie->getEtatE()->getId() == 2)) {
                 if ($nbrPart > $valeurNbrPlaces) {
                     $entityManager->persist($sortie);
