@@ -28,9 +28,9 @@ class SortieController extends AbstractController
     #[Route('', name: 'accueil')]
     public function list(SortieRepository $sortieRepository, SiteRepository $siteRepository): Response
     {
-      //  $listeSortie = $sortieRepository->findBy(["etatE" => "6"]);
 
-        $listeSortie = $sortieRepository->findAll();
+
+        $listeSortie = $sortieRepository->findAllExceptArchivee();
         $listeSite = $siteRepository->findAll();
 
         $date = new \DateTime();

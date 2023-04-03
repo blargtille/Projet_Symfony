@@ -41,6 +41,15 @@ class SortieRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllExceptArchivee () {
+        $queryBuilder = $this->createQueryBuilder('s');
+        $queryBuilder->addSelect('s');
+        $queryBuilder->andWhere('s.etatE!=7');
+
+        $query = $queryBuilder->getQuery();
+        $paginator = new Paginator($query);
+        return $paginator;
+    }
 
     public function findByTri($site, $dateDebut, $dateFin, $recherche, $organisateur, $user, $passees, $inscrit, $nonInscrit, $dateDuJour)
     {
@@ -95,11 +104,6 @@ class SortieRepository extends ServiceEntityRepository
     }
 
 
-    public function findSortieByNonIscrit($userNonInscrit)
-    {
-        // findAll - findSortieByInscrit
-
-    }
 
 }
 
