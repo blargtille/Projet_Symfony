@@ -2,9 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Etat;
 use App\Entity\Sortie;
-use App\Entity\User;
 use App\Form\ModifySortieType;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
@@ -14,13 +12,10 @@ use App\Repository\SortieRepository;
 use App\Repository\UserRepository;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use mysql_xdevapi\Collection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\Date;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 #[Route('/sorties', name: 'sortie_')]
 class SortieController extends AbstractController
