@@ -57,6 +57,9 @@ class Sortie
     #[ORM\JoinColumn(nullable: false)]
     private ?User $organisateur = null;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $date_annulation = null;
+
     public function __construct()
     {
         $this->participant = new ArrayCollection();
