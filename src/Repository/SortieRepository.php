@@ -47,7 +47,7 @@ class SortieRepository extends ServiceEntityRepository
 
         $queryBuilder = $this->createQueryBuilder('s');
         $queryBuilder->addSelect('s');
-
+        $queryBuilder->andWhere('s.etatE!=7');
         if ($site !=''){
             $queryBuilder->andWhere('s.site= :site');
             $queryBuilder->setParameter('site', $site);
@@ -66,6 +66,7 @@ class SortieRepository extends ServiceEntityRepository
             $queryBuilder->andWhere('s.nom LIKE :recherche');
             $queryBuilder->setParameter('recherche', '%' . $recherche . '%');
         }
+
         if ($organisateur != '') {
             $queryBuilder->andWhere('s.organisateur = :user');
             $queryBuilder->setParameter('user', $user);

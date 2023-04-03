@@ -34,10 +34,17 @@ class ModifySortieType extends AbstractType
                 'label' => "Date limite de l'inscription : "
             ])
             ->add('nbInscriptionMax', IntegerType::class, [
-                'label' => "Nombre de places"
+                'label' => "Nombre de places :",
+                'attr' => [
+                    'min' => 2
+                ]
             ])
             ->add('duree', IntegerType::class, [
-                'label' => "Durée"
+                'data' => 60,
+                'label'=> "Durée (en minutes) :",
+                'attr' => [
+                    'min' => 30
+                ]
             ])
             ->add('infosSortie', TextareaType::class, [
                 'attr' => [
