@@ -59,6 +59,7 @@ class LieuController extends AbstractController
 
         $lieuForm->handleRequest($request);
 
+
         if ($lieuForm->isSubmitted() && $lieuForm->isValid()) {
             $entityManager->persist($lieu);
             $entityManager->flush();

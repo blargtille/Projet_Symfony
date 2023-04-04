@@ -12,16 +12,18 @@
 
         {{ form_widget(modifySortieForm) }}
 
-        {{ sortie.lieu.rue }}
-        {{ sortie.lieu.ville.nom }}
-        {{ sortie.lieu.ville.codePostal }}
+        <p> Rue : {{ sortie.lieu.rue }} </p>
+        <p> Ville : {{ sortie.lieu.ville.nom }} </p>
+        <p> Code Postal : {{ sortie.lieu.ville.codePostal }} </p>
+        <p> Latitude : {{ sortie.lieu.latitude }} </p>
+        <p> Longitude : {{ sortie.lieu.longitude }} </p>
 
-
+    <div class="button_modifier">
         <button type="submit">Enregistrer</button>
         <button type="submit"><a href="#">Publier la sortie</a></button>
         <button type="submit"><a href="#">Supprimer la sortie</a></button>
         <button type="button"><a href="{{ path('sortie_accueil') }}">Annuler</a></button>
-
+    </div>
         {{ form_end(modifySortieForm) }}
     </div>
 

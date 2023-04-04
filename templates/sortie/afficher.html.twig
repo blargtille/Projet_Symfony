@@ -5,26 +5,33 @@
     <h1>{{ sortie.nom }}</h1>
     <h2>{{ sortie.etatE.libelle }}</h2>
 
-        <div>Date et heure de la sortie: {{ sortie.dateHeureDebut|date('d-m-Y H:i') }} </div>
-        <div>Date limite d'inscription: {{ sortie.dateLimiteInscription|date('d-m-Y') }}</div>
-        <div>Nombres de places: {{ sortie.nbInscriptionMax }}</div>
-        <div>Durée: {{ sortie.duree }}  minutes</div>
-        <div>Description et infos: {{ sortie.infosSortie }}</div>
-        <div>Lieu: {{ sortie.lieu.nom }}</div>
-        <div>Rue: {{ sortie.lieu.rue }}</div>
-        <div>Ville: {{ sortie.lieu.ville.nom }}</div>
-        <div>Code postal: {{ sortie.lieu.ville.codePostal }}</div>
-        <div>Latitude: {{ sortie.lieu.latitude }}</div>
-        <div>Longitude: {{ sortie.lieu.longitude }}</div>
-        <br>
-        <div>Participants inscrits:
-            <ul>
-                {% for user in sortie.participant %}
-                    <li><a href="{{ path('main_detailsUser', {'id': user.id}) }}">{{ user.pseudo }} : {{ user.prenom }} {{ user.nom }}</a></li>
+    <style>
+        .info {
+            margin-bottom: 10px;
+        }
+    </style>
 
-                {% endfor %}
-            </ul>
-        </div>
+    <div class="info"><b>Date et heure de la sortie :</b> {{ sortie.dateHeureDebut|date('d-m-Y H:i') }} </div>
+    <div class="info"><b>Date limite d'inscription :</b> {{ sortie.dateLimiteInscription|date('d-m-Y') }}</div>
+    <div class="info"><b>Nombres de places : </b>{{ sortie.nbInscriptionMax }}</div>
+    <div class="info"><b>Durée : </b>{{ sortie.duree }}  minutes</div>
+    <div class="info"><b>Description et infos : </b>{{ sortie.infosSortie }}</div>
+    <div class="info"><b>Lieu : </b>{{ sortie.lieu.nom }}</div>
+    <div class="info"><b>Rue : </b>{{ sortie.lieu.rue }}</div>
+    <div class="info"><b>Ville : </b>{{ sortie.lieu.ville.nom }}</div>
+    <div class="info"><b>Code postal : </b>{{ sortie.lieu.ville.codePostal }}</div>
+    <div class="info"><b>Latitude : </b>{{ sortie.lieu.latitude }}</div>
+    <div class="info"><b>Longitude : </b>{{ sortie.lieu.longitude }}</div>
+    <br>
+    <div class="info"><b>Participants inscrits :</b>
+        <ul>
+            {% for user in sortie.participant %}
+                <li><a href="{{ path('main_detailsUser', {'id': user.id}) }}">{{ user.pseudo }} : {{ user.prenom }} {{ user.nom }}</a></li>
+
+            {% endfor %}
+        </ul>
+    </div>
+
 
 
 {% endblock  %}

@@ -102,6 +102,10 @@ class SortieController extends AbstractController
 
         $sortieForm->handleRequest($request);
 
+        // recuperer les valeurs mises dans le form !!
+        // $nom = $sortieForm->get('nom')->getData();
+        // sauf que je veux pas verifier apres avoir submit mais apres avoir cliqué sur le lien ajouter un lieu
+
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
             $etatCreer = $etatRepository->find(1);
             $user = $this->getUser();
@@ -138,8 +142,6 @@ class SortieController extends AbstractController
         if ($modifySortieForm->isSubmitted() && $modifySortieForm->isValid()) {
             $valeurNbrPlaces = $modifySortieForm->get('nbInscriptionMax')->getData();
             if ($user == $sortie->getOrganisateur()->getId() and ($sortie->getEtatE()->getId() == 1 || $sortie->getEtatE()->getId() == 2)) {
-                dump($valeurNbrPlaces);
-                dump($nbrPartBdd);
                 if ($nbrPartBdd < $valeurNbrPlaces) {
                     $entityManager->persist($sortie);
                     $entityManager->flush();
