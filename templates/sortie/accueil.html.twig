@@ -6,7 +6,6 @@
 
     <div class="container_accueil">
         <div class="head_accueil">
-               {#<h4> Nous sommes le : {{ dateDuJour | date ('d-m-Y') }}</h4> #}
                 <h4> Bienvenue  {{ app.user.prenom }} !</h4>
         </div>
 
@@ -63,8 +62,6 @@
         </div>
     </form>
 
-
-
     <section class="sorties-list">
         <table>
         <tbody>
@@ -81,7 +78,6 @@
 
         {% for sortie in listeSortie %}
 
-
             <article>
                 <tr>
                 <tr href="{{ path('sortie_afficher', {'id': sortie.id}) }}">
@@ -89,8 +85,6 @@
                     <td>{{ sortie.dateHeureDebut | date('d-m-Y H:i') }} </td>
                     <td> {{ sortie.dateLimiteInscription | date('d-m-Y') }}</td>
                     <td> {{ sortie.participant | length }} / {{ sortie.nbInscriptionMax }} </td>
-                    <!-- nb de participant
-                     table sortie_user et faire une requete avec count ? -->
                     <td> {{ sortie.etatE.libelle }} </td>
                     <td>
 
@@ -98,7 +92,6 @@
                               X
                         {% endif %}
 
-                        </td> <!-- if app.user est inscrit ? mettre une croix -->
                     <td> {{ sortie.organisateur.prenom}}</td>
                     <td>
                         <a href="{{ path('sortie_afficher', {'id': sortie.id})}}">Afficher</a>
@@ -119,7 +112,6 @@
                             -  <a href="{{ path('sortie_publier', {'id': sortie.id}) }}">Publier</a>
                         {% endif %}
 
-                        {# seul l'organisateur peut modifier la sortie qu'il a créer #}
                         {% if (sortie.organisateur == app.user) and (sortie.etatE.id == 1 or sortie.etatE.id == 2 ) %}
                             -  <a href="{{ path('sortie_modifier', {'id': sortie.id}) }}">Modifier</a>
                         {% endif %}
