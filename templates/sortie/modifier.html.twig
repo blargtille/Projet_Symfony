@@ -18,12 +18,12 @@
         <p> Latitude : {{ sortie.lieu.latitude }} </p>
         <p> Longitude : {{ sortie.lieu.longitude }} </p>
 
-
+    <div class="button_modifier">
         <button type="submit">Enregistrer</button>
         <button type="submit"><a href="#">Publier la sortie</a></button>
         <button type="submit"><a href="#">Supprimer la sortie</a></button>
         <button type="button"><a href="{{ path('sortie_accueil') }}">Annuler</a></button>
-
+    </div>
         {{ form_end(modifySortieForm) }}
     </div>
 

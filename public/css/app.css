@@ -121,7 +121,7 @@ footer {
 button {
     background-color: #20B2AA;
     border: none;
-    color: #000000;
+    color: black;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
@@ -129,6 +129,7 @@ button {
     font-size: 16px;
     border-radius: 5px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
+    width: 200px;
 }
 
 button:hover {
@@ -298,7 +299,8 @@ input[type=submit]:hover{
 }
 
 .photo_profil {
-    flex: 1;
+    flex: 0.5;
+    text-align: center;
     width: 200px; /* largeur souhaitée */
     height: 200px; /* hauteur souhaitée */
 }
@@ -315,4 +317,32 @@ input[type=submit]:hover{
     align-items: flex-start;
 }
 
+.button_modifier {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.button_modifier button[type="submit"],
+.button_modifier button[type="button"] {
+    background-color: #20B2AA;
+    border: none;
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.button_modifier a {
+    color: black;
+    text-decoration: none;
+}
+
+.button_modifier a:hover {
+    text-decoration: underline;
+}
 
