@@ -41,10 +41,13 @@ class SortieRepository extends ServiceEntityRepository
         }
     }
 
-    public function findAllExceptArchivee () {
+    public function findAllExceptArchivee ($user) {
         $queryBuilder = $this->createQueryBuilder('s');
         $queryBuilder->addSelect('s');
         $queryBuilder->andWhere('s.etatE!=7');
+        $queryBuilder->andWhere('s.etatE!=1');
+        $queryBuilder->orWhere('s.etatE=1 AND s.organisateur = :user');
+        $queryBuilder->setParameter('user', $user);
 
         $query = $queryBuilder->getQuery();
         $paginator = new Paginator($query);
@@ -56,7 +59,13 @@ class SortieRepository extends ServiceEntityRepository
 
         $queryBuilder = $this->createQueryBuilder('s');
         $queryBuilder->addSelect('s');
+
+        // seul les utilisateurs organisateurs peuvent voir leur sortie en cours de creation
+
         $queryBuilder->andWhere('s.etatE!=7');
+        $queryBuilder->andWhere('s.etatE!=1');
+        $queryBuilder->orWhere('s.etatE=1 AND s.organisateur = :user');
+        $queryBuilder->setParameter('user', $user);
         if ($site !=''){
             $queryBuilder->andWhere('s.site= :site');
             $queryBuilder->setParameter('site', $site);

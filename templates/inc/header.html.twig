@@ -18,11 +18,9 @@
                 <li><a href="{{ path('app_logout') }}" title="se deconnecter">Se déconnecter</a></li>
                 <li><a href="{{ path('sortie_creer') }}" title="creer une sortie">Créer une sortie</a></li>
             {% if is_granted('ROLE_ADMIN') %}
-                <li><a href="#">Villes</a></li>
-                <li><a href="#">Sites</a></li>
+                <li><a href="{{ path('app_register')}}">Nouvel utilisateur</a></li>
             {% endif %}
             {% endif %}
-
         </ul>
     </nav>
 

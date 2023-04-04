@@ -24,16 +24,17 @@ class SortieController extends AbstractController
     public function list(SortieRepository $sortieRepository, SiteRepository $siteRepository): Response
     {
 
-
-        $listeSortie = $sortieRepository->findAllExceptArchivee();
+        $user = $this->getUser();
+        $listeSortie = $sortieRepository->findAllExceptArchivee($user);
         $listeSite = $siteRepository->findAll();
+
 
         $date = new \DateTime();
 
         return $this->render('sortie/accueil.html.twig', [
             'listeSortie' => $listeSortie,
             'listeSite' => $listeSite,
-            'dateDuJour' => $date
+            'dateDuJour' => $date,
         ]);
     }
 
@@ -110,7 +111,7 @@ class SortieController extends AbstractController
             $entityManager->persist($sortie);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Votre sortie a été ajoutée !');
+            $this->addFlash('success', 'Votre sortie a été ajoutée! Vous devez cliquer sur "Publier" pour la rendre visible aux autres utilisateurs.');
             return $this->redirectToRoute('sortie_afficher',
                 ['id' => $sortie->getId()]);
         }
@@ -142,12 +143,12 @@ class SortieController extends AbstractController
                 if ($nbrPartBdd < $valeurNbrPlaces) {
                     $entityManager->persist($sortie);
                     $entityManager->flush();
-                    $this->addFlash('success', 'Votre sortie a été modifiée !');
+                    $this->addFlash('success', 'Votre sortie a été modifiée!');
 
                     return $this->redirectToRoute('sortie_afficher',
                         ['id' => $sortie->getId()]);
                 } else {
-                    $this->addFlash('error', "Vous ne pouvez pas mettre un nombre de participant inférieur aux participants inscrits");
+                    $this->addFlash('error', "Vous ne pouvez pas mettre un nombre de participants inférieur aux participants inscrits");
                 }
 
             }
@@ -172,7 +173,7 @@ class SortieController extends AbstractController
             $entityManager->persist($sortie);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Votre sortie a été publiée !');
+            $this->addFlash('success', 'Votre sortie a été publiée!');
             return $this->redirectToRoute('sortie_accueil',
                 ['id' => $sortie->getId()]);
         }
@@ -227,7 +228,7 @@ class SortieController extends AbstractController
             $entityManager->persist($sortiesParticipation);
             $entityManager->flush();
 
-            $this->addFlash('success', "Vous êtes bien inscrit.e à cette sortie");
+            $this->addFlash('success', "Vous êtes bien inscrit.e à cette sortie.");
         }
 
         return $this->redirectToRoute('sortie_accueil');
@@ -249,7 +250,7 @@ class SortieController extends AbstractController
             $entityManager->persist($sortiesParticipation);
             $entityManager->flush();
 
-            $this->addFlash('success', "Vous n'êtes plus inscrit à cette sortie!");
+            $this->addFlash('success', "Vous n'êtes plus inscrit.e à cette sortie.");
 
         }
 
