@@ -6,8 +6,8 @@
 
     <div class="container_accueil">
         <div class="head_accueil">
-                <h4> Nous sommes le : {{ dateDuJour | date ('d-m-Y') }}</h4>
-                <h4> Participant : {{ app.user.prenom }} </h4>
+               {#<h4> Nous sommes le : {{ dateDuJour | date ('d-m-Y') }}</h4> #}
+                <h4> Bienvenue  {{ app.user.prenom }} !</h4>
         </div>
 
     <form class="form_accueil" action="{{ path('sortie_tri') }}" method="post">
