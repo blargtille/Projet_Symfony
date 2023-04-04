@@ -49,6 +49,7 @@ class UserController extends AbstractController
                 )
             );
 
+            $user->setPhoto($newFilename);
             $entityManager->persist($user);
             $entityManager->flush();
 
