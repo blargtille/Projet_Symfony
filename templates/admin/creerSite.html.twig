@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Créer un site</h1>
+    <br>
+
+    <div>
+        {{ form_start(siteForm) }}
+
+        {{ form_widget(siteForm) }}
+
+        <button type="submit">Enregistrer</button>
+
+        <button type="button"><a href="{{ path('admin_sites') }}">Annuler</a></button>
+
+        {{ form_end(siteForm) }}
+    </div>
+
+{% endblock %}
+
+
+{% block title %}
+    {{ parent() }} | Créer un nouveau site
+{% endblock %}
+

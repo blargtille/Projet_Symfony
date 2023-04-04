@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1> Gérer les villes</h1>
+
+    <h2>Filtrer les villes</h2>
+
+    <form class="form_accueil" action="{{ path('admin_villes_tri') }}" method="post">
+        <label for="recherche">Le nom contient :</label>
+        <input type="text" name="rechercher" value="{{ recherche|default() }}">
+        <input type="submit" name="Rechercher" value="Rechercher">
+
+    </form>
+
+    <table>
+        <tbody>
+        <tr>
+            <td>Villes</td>
+            <td>Code Postal</td>
+            <td>Actions</td>
+        </tr>
+
+        {% for ville in listeVilles %}
+
+            <tr>
+                <td>  {{ ville.nom }} </td>
+                <td>  {{ ville.codePostal }} </td>
+                <td>   <a href="{{ path('admin_villes_modif', {'id': ville.id})}}">Modifier</a>  -   <a href="{{ path('admin_villes_suppr', {'id': ville.id})}}">Supprimer</a></td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    <br>
+    <button type="button"><a href="{{ path('admin_ville_creer') }}">Ajouter</a></button>
+
+    <!-- faire formulaire modification de site -->
+    <!-- faire methode suppression de site -->
+
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

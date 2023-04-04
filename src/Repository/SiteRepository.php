@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Site;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -37,6 +38,24 @@ class SiteRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findByResearch($recherche)
+    {
+        $queryBuilder = $this->createQueryBuilder('s');
+        $queryBuilder->addSelect('s');
+
+        if ($recherche != '') {
+            $queryBuilder->andWhere('s.nom LIKE :recherche');
+            $queryBuilder->setParameter('recherche', '%' . $recherche . '%');
+        }
+
+        $query = $queryBuilder->getQuery();
+
+        $paginator = new Paginator($query);
+
+        return $paginator;
+
     }
 
 //    /**

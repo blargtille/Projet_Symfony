@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Créer une ville</h1>
+    <br>
+
+    <div>
+        {{ form_start(villeForm) }}
+
+        {{ form_widget(villeForm) }}
+
+        <button type="submit">Enregistrer</button>
+
+        <button type="button"><a href="{{ path('admin_villes') }}">Annuler</a></button>
+
+        {{ form_end(villeForm) }}
+    </div>
+
+{% endblock %}
+
+
+{% block title %}
+    {{ parent() }} | Créer une nouvelle ville
+{% endblock %}
+

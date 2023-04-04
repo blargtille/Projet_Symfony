@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Ville;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -37,6 +38,24 @@ class VilleRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findByResearch($recherche)
+    {
+        $queryBuilder = $this->createQueryBuilder('v');
+        $queryBuilder->addSelect('v');
+
+        if ($recherche != '') {
+            $queryBuilder->andWhere('v.nom LIKE :recherche');
+            $queryBuilder->setParameter('recherche', '%' . $recherche . '%');
+        }
+
+        $query = $queryBuilder->getQuery();
+
+        $paginator = new Paginator($query);
+
+        return $paginator;
+
     }
 
 //    /**

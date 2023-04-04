@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1> Gérer les sites</h1>
+
+    <h2>Filtrer les sites</h2>
+
+    <form class="form_accueil" action="{{ path('admin_sites_tri') }}" method="post">
+        <label for="recherche">Le nom contient :</label>
+        <input type="text" name="rechercher" value="{{ recherche|default() }}">
+        <input type="submit" name="Rechercher" value="Rechercher">
+
+    </form>
+
+    <table>
+        <tbody>
+        <tr>
+            <td>Villes</td>
+            <td>Actions</td>
+        </tr>
+
+        {% for site in listeSites %}
+
+            <tr>
+                <td>  {{ site.nom }} </td>
+                <td>   <a href="{{ path('admin_sites_modif', {'id': site.id})}}">Modifier</a>  -   <a href="{{ path('admin_sites_suppr', {'id': site.id})}}">Supprimer</a></td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    <br>
+    <button type="button"><a href="{{ path('admin_sites_creer') }}">Ajouter</a></button>
+
+    <!-- faire formulaire modification de site -->
+    <!-- faire methode suppression de site -->
+
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+
