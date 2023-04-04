@@ -1,12 +1,16 @@
+@import '~bootstrap/scss/bootstrap.scss';
 
 /**
 global styles
  */
 
+
 body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
 }
+
++
 
 .container {
     min-width: 360px;
