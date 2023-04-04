@@ -24,16 +24,17 @@ class SortieController extends AbstractController
     public function list(SortieRepository $sortieRepository, SiteRepository $siteRepository): Response
     {
 
-
-        $listeSortie = $sortieRepository->findAllExceptArchivee();
+        $user = $this->getUser();
+        $listeSortie = $sortieRepository->findAllExceptArchivee($user);
         $listeSite = $siteRepository->findAll();
+
 
         $date = new \DateTime();
 
         return $this->render('sortie/accueil.html.twig', [
             'listeSortie' => $listeSortie,
             'listeSite' => $listeSite,
-            'dateDuJour' => $date
+            'dateDuJour' => $date,
         ]);
     }
 
