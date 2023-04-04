@@ -1,3 +1,6 @@
+@import '~bootstrap/scss/bootstrap.scss';
+
++
 
 /**
 global styles
@@ -63,17 +66,17 @@ select {
     align-items: center;
 }
 
-/*.mon-checkbox {*/
-/*    display: inline-block;*/
-/*    vertical-align: middle;*/
-/*    margin-right: 10px;*/
-/*}*/
-
 .mon-checkbox {
-    margin-right: 5px;
-    margin-top: auto;
-    margin-bottom: auto;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
 }
+
+/*.mon-checkbox {*/
+/*    margin-right: 5px;*/
+/*    margin-top: auto;*/
+/*    margin-bottom: auto;*/
+/*}*/
 
 .mon-label {
     display: inline-block;
@@ -202,30 +205,49 @@ input:hover {
     align-items: center;
 }
 
-.contenu-2_form_accueil {
-    grid-column: 3 / -1;
-    display: grid;
-    grid-template-rows: repeat(4, 1fr);
-    grid-gap: 10px;
-    justify-items: center;
-}
+/*.contenu-2_form_accueil {*/
+/*    grid-column: 3 / -1;*/
+/*    display: grid;*/
+/*    grid-template-rows: repeat(4, 1fr);*/
+/*    grid-gap: 10px;*/
+/*    justify-items: center;*/
+/*}*/
 
 .contenu-3_form_accueil {
     grid-column: 1 / -1;
     text-align: center;
 }
 
-.mon-checkbox {
-    margin-right: 10px;
-}
+/*.mon-checkbox {*/
+/*    margin-right: 10px;*/
+/*}*/
 
 .mon-label {
     display: inline-block;
     vertical-align: middle;
 }
+/*.Checkbel_1,*/
+/*.Checkbel_2,*/
+/*.Checkbel_3,*/
+/*.Checkbel_4 {*/
+/*    margin-bottom: 10px;*/
+/*}*/
+
+.contenu-2_form_accueil {
+    display: flex;
+    flex-direction: column;
+}
+
 .Checkbel_1,
 .Checkbel_2,
 .Checkbel_3,
 .Checkbel_4 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     margin-bottom: 10px;
 }
+
+/*.mon-checkbox {*/
+/*    margin-right: 10px;*/
+/*}*/
