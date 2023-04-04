@@ -3,13 +3,17 @@
 namespace App\Form;
 
 use App\Entity\User;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -20,10 +24,13 @@ class ModifyUserType extends AbstractType
         $builder
             ->add('email', EmailType::class)
             ->add('pseudo')
-            ->add('prenom')
+            ->add('prenom', TextType::class, [
+                'label' => 'Prénom'
+            ])
             ->add('nom')
             ->add('telephone', TelType::class, [
-                    'required' => false
+                    'required' => false,
+                    'label' => 'Téléphone'
                 ]
             )
             ->add('password', RepeatedType::class, [
@@ -45,15 +52,30 @@ class ModifyUserType extends AbstractType
                             'max' => 4096,
                         ]),
                     ],
-                    'label' => 'New password',
+                    'label' => 'Nouveau mot de passe',
                 ],
                 'second_options' => [
-                    'label' => 'Repeat Password',
+                    'label' => 'Confirmation du mot de passe',
                 ],
-                'invalid_message' => 'The password fields must match.',
+                'invalid_message' => 'Les mots de passe doivent correspondre',
                 'mapped' => false,
             ])
-            ->add('photo');
+            ->add('photo', FileType::class, [
+                'label' => 'Photo (JPEG, PNG, GIF)',
+                'mapped' => false,
+                'required' => true,
+                'attr' => ['accept' => 'image/*'],
+                'constraints' => [
+                    new File([
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'Merci de télécharger une image valide',
+                    ])
+                ],
+            ])
+         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

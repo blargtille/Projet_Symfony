@@ -28,8 +28,18 @@ class UserController extends AbstractController
         $user = $this->getUser();
         $userForm = $this->createForm(ModifyUserType::class, $user);
         $userForm->handleRequest($request);
+        $photo = $user->getPhoto();
 
         if($userForm->isSubmitted() && $userForm->isValid()){
+            $photo = $userForm->get('photo')->getData();
+            $destination = $this->getParameter('kernel.project_dir').'/public/img/imgProfil';
+
+            $newFilename = uniqid().'.'.$photo->guessExtension();
+
+            $photo->move(
+                $destination,
+                $newFilename
+            );
 
             $user->setRoles(['ROLE_USER']);
             $user->setPassword(
@@ -44,16 +54,19 @@ class UserController extends AbstractController
 
             $this->addFlash('success', 'Vos modifications ont bien été enregistrées!');
 
-            return $userAuthenticator->authenticateUser(
-                $user,
-                $authenticator,
-                $request
-            );
+            return $this->render('main/modifUser.html.twig', [
+                'userForm' => $userForm->createView(),
+                'photo' => $newFilename
+            ]);
+
         }
 
         return $this->render('main/modifUser.html.twig', [
             'userForm' => $userForm->createView(),
+            'photo' => $photo
+
         ]);
+
 
     }
     #[Route('main/detailsUser/{id}', name: 'main_detailsUser')]
