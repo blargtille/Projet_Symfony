@@ -112,7 +112,7 @@
                             -  <a href="{{ path('sortie_modifier', {'id': sortie.id}) }}">Modifier</a>
                         {% endif %}
 
-                        {% if (sortie.organisateur == app.user or app.user.administrateur == true) and (dateDuJour < sortie.dateHeureDebut) %}
+                        {% if (sortie.organisateur == app.user or app.user.administrateur == true) and (dateDuJour < sortie.dateHeureDebut) and sortie.etatE.id !=6%}
                             -  <a href="{{ path('sortie_annuler', {'id': sortie.id}) }}">Annuler</a>
                         {% endif %}
 
