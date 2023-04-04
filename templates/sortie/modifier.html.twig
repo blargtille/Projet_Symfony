@@ -12,9 +12,11 @@
 
         {{ form_widget(modifySortieForm) }}
 
-        {{ sortie.lieu.rue }}
-        {{ sortie.lieu.ville.nom }}
-        {{ sortie.lieu.ville.codePostal }}
+        <p> Rue : {{ sortie.lieu.rue }} </p>
+        <p> Ville : {{ sortie.lieu.ville.nom }} </p>
+        <p> Code Postal : {{ sortie.lieu.ville.codePostal }} </p>
+        <p> Latitude : {{ sortie.lieu.latitude }} </p>
+        <p> Longitude : {{ sortie.lieu.longitude }} </p>
 
 
         <button type="submit">Enregistrer</button>

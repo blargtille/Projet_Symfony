@@ -61,16 +61,7 @@ class ModifySortieType extends AbstractType
                 }
 
             ])
-            ->add('lieu_latitude', TextType::class, [
-                'mapped' => false,
-                'data' => $builder->getData()->getLieu()->getLatitude(),
-                'label' => "Latitude"
-            ])
-            ->add('lieu_longitude', TextType::class, [
-                'mapped' => false,
-                'data' => $builder->getData()->getLieu()->getLongitude(),
-                'label' => "Longitude"
-            ]);
+           ;
 
     }
 
