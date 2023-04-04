@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Créer un lieu </h1>
+    <br>
+
+    <div>
+        {{ form_start(lieuForm) }}
+
+        {{ form_widget(lieuForm) }}
+
+        <button type="submit">Enregistrer</button>
+
+        <button type="button"><a href="{{ path('sortie_creer') }}">Annuler</a></button>
+
+        {{ form_end(lieuForm) }}
+    </div>
+
+
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+
