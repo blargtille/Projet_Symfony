@@ -20,9 +20,12 @@
     <div id="lieu-details"></div>
 
     <br>
-    <button type="button"><a href="{{ path('creerLieu') }}">Ajouter un lieu</a></button>
+    <button type="button" onclick="creerLieu()">Ajouter un lieu</button>
+
+    <div id="creer-lieu"></div>
 
 {% endblock %}
+
 
     {% block javascripts %}
         <script>
@@ -52,7 +55,24 @@
                         console.error(error);
                     });
             });
+
+            function creerLieu() {
+                const url = "{{ path('creerLieu') }}";
+                fetch(url)
+                    .then(response => response.text())
+                    .then(html => {
+                        document.getElementById('creer-lieu').innerHTML = html;
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            }
+
         </script>
+
+
+
+
     {% endblock %}
 
 
