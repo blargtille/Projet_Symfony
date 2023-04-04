@@ -3,10 +3,13 @@
 global styles
  */
 
+
 body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
 }
+
++@import '~bootstrap/scss/bootstrap.scss';
 
 .container {
     min-width: 360px;
