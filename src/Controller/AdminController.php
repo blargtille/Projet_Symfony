@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Groupe;
 use App\Entity\Site;
 use App\Entity\Ville;
+use App\Form\GroupeType;
 use App\Form\SiteType;
 use App\Form\VilleType;
+use App\Repository\GroupeRepository;
 use App\Repository\SiteRepository;
 use App\Repository\UserRepository;
 use App\Repository\VilleRepository;
@@ -198,12 +201,14 @@ class AdminController extends AbstractController
     }
 
     #[Route('/utilisateurs', name: 'utilisateurs')]
-    public function gererUtilisateurs(UserRepository $userRepository): Response
+    public function gererUtilisateurs(UserRepository $userRepository, GroupeRepository $groupeRepository): Response
     {
         $users = $userRepository->findAll();
+        $groupes = $groupeRepository->findAll();
 
         return $this->render('admin/utilisateurs.html.twig', [
             'listeUser' => $users,
+            'listeGroupe' => $groupes
         ]);
     }
 
@@ -247,7 +252,6 @@ class AdminController extends AbstractController
         ]);
     }
 
-
     #[Route('/utilisateurs/suppr/{id}', name: 'utilisateurs_suppr')]
     public function supprUtilisateurs(UserRepository $userRepository, int $id, EntityManagerInterface $entityManager): Response
     {
@@ -261,5 +265,71 @@ class AdminController extends AbstractController
         ]);
     }
 
+    #[Route('/utilisateurs/creerGroupe', name: 'utilisateurs_creeGroupe')]
+    public function creeGroupeUtilisateurs(GroupeRepository $groupeRepository, EntityManagerInterface $entityManager, Request $request): Response
+    {
+
+        $groupe = new Groupe();
+        $groupeForm = $this->createForm(GroupeType::class, $groupe);
+        $groupeForm->handleRequest($request);
+
+        if ($groupeForm->isSubmitted() && $groupeForm->isValid()) {
+            $entityManager->persist($groupe);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre groupe a été ajouté !');
+            return $this->redirectToRoute('admin_utilisateurs',);
+        }
+
+        return $this->render('admin/utilisateurs/creerGroupe.html.twig', [
+            'groupeForm' => $groupeForm->createView(),
+
+        ]);
+    }
+
+
+    #[Route('/utilisateurs/gererGroupe{id}', name: 'utilisateurs_gererGroupe')]
+    public function gererGroupe(GroupeRepository $groupeRepository, UserRepository $userRepository, EntityManagerInterface $entityManager, int $id): Response
+    {
+
+        $groupe = $groupeRepository->find($id);
+        $listeUser = $userRepository->findAll();
+
+        return $this->render('admin/utilisateurs/modifierGroupe.html.twig', [
+            'groupe'=>$groupe,
+            'listeUser'=>$listeUser
+        ]);
+    }
+
+    #[Route('/utilisateurs/ajouterParticipantGroupe{idGroupe,idUser}', name: 'utilisateurs_ajouterParticipantGroupe')]
+    public function ajouterParticipantGroupe(GroupeRepository $groupeRepository, UserRepository $userRepository, EntityManagerInterface $entityManager, int $idGroupe, int $idUser): Response
+    {
+
+        $groupe = $groupeRepository->find($idGroupe);
+        $listeUser = $userRepository->findAll();
+        $user = $userRepository->find($idUser);
+        $groupe->addUtilisateur($user);
+        $entityManager->flush();
+
+        return $this->render('admin/utilisateurs/modifierGroupe.html.twig', [
+            'groupe'=>$groupe,
+            'utilisateur'=>$user,
+            'listeUser'=>$listeUser
+
+        ]);
+    }
+    #[Route('/utilisateurs/supprParticipantGroupe{id}', name: 'utilisateurs_supprParticipantGroupe')]
+    public function supprParticipantGroupe(GroupeRepository $groupeRepository, EntityManagerInterface $entityManager, int $id): Response
+    {
+
+        $groupe = $groupeRepository->find($id);
+       // $groupe->removeUtilisateur($user);
+        $entityManager->flush();
+
+        return $this->render('admin/utilisateurs/modifierGroupe.html.twig', [
+            'groupe'=>$groupe
+
+        ]);
+    }
 
 }

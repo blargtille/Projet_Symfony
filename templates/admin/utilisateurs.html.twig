@@ -18,19 +18,49 @@
         <tr>
             <td>Utilisateurs</td>
             <td>Actions</td>
+            <td>Groupes</td>
         </tr>
 
         {% for utilisateur in listeUser %}
 
             <tr>
                 <td>  {{ utilisateur.nom }} </td>
-                <td>  {% if utilisateur.actif == 1%} <a href="{{ path('admin_utilisateur_desactive', {'id': utilisateur.id})}}">Désactivé</a> {% endif %}   {% if utilisateur.actif == 0%} <a href="{{ path('admin_utilisateur_active', {'id': utilisateur.id})}}">Réactivé</a> {% endif %}  -   <a href="{{ path('admin_utilisateurs_suppr', {'id': utilisateur.id})}}">Supprimer</a></td>
+                <td>  {% if utilisateur.actif == 1 %} <a
+                            href="{{ path('admin_utilisateur_desactive', {'id': utilisateur.id}) }}">Désactivé</a> {% endif %}   {% if utilisateur.actif == 0 %}
+                        <a href="{{ path('admin_utilisateur_active', {'id': utilisateur.id}) }}">Réactivé</a> {% endif %}
+                    - <a href="{{ path('admin_utilisateurs_suppr', {'id': utilisateur.id}) }}">Supprimer</a></td>
+                <td>{% for groupe in utilisateur.groupes %}{{ groupe.nom }} {% endfor %}</td>
             </tr>
         {% endfor %}
 
         </tbody>
     </table>
     <br>
+
+    <button type="button"><a href="{{ path('admin_utilisateurs_creeGroupe') }}">Créer des groupes</a></button>
+
+    <br><br>
+
+    <h2>Filtrer les groupes </h2>
+
+    <table>
+        <tbody>
+        <tr>
+            <td>Groupes</td>
+            <td>Actions</td>
+        </tr>
+
+        {% for groupe in listeGroupe %}
+
+            <tr>
+                <td>  {{ groupe.nom }} </td>
+                <td>  <a href="{{ path('admin_utilisateurs_gererGroupe', {'id': groupe.id}) }}">Modifier</a>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
 
 {% endblock %}
 
