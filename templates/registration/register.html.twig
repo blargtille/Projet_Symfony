@@ -6,6 +6,11 @@
     <h1>Enregistrez un nouvel utilisateur</h1>
 
     {% if(app.user.administrateur == true) %}
+    {{ form_start(csvForm)}}
+        {{ form_widget(csvForm.file)}}
+        <button type="submit" class="btn">Enregistrer</button>
+    {{ form_end(csvForm)}}
+
     {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.prenom, {
@@ -15,11 +20,10 @@
         {{ form_row(registrationForm.plainPassword, {
             label: 'Générez un mot de passe'
         }) }}
+        {{ form_row(registrationForm.site) }}
         <button type="submit" class="btn">Enregistrer</button>
     {{ form_end(registrationForm) }}
-   {# {{ form_start(csvForm) }}#}
-     {# {{ form_row(csvForm.file) }}#}
-   {#{{ form_end(csvForm) }} #}
+
 
     {% endif %}
 {% endblock %}
