@@ -4,7 +4,6 @@ namespace App\Controller;
 
 
 
-use App\Entity\User;
 use App\Form\ModifyUserType;
 use App\notification\Sender;
 use App\Repository\UserRepository;
@@ -17,9 +16,10 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
+#[Route('/users', name: 'user_')]
 class UserController extends AbstractController
 {
-    #[Route('/modifUser', name: 'main_modifUser')]
+    #[Route('/modifierProfil', name: 'modifierProfil')]
     public function modifUser(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher,
                              UserAuthenticatorInterface $userAuthenticator,
                              AppAuthenticator $authenticator): Response
@@ -41,7 +41,6 @@ class UserController extends AbstractController
                 $newFilename
             );
 
-            $user->setRoles(['ROLE_USER']);
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -70,7 +69,7 @@ class UserController extends AbstractController
 
 
     }
-    #[Route('main/detailsUser/{id}', name: 'main_detailsUser')]
+    #[Route('/detailsUser/{id}', name: 'detail')]
     public function detailsUser(int $id, UserRepository $userRepository): Response{
 
         $user = $userRepository->find($id);

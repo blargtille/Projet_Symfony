@@ -1,7 +1,7 @@
 <header>
     {% if app.user %}
         <div>
-            <a href="{{ path('sortie_accueil') }}"><img src="{{ asset('img/logo/Logo-Sortir-Ici.png') }}" alt="logo Sortir"></a>
+            <a href="{{ path('sortie_accueil') }}"><img id="logo" src="{{ asset('img/logo/Logo-Sortir-Ici.png') }}" alt="logo Sortir"></a>
         </div>
     {% else %}
         <div>
@@ -14,12 +14,12 @@
 
             {% if app.user %}
                 <li><a href="{{ path('sortie_accueil') }}" title="accueil">Accueil</a></li>
-                <li><a href="{{ path('main_modifUser') }}" title="mon profil">Mon profil</a></li>
+                <li><a href="{{ path('user_modifierProfil') }}" title="mon profil">Mon profil</a></li>
                 <li><a href="{{ path('app_logout') }}" title="se deconnecter">Se déconnecter</a></li>
                 <li><a href="{{ path('sortie_creer') }}" title="creer une sortie">Créer une sortie</a></li>
             {% if is_granted('ROLE_ADMIN') %}
                 <li><a href="{{ path('app_register')}}">Nouvel utilisateur</a></li>
-                <li><a href="{{ path('admin_utilisateurs')}}">Utilisateurs</a></li>
+                <li><a href="{{ path('admin_utilisateurs')}}">Gestion des utilisateurs</a></li>
                 <li><a href="{{ path('admin_villes')}}">Villes</a></li>
                 <li><a href="{{ path('admin_sites')}}">Sites </a></li>
             {% endif %}

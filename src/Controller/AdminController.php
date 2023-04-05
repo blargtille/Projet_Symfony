@@ -301,7 +301,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/utilisateurs/ajouterParticipantGroupe{idGroupe,idUser}', name: 'utilisateurs_ajouterParticipantGroupe')]
+    #[Route('/utilisateurs/ajouterParticipantGroupe{idGroupe}/{idUser}', name: 'utilisateurs_ajouterParticipantGroupe')]
     public function ajouterParticipantGroupe(GroupeRepository $groupeRepository, UserRepository $userRepository, EntityManagerInterface $entityManager, int $idGroupe, int $idUser): Response
     {
 
@@ -318,16 +318,19 @@ class AdminController extends AbstractController
 
         ]);
     }
-    #[Route('/utilisateurs/supprParticipantGroupe{id}', name: 'utilisateurs_supprParticipantGroupe')]
-    public function supprParticipantGroupe(GroupeRepository $groupeRepository, EntityManagerInterface $entityManager, int $id): Response
+    #[Route('/utilisateurs/supprParticipantGroupe{idGroupe}/{idUser}', name: 'utilisateurs_supprParticipantGroupe')]
+    public function supprParticipantGroupe(GroupeRepository $groupeRepository, UserRepository $userRepository, EntityManagerInterface $entityManager, int $idGroupe, int $idUser): Response
     {
 
-        $groupe = $groupeRepository->find($id);
-       // $groupe->removeUtilisateur($user);
+        $groupe = $groupeRepository->find($idGroupe);
+        $user = $userRepository->find($idUser);
+        $listeUser = $userRepository->findAll();
+        $groupe->removeUtilisateur($user);
         $entityManager->flush();
 
         return $this->render('admin/utilisateurs/modifierGroupe.html.twig', [
-            'groupe'=>$groupe
+            'groupe'=>$groupe,
+            'listeUser'=>$listeUser
 
         ]);
     }

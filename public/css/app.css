@@ -10,7 +10,7 @@ body {
 
 .container {
     min-width: 360px;
-    max-width: 1000px;
+    max-width: 1050px;
     margin: auto;
     padding: 10px 20px;
 }
@@ -37,6 +37,11 @@ header
     height: 48px;
     display: block;
     margin-right: 5px;
+}
+
+#logo {
+    display: block;
+    margin: auto;
 }
 
 header nav ul {

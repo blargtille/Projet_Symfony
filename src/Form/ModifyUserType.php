@@ -46,8 +46,6 @@ class ModifyUserType extends AbstractType
                             'message' => 'Please enter a password',
                         ]),
                         new Length([
-                            'min' => 6,
-                            'minMessage' => 'Your password should be at least {{ limit }} characters',
                             // max length allowed by Symfony for security reasons
                             'max' => 4096,
                         ]),
@@ -63,7 +61,7 @@ class ModifyUserType extends AbstractType
             ->add('photo', FileType::class, [
                 'label' => 'Photo (JPEG, PNG, GIF)',
                 'mapped' => false,
-                'required' => true,
+                'required' => false,
                 'attr' => ['accept' => 'image/*'],
                 'constraints' => [
                     new File([

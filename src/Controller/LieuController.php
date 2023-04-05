@@ -64,7 +64,8 @@ class LieuController extends AbstractController
 
             $this->addFlash('success', 'Votre lieu a été ajouté! ');
 
-            return new JsonResponse();
+            return $this->json([
+                'nom' => $lieu->getNom()]);
             /*return $this->redirectToRoute('sortie_creer',
                 ['id' => $lieu->getId()]);*/
         }
