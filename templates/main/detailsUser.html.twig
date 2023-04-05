@@ -12,7 +12,15 @@
         <div>Email: {{ user.email }}</div>
         <div>Site de rattachement: {{ user.site.nom }}</div>
 
-    <button type="button"><a href="{{ path('sortie_accueil') }}">Retour</a></button>
+    {% if user.photo %}
+        <img class="photo_profil" src="{{ asset('img/imgProfil/'~user.photo) }}" alt="photo profil">
+    {% else %}
+        <img class="photo_profil" src="{{ asset('img/default.png') }}" alt="photo profil par defaut">
+    {% endif %}
+
+    <br><br>
+
+    <button type="button"><a href="{{ path('sortie_accueil')}}">Retour</a></button>
 {% endblock %}
 
 

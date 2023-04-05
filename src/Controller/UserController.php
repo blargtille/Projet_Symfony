@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Form\ModifyUserType;
 use App\notification\Sender;
+use App\Repository\SortieRepository;
 use App\Repository\UserRepository;
 use App\Security\AppAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,9 +21,7 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 class UserController extends AbstractController
 {
     #[Route('/modifierProfil', name: 'modifierProfil')]
-    public function modifUser(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher,
-                             UserAuthenticatorInterface $userAuthenticator,
-                             AppAuthenticator $authenticator): Response
+    public function modifUser(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher, UserRepository $userRepository): Response
     {
 
         $user = $this->getUser();
@@ -31,6 +30,13 @@ class UserController extends AbstractController
         $newFilename = $user->getPhoto();
 
         if($userForm->isSubmitted() && $userForm->isValid()){
+            $pseudo = $userForm->get('pseudo')->getData();
+            $pseudoUser = $userRepository->findOneBy(['pseudo' => $pseudo]);
+            if ($pseudoUser && $pseudoUser->getId() !== $user->getId()) {
+                $this->addFlash('error', 'Ce pseudo est déjà utilisé par un autre utilisateur.');
+                return $this->redirectToRoute('user_modifierProfil');
+            }
+
             $photo = $userForm->get('photo')->getData();
             if ($photo){
                 $destination = $this->getParameter('kernel.project_dir').'/public/img/imgProfil';
@@ -69,20 +75,20 @@ class UserController extends AbstractController
             'photo' => $newFilename
 
         ]);
-
-
     }
+
     #[Route('/detailsUser/{id}', name: 'detail')]
-    public function detailsUser(int $id, UserRepository $userRepository): Response{
+    public function detailsUser(int $id, UserRepository $userRepository, SortieRepository $sortieRepository ): Response{
 
         $user = $userRepository->find($id);
-
+     //   $sortie = $sortieRepository->find($id);
             if(!$user){
                 throw $this->createNotFoundException('Utilisateur non trouvé');
             }
 
         return $this->render('main/detailsUser.html.twig', [
-            'user' => $user
+            'user' => $user,
+            //'sortie'=>$sortie
         ]);
     }
 }
