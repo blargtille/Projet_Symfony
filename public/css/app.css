@@ -70,7 +70,7 @@ main
 main {
     padding: 30px 0;
     border-top: 1px solid #D3D3D3;
-    border-bottom: 1px solid #D3D3D3;
+    /*border-bottom: 1px solid #D3D3D3;*/
 }
 
 td {
@@ -95,7 +95,9 @@ footer
 footer {
     padding: 20px 0;
     text-align: center;
+    clear: both;
 }
+
 
 .popup {
     position: fixed;
@@ -347,5 +349,17 @@ input[type=submit]:hover{
 }
 
 
+.container_sortie {
+    float: left;
+    width: 60%;
+    padding: 20px;
+    box-sizing: border-box;
+}
 
+.container_lieu {
+    float: right;
+    width: 35%;
+    padding: 20px;
+    box-sizing: border-box;
+}
 

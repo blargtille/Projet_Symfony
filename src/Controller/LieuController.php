@@ -46,8 +46,6 @@ class LieuController extends AbstractController
         ]);
     }
 
-    //return $this->json($jsonContent);
-
 
     #[Route('/creer/', name: 'creerLieu')]
     public function creerLieu(Request $request, EntityManagerInterface $entityManager, LieuRepository $lieuRepository): Response
@@ -65,16 +63,15 @@ class LieuController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Votre lieu a été ajouté! ');
-            return $this->redirectToRoute('sortie_creer',
-                ['id' => $lieu->getId()]);
+
+            return new JsonResponse();
+            /*return $this->redirectToRoute('sortie_creer',
+                ['id' => $lieu->getId()]);*/
         }
 
             return $this->render('lieu/creer.html.twig', [
                 'lieuForm' => $lieuForm->createView(),
 
             ]);
-
         }
-
-
 }
