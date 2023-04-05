@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Modifier les participants du groupe {{ groupe.nom }}</h1>
+
+    <br><br>
+    <table>
+        <tbody>
+        <tr>
+            <td>Utilisateurs Inscrits</td>
+            <td>Actions</td>
+        </tr>
+
+        {% for utilisateur in groupe.utilisateurs %}
+
+            <tr>
+                <td>  {{ utilisateur.nom }} </td>
+                <td>
+                    <a href="{{ path('admin_utilisateurs_supprParticipantGroupe', {'id': utilisateur.id}) }}">Retirer</a>
+            </tr>
+        {% endfor %}
+
+
+        </tbody>
+    </table>
+
+    <br> <br>
+    <table>
+        <tbody>
+        <tr>
+            <td>Utilisateurs non inscrits</td>
+            <td>Actions</td>
+        </tr>
+
+        {% for utilisateur in listeUser %}
+
+            <tr>
+                <td>  {{ utilisateur.nom }} </td>
+                <td>
+                    <a href="{{ path('admin_utilisateurs_ajouterParticipantGroupe', {'idGroupe': groupe.id, 'idUser': utilisateur.id}) }}">Ajouter</a>
+            </tr>
+        {% endfor %}
+
+
+        </tbody>
+    </table>
+
+
+{% endblock %}
+
+
+{% block title %}
+    {{ parent() }} | Modifier les participants
+{% endblock %}
+
+

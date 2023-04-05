@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Créer un groupe</h1>
+    <br>
+
+    <div>
+        {{ form_start(groupeForm) }}
+
+        {{ form_widget(groupeForm) }}
+
+        <button type="submit">Enregistrer</button>
+
+        <button type="button"><a href="{{ path('admin_utilisateurs') }}">Annuler</a></button>
+
+        {{ form_end(groupeForm) }}
+    </div>
+
+{% endblock %}
+
+
+{% block title %}
+    {{ parent() }} | Créer un nouveau groupe
+{% endblock %}
+
+
