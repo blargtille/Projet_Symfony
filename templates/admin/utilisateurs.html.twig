@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1> Gérer les utilisateurs</h1>
+
+    <h2>Filtrer les utilisateurs</h2>
+
+    <form class="form_accueil" action="{{ path('admin_utilisateurs_tri') }}" method="post">
+        <label for="recherche">Le nom contient :</label>
+        <input type="text" name="rechercher" value="{{ recherche|default() }}">
+        <input type="submit" name="Rechercher" value="Rechercher">
+
+    </form>
+
+    <table>
+        <tbody>
+        <tr>
+            <td>Utilisateurs</td>
+            <td>Actions</td>
+        </tr>
+
+        {% for utilisateur in listeUser %}
+
+            <tr>
+                <td>  {{ utilisateur.nom }} </td>
+                <td>  {% if utilisateur.actif == 1%} <a href="{{ path('admin_utilisateur_desactive', {'id': utilisateur.id})}}">Désactivé</a> {% endif %}   {% if utilisateur.actif == 0%} <a href="{{ path('admin_utilisateur_active', {'id': utilisateur.id})}}">Réactivé</a> {% endif %}  -   <a href="{{ path('admin_utilisateurs_suppr', {'id': utilisateur.id})}}">Supprimer</a></td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    <br>
+
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+
