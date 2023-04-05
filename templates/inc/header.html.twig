@@ -14,7 +14,7 @@
 
             {% if app.user %}
                 <li><a href="{{ path('sortie_accueil') }}" title="accueil">Accueil</a></li>
-                <li><a href="{{ path('main_modifUser') }}" title="mon profil">Mon profil</a></li>
+                <li><a href="{{ path('user_modifierProfil') }}" title="mon profil">Mon profil</a></li>
                 <li><a href="{{ path('app_logout') }}" title="se deconnecter">Se déconnecter</a></li>
                 <li><a href="{{ path('sortie_creer') }}" title="creer une sortie">Créer une sortie</a></li>
             {% if is_granted('ROLE_ADMIN') %}
