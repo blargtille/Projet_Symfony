@@ -354,17 +354,3 @@ input[type=submit]:hover{
 }
 
 
-.container_sortie {
-    float: left;
-    width: 60%;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-.container_lieu {
-    float: right;
-    width: 35%;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
