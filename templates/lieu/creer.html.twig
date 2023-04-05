@@ -1,16 +1,20 @@
-   <h1>Créer un lieu </h1>
+<div id="myDiv">
+    <h1>Créer un lieu </h1>
     <br>
 
-    <div>
-        {{ form_start(lieuForm) }}
+        {{ form_start(lieuForm, {'attr' : {'id' : 'lieu-form'}}) }}
 
         {{ form_widget(lieuForm) }}
 
-        <button type="submit">Enregistrer</button>
+        <button type="button" onclick="enregistrerLieu()" >Enregistrer</button>
 
-        <button type="button"><a href="{{ path('sortie_creer') }}">Annuler</a></button>
+
+        <button type="button" onclick="annulerPage()">Annuler</button>
+
 
         {{ form_end(lieuForm) }}
     </div>
+
+
 
 

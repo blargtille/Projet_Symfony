@@ -1,28 +1,29 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <div class="container_sortie">
+        <h1>Créer une sortie</h1>
+        <br>
 
-    <h1>Créer une sortie</h1>
-    <br>
+        <div>
+            {{ form_start(sortieForm) }}
 
-    <div>
-        {{ form_start(sortieForm) }}
+            {{ form_widget(sortieForm) }}
 
-        {{ form_widget(sortieForm) }}
+            <button type="submit">Enregistrer</button>
 
-        <button type="submit">Enregistrer</button>
+            <button type="button"><a href="{{ path('sortie_accueil') }}">Annuler</a></button>
 
-        <button type="button"><a href="{{ path('sortie_accueil') }}">Annuler</a></button>
-
-        {{ form_end(sortieForm) }}
+            {{ form_end(sortieForm) }}
+        </div>
     </div>
 
-    <div id="lieu-details"></div>
+    <button type="button" onclick="creerLieu()" >Ajouter un lieu</button>
 
-    <br>
-    <button type="button" onclick="creerLieu()">Ajouter un lieu</button>
-
-    <div id="creer-lieu"></div>
+    <div class="container_lieu">
+        <div id="lieu-details"></div>
+        <div id="creer-lieu"></div>
+    </div>
 
 {% endblock %}
 
@@ -64,13 +65,41 @@
                         document.getElementById('creer-lieu').innerHTML = html;
                     })
                     .catch(error => {
-                        console.error(error);
+                        console.log(error);
                     });
             }
 
         </script>
 
+        <script>
+            function annulerPage() {
 
+                const myDiv = document.getElementById("myDiv");
+
+                myDiv.innerHTML = "";
+            }
+
+            function enregistrerLieu(){
+                    const url = "{{ path('creerLieu') }}";
+                    const lieuForm = document.getElementById("lieu-form");
+                    const formData = new FormData(lieuForm);
+
+                    fetch(url, {
+                        method: "POST",
+                        body: formData
+                    })
+                        .then(response => response.json())
+                        .then(lieu => {
+                            const lieuOption = document.createElement("option");
+                            lieuOption.value = lieu.id;
+                            lieuOption.text = lieu.nom;
+                            selectElement.appendChild(lieuOption);
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
+            }
+        </script>
 
 
     {% endblock %}

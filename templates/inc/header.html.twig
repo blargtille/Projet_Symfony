@@ -19,6 +19,7 @@
                 <li><a href="{{ path('sortie_creer') }}" title="creer une sortie">Créer une sortie</a></li>
             {% if is_granted('ROLE_ADMIN') %}
                 <li><a href="{{ path('app_register')}}">Nouvel utilisateur</a></li>
+                <li><a href="{{ path('admin_utilisateurs')}}">Utilisateurs</a></li>
                 <li><a href="{{ path('admin_villes')}}">Villes</a></li>
                 <li><a href="{{ path('admin_sites')}}">Sites </a></li>
             {% endif %}

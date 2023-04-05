@@ -68,10 +68,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'organisateur', targetEntity: Sortie::class, orphanRemoval: true)]
     private Collection $sortiesOrganisation;
 
+    #[ORM\ManyToMany(targetEntity: Groupe::class, mappedBy: 'Utilisateurs')]
+    private Collection $groupes;
+
     public function __construct()
     {
         $this->sortiesParticipation = new ArrayCollection();
         $this->sortiesOrganisation = new ArrayCollection();
+        $this->groupes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -106,11 +110,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+        return $this->roles;
     }
 
     public function setRoles(array $roles): self
@@ -292,6 +292,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             if ($sortiesOrganisation->getOrganisateur() === $this) {
                 $sortiesOrganisation->setOrganisateur(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Groupe>
+     */
+    public function getGroupes(): Collection
+    {
+        return $this->groupes;
+    }
+
+    public function addGroupe(Groupe $groupe): self
+    {
+        if (!$this->groupes->contains($groupe)) {
+            $this->groupes->add($groupe);
+            $groupe->addUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupe(Groupe $groupe): self
+    {
+        if ($this->groupes->removeElement($groupe)) {
+            $groupe->removeUtilisateur($this);
         }
 
         return $this;
