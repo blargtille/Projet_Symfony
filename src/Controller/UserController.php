@@ -41,7 +41,6 @@ class UserController extends AbstractController
                 $newFilename
             );
 
-            $user->setRoles(['ROLE_USER']);
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
