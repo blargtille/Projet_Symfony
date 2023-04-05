@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\ImportCsvType;
 use App\Form\RegistrationFormType;
+use App\Repository\SiteRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use League\Csv\Reader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,7 +18,7 @@ class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher,
-                             EntityManagerInterface $entityManager): Response
+                             EntityManagerInterface $entityManager, SiteRepository $siteRepository): Response
     {
         $user = new User();
         $registrationForm = $this->createForm(RegistrationFormType::class, $user);
@@ -52,26 +53,28 @@ class RegistrationController extends AbstractController
 
             $csv = Reader::createFromPath($csvFile->getPathname(), 'r');
             $csv->setHeaderOffset(0);
+            $csv->setDelimiter(';');
 
             $records = $csv->getRecords();
 
             foreach ($records as $record) {
+                $site = $siteRepository->find($record['site_id']);
                 $user = new User();
                 $user->setEmail($record['email']);
-                $user->setRoles($record['roles']);
+                $user->setRoles([$record['roles']]);
                 $user->setPassword($record['password']);
+                $user->setPseudo($record['pseudo']);
                 $user->setPrenom($record['prenom']);
                 $user->setNom($record['nom']);
                 $user->setAdministrateur($record['administrateur']);
-                $user->setSite($record['site_id']);
+                $user->setActif($record['actif']);
+                $user->setSite($site);
 
                 $entityManager->persist($user);
                 $entityManager->flush();
             }
-            $message = 'Nouveaux utilisateurs importés!';
-            return $this->redirectToRoute('sortie_accueil', [
-                'message' => $message,
-            ]);
+            $this->addFlash('success', 'Nouveaux utilisateurs importés!');;
+            return $this->redirectToRoute('app_register');
 
         }
         return $this->render('registration/register.html.twig', [
