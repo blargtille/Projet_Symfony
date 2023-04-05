@@ -178,6 +178,17 @@ input[type=submit]:hover{
     background-color: #B0E0E6;
 }
 
+.form_csv{
+    display: grid;
+
+}
+
+.form_registration{
+    display: grid;
+    align-content: space-evenly;
+    justify-content: space-around;
+}
+
 .form_accueil {
     display: flex;
     flex-direction: column;

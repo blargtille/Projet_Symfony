@@ -4,13 +4,8 @@
 
 {% block body %}
     <h1>Enregistrez un nouvel utilisateur</h1>
-
     {% if(app.user.administrateur == true) %}
-    {{ form_start(csvForm)}}
-        {{ form_widget(csvForm.file)}}
-        <button type="submit" class="btn">Enregistrer</button>
-    {{ form_end(csvForm)}}
-
+    <div class="form_registration">
     {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.prenom, {
@@ -23,7 +18,12 @@
         {{ form_row(registrationForm.site) }}
         <button type="submit" class="btn">Enregistrer</button>
     {{ form_end(registrationForm) }}
-
-
+    </div>
+    <div class="form_csv">
+        {{ form_start(csvForm)}}
+        {{ form_widget(csvForm.file)}}
+        <button type="submit" class="btn">Enregistrer</button>
+        {{ form_end(csvForm)}}
+    </div>
     {% endif %}
 {% endblock %}
