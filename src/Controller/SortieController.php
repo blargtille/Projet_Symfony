@@ -192,7 +192,7 @@ class SortieController extends AbstractController
         $dateDebutSortie = $sortie->getDateHeureDebut();
         $enregistrer = $request->get('enregistrer');
         $user = $this->getUser();
-        if (($user == $sortie->getOrganisateur() or $user->isAdministrateur()==true )and $date < $dateDebutSortie and $sortie->getEtatE()!=6){
+        if (($user == $sortie->getOrganisateur() or $user->isAdministrateur()==true )and $date < $dateDebutSortie and $sortie->getEtatE()->getId()!=6){
             if ($enregistrer != null) {
                 $etatAnnuler = $etatRepository->find(6);
                 $sortie->setEtatE($etatAnnuler);

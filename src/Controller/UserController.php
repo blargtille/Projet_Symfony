@@ -28,18 +28,22 @@ class UserController extends AbstractController
         $user = $this->getUser();
         $userForm = $this->createForm(ModifyUserType::class, $user);
         $userForm->handleRequest($request);
-        $photo = $user->getPhoto();
+        $newFilename = $user->getPhoto();
 
         if($userForm->isSubmitted() && $userForm->isValid()){
             $photo = $userForm->get('photo')->getData();
-            $destination = $this->getParameter('kernel.project_dir').'/public/img/imgProfil';
+            if ($photo){
+                $destination = $this->getParameter('kernel.project_dir').'/public/img/imgProfil';
 
-            $newFilename = uniqid().'.'.$photo->guessExtension();
+                $newFilename = uniqid().'.'.$photo->guessExtension();
 
-            $photo->move(
-                $destination,
-                $newFilename
-            );
+                $photo->move(
+                    $destination,
+                    $newFilename
+                );
+
+                $user->setPhoto($newFilename);
+            }
 
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
@@ -48,7 +52,6 @@ class UserController extends AbstractController
                 )
             );
 
-            $user->setPhoto($newFilename);
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -63,7 +66,7 @@ class UserController extends AbstractController
 
         return $this->render('main/modifUser.html.twig', [
             'userForm' => $userForm->createView(),
-            'photo' => $photo
+            'photo' => $newFilename
 
         ]);
 
