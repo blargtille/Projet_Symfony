@@ -71,8 +71,9 @@ class RegistrationController extends AbstractController
                 $user->setSite($site);
 
                 $entityManager->persist($user);
-                $entityManager->flush();
+
             }
+            $entityManager->flush();
             $this->addFlash('success', 'Nouveaux utilisateurs importés!');;
             return $this->redirectToRoute('app_register');
 
