@@ -32,7 +32,7 @@ class UserController extends AbstractController
             $pseudoUser = $userRepository->findOneBy(['pseudo' => $pseudo]);
             if ($pseudoUser && $pseudoUser->getId() !== $user->getId()) {
                 $this->addFlash('error', 'Ce pseudo est déjà utilisé par un autre utilisateur.');
-                return $this->redirectToRoute('user_modifierProfil');
+                return $this->redirectToRoute('user_modifierProfil'); // render a la place
             }
 
             $photo = $userForm->get('photo')->getData();
@@ -61,14 +61,14 @@ class UserController extends AbstractController
 
             $this->addFlash('success', 'Vos modifications ont bien été enregistrées!');
 
-            return $this->render('main/modifUser.html.twig', [
+            return $this->render('main/modifUser.html.twig', [  // redirect --> modif etat syteme
                 'userForm' => $userForm->createView(),
                 'photo' => $newFilename
             ]);
 
         }
 
-        return $this->render('main/modifUser.html.twig', [
+        return $this->render('main/modifUser.html.twig', [ // pas de modif / garder les infos des champs formulaire
             'userForm' => $userForm->createView(),
             'photo' => $newFilename
 
