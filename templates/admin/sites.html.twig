@@ -6,12 +6,14 @@
 
     <h2>Filtrer les sites</h2>
 
-    <form class="form_accueil" action="{{ path('admin_sites_tri') }}" method="post">
+    <form class="conteneur-flex" action="{{ path('admin_sites_tri') }}" method="post">
         <label for="recherche">Le nom contient :</label>
         <input type="text" name="rechercher" value="{{ recherche|default() }}">
+        <br>
         <input type="submit" name="Rechercher" value="Rechercher">
 
     </form>
+    <br>
 
     <table>
         <tbody>
