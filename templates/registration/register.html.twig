@@ -7,7 +7,7 @@
     <br>
     <div class="registration">
         {% if(app.user.administrateur == true) %}
-            <div class="form_registration">
+
                 {{ form_start(registrationForm) }}
                     {{ form_row(registrationForm.email) }}
                     {{ form_row(registrationForm.prenom, {
@@ -18,16 +18,17 @@
                         label: 'Générez un mot de passe'
                     }) }}
                     {{ form_row(registrationForm.site) }}
+                <br>
                 <button type="submit" class="btn">Enregistrer</button>
                 {{ form_end(registrationForm) }}
-            </div>
-            <div class="form_csv">
+
+
                 {{ form_start(csvForm)}}
                     {{ form_row(csvForm.file)}}
                     <br>
                     <button type="submit" class="btn">Enregistrer</button>
                 {{ form_end(csvForm)}}
-            </div>
+
         {% endif %}
     </div>
 {% endblock %}

@@ -59,7 +59,6 @@ textarea,
 select {
     margin-bottom: 1rem;
     box-sizing: border-box;
-    max-width: 50%;
     width: 300px;
 }
 
@@ -392,5 +391,10 @@ input[type=submit]:hover{
 .checkbox-identification label {
     display: flex;
     align-items: center;
+}
+
+.h1_special {
+    text-align: left;
+    margin-left: 10px;
 }
 
