@@ -26,16 +26,14 @@
             <input type="text" name="rechercher" value="{{ recherche|default() }}">
 
             <label for="start">Entre :</label>
-            <!-- min date du jour -->
             <input type="date" id="start" name="date-start"
                    min="2018-01-01" max="2025-01-01" value="{{ dateStart|default() }}">
+
             <label for="start">Et :</label>
-            <!-- min date du jour -->
             <input type="date" id="end" name="date-end"
                    min="2018-01-01" max="2025-01-01" value="{{ dateEnd|default() }}">
         </div>
         <div class="contenu-2_form_accueil">
-            <!-- Cases à cocher , boutons , form ??-->
             <div class="Checkbel_1">
                 <input class="mon-checkbox" type="checkbox" id="orga" name="orga" {% if orga|default(false) %}checked{% endif %}>
                 <label class="mon-label" for="orga">Sorties dont je suis l'organisateur/trice</label>
@@ -94,7 +92,7 @@
                               X
                         {% endif %}
 
-                    <td> {{ sortie.organisateur.prenom}}</td>
+                    <td><a href="{{ path('user_detail', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.prenom}}</a></td>
                     <td>
                         <a href="{{ path('sortie_afficher', {'id': sortie.id})}}">Afficher</a>
 

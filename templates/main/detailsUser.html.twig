@@ -11,6 +11,7 @@
         <div>Téléphone: {{ user.telephone }}</div>
         <div>Email: {{ user.email }}</div>
         <div>Site de rattachement: {{ user.site.nom }}</div>
+    <br><br>
 
     {% if user.photo %}
         <img class="photo_profil" src="{{ asset('img/imgProfil/'~user.photo) }}" alt="photo profil">
