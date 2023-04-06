@@ -9,8 +9,9 @@
                 <h3> Bienvenue  {{ app.user.prenom }} !</h3>
         </div>
 
-    <form class="form_accueil" action="{{ path('sortie_tri') }}" method="post">
         <h2> Filtrer les sorties </h2>
+
+    <form class="form_accueil" action="{{ path('sortie_tri') }}" method="post">
 
         <div class="contenu-1_form_accueil">
             <label for="site">Site :</label>
@@ -53,11 +54,13 @@
                 <input class="mon-checkbox" type="checkbox" id="passees" name="passees" {% if passees|default(false) %}checked{% endif %}>
                 <label class="mon-label" for="passees">Sorties passées</label>
             </div>
-        </div>
-
-        <div class="contenu-3_form_accueil">
+            <br>
             <input type="submit" name="Rechercher" value="Rechercher" style="width: 200px;">
         </div>
+
+{#        <div class="contenu-3_form_accueil">#}
+{#            <input type="submit" name="Rechercher" value="Rechercher" style="width: 200px;">#}
+{#        </div>#}
     </form>
 
         <br>
