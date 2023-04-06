@@ -4,26 +4,30 @@
 
 {% block body %}
     <h1>Enregistrez un nouvel utilisateur</h1>
-    {% if(app.user.administrateur == true) %}
-    <div class="form_registration">
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.prenom, {
-            label: 'Prénom'
-        }) }}
-        {{ form_row(registrationForm.nom) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Générez un mot de passe'
-        }) }}
-        {{ form_row(registrationForm.site) }}
-        <button type="submit" class="btn">Enregistrer</button>
-    {{ form_end(registrationForm) }}
+    <br>
+    <div class="registration">
+        {% if(app.user.administrateur == true) %}
+            <div class="form_registration">
+                {{ form_start(registrationForm) }}
+                    {{ form_row(registrationForm.email) }}
+                    {{ form_row(registrationForm.prenom, {
+                        label: 'Prénom'
+                    }) }}
+                    {{ form_row(registrationForm.nom) }}
+                    {{ form_row(registrationForm.plainPassword, {
+                        label: 'Générez un mot de passe'
+                    }) }}
+                    {{ form_row(registrationForm.site) }}
+                <button type="submit" class="btn">Enregistrer</button>
+                {{ form_end(registrationForm) }}
+            </div>
+            <div class="form_csv">
+                {{ form_start(csvForm)}}
+                    {{ form_row(csvForm.file)}}
+                    <br>
+                    <button type="submit" class="btn">Enregistrer</button>
+                {{ form_end(csvForm)}}
+            </div>
+        {% endif %}
     </div>
-    <div class="form_csv">
-        {{ form_start(csvForm)}}
-        {{ form_widget(csvForm.file)}}
-        <button type="submit" class="btn">Enregistrer</button>
-        {{ form_end(csvForm)}}
-    </div>
-    {% endif %}
 {% endblock %}

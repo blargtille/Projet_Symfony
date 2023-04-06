@@ -301,6 +301,12 @@ input[type=submit]:hover{
     border-color: #f5c6cb;
 }
 
+.registration {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-end;
+}
+
 .form_profil {
     flex: 1;
 }
