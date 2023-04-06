@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\Etat;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
 use Doctrine\ORM\EntityRepository;

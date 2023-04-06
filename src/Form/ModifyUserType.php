@@ -46,7 +46,6 @@ class ModifyUserType extends AbstractType
                             'message' => 'Merci d\'entrer un mot de passe',
                         ]),
                         new Length([
-                            // max length allowed by Symfony for security reasons
                             'max' => 4096,
                         ]),
                     ],
