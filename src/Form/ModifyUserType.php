@@ -43,7 +43,7 @@ class ModifyUserType extends AbstractType
                 'first_options' => [
                     'constraints' => [
                         new NotBlank([
-                            'message' => 'Please enter a password',
+                            'message' => 'Merci d\'entrer un mot de passe',
                         ]),
                         new Length([
                             // max length allowed by Symfony for security reasons
