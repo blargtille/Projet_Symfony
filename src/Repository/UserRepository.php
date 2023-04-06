@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
@@ -74,6 +75,24 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
         )
             ->setParameter('query', $usernameOrEmail)
             ->getOneOrNullResult();
+    }
+
+    public function findByResearch($recherche)
+    {
+        $queryBuilder = $this->createQueryBuilder('u');
+        $queryBuilder->addSelect('u');
+
+        if ($recherche != '') {
+            $queryBuilder->andWhere('u.nom LIKE :recherche');
+            $queryBuilder->setParameter('recherche', '%' . $recherche . '%');
+        }
+
+        $query = $queryBuilder->getQuery();
+
+        $paginator = new Paginator($query);
+
+        return $paginator;
+
     }
 
 //    /**

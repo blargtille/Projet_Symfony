@@ -213,14 +213,15 @@ class AdminController extends AbstractController
     }
 
     #[Route('/utilisateurs/tri', name: 'utilisateurs_tri')]
-    public function triUtilisateurs(UserRepository $userRepository, Request $request): Response
+    public function triUtilisateurs(UserRepository $userRepository, Request $request, GroupeRepository $groupeRepository): Response
     {
         $barreRecherche = $request->get('rechercher');
         $listeUsers = $userRepository->findByResearch($barreRecherche);
-
+        $groupes = $groupeRepository->findAll();
 
         return $this->render('admin/utilisateurs.html.twig', [
             'listeUser' => $listeUsers,
+            'listeGroupe' => $groupes
         ]);
     }
 
@@ -318,6 +319,7 @@ class AdminController extends AbstractController
     #[Route('/utilisateurs/supprParticipantGroupe{idGroupe}/{idUser}', name: 'utilisateurs_supprParticipantGroupe')]
     public function supprParticipantGroupe(GroupeRepository $groupeRepository, UserRepository $userRepository, EntityManagerInterface $entityManager, int $idGroupe, int $idUser): Response
     {
+
         $groupe = $groupeRepository->find($idGroupe);
         $user = $userRepository->find($idUser);
         $listeUser = $userRepository->findAll();
