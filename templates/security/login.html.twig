@@ -30,12 +30,35 @@
                     </label>
                 </div>
 
-            <button class="btn btn-lg btn-primary" type="submit">
+            <button class="btn btn-lg btn-primary" type="submit" id="btn">
                 Connexion
             </button>
+
+            <canvas id="confetti-canvas"></canvas>
+
             <br><br>
             <div><a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a> </div>
 
         </form>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<script type="text/javascript">
+    const btn = document.querySelector('#btn');
+    const canvas = document.querySelector('#confetti-canvas');
+    function onButtonClick(){
+        var myConfetti = confetti.create(canvas, {
+            resize: true,
+            useWorker: true
+        });
+        myConfetti({
+            particleCount: 100,
+            spread: 160
+        });
+    }
+    btn.addEventListener('click', onButtonClick);
+</script>
+
 {% endblock %}

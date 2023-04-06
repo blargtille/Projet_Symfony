@@ -1,11 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container_sortie">
+        <div class="container_sortie">
         <h1>Créer une sortie</h1>
         <br>
 
-        <div>
             {{ form_start(sortieForm) }}
 
             {{ form_widget(sortieForm) }}
@@ -19,7 +18,8 @@
     </div>
 
     <button type="button" onclick="creerLieu()" >Ajouter un lieu</button>
-
+    <br>
+    <br>
     <div class="container_lieu">
         <div id="lieu-details"></div>
         <div id="creer-lieu"></div>
