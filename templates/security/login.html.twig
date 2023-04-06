@@ -3,7 +3,7 @@
 {% block title %} {{ parent() }} | Connexion{% endblock %}
 
 {% block body %}
-    <div class="form-container">
+    <div class="form-identification">
         <form method="post">
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -17,6 +17,8 @@
 
 
             <h1 class="h3 mb-3 font-weight-normal">Connectez-vous</h1>
+            <br>
+            <br>
             <label for="inputEmail">Pseudo ou email :</label>
             <input type="text" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
             <label for="inputPassword">Mot de Passe</label>
@@ -24,12 +26,16 @@
 
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
+            <br>
+            <br>
+
                 <div class="checkbox mb-3">
                     <label>
-                        <input type="checkbox" name="_remember_me">Rester Connecté
+                        <input class="checkbox-identification" type="checkbox" name="_remember_me">Rester Connecté
                     </label>
                 </div>
 
+            <br>
             <button class="btn btn-lg btn-primary" type="submit" id="btn">
                 Connexion
             </button>

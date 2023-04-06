@@ -380,3 +380,17 @@ input[type=submit]:hover{
     height: 100vh;
     pointer-events: none;
 }
+
+.form-identification {
+    margin: 0 auto;
+    width: 400px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    text-align: center;
+}
+
+.checkbox-identification label {
+    display: flex;
+    align-items: center;
+}
+
