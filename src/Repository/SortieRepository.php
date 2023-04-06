@@ -60,8 +60,6 @@ class SortieRepository extends ServiceEntityRepository
         $queryBuilder = $this->createQueryBuilder('s');
         $queryBuilder->addSelect('s');
 
-        // seul les utilisateurs organisateurs peuvent voir leur sortie en cours de creation
-
         $queryBuilder->andWhere('s.etatE!=7');
         $queryBuilder->andWhere('s.etatE!=1');
         $queryBuilder->orWhere('s.etatE=1 AND s.organisateur = :user');

@@ -255,7 +255,6 @@ class AdminController extends AbstractController
     #[Route('/utilisateurs/suppr/{id}', name: 'utilisateurs_suppr')]
     public function supprUtilisateurs(UserRepository $userRepository, int $id, EntityManagerInterface $entityManager): Response
     {
-        // qu'est ce qu'il se passe si on suppr l'utilisateur ? suppr des sorties qu'il a crée ?
         $user = $userRepository->find($id);
         $entityManager->remove($user);
         $entityManager->flush();
@@ -291,7 +290,6 @@ class AdminController extends AbstractController
     #[Route('/utilisateurs/gererGroupe{id}', name: 'utilisateurs_gererGroupe')]
     public function gererGroupe(GroupeRepository $groupeRepository, UserRepository $userRepository, EntityManagerInterface $entityManager, int $id): Response
     {
-
         $groupe = $groupeRepository->find($id);
         $listeUser = $userRepository->findAll();
 
@@ -304,7 +302,6 @@ class AdminController extends AbstractController
     #[Route('/utilisateurs/ajouterParticipantGroupe{idGroupe}/{idUser}', name: 'utilisateurs_ajouterParticipantGroupe')]
     public function ajouterParticipantGroupe(GroupeRepository $groupeRepository, UserRepository $userRepository, EntityManagerInterface $entityManager, int $idGroupe, int $idUser): Response
     {
-
         $groupe = $groupeRepository->find($idGroupe);
         $listeUser = $userRepository->findAll();
         $user = $userRepository->find($idUser);
@@ -321,7 +318,6 @@ class AdminController extends AbstractController
     #[Route('/utilisateurs/supprParticipantGroupe{idGroupe}/{idUser}', name: 'utilisateurs_supprParticipantGroupe')]
     public function supprParticipantGroupe(GroupeRepository $groupeRepository, UserRepository $userRepository, EntityManagerInterface $entityManager, int $idGroupe, int $idUser): Response
     {
-
         $groupe = $groupeRepository->find($idGroupe);
         $user = $userRepository->find($idUser);
         $listeUser = $userRepository->findAll();

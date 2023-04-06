@@ -23,11 +23,9 @@ class SortieController extends AbstractController
     #[Route('', name: 'accueil')]
     public function list(SortieRepository $sortieRepository, SiteRepository $siteRepository): Response
     {
-
         $user = $this->getUser();
         $listeSortie = $sortieRepository->findAllExceptArchivee($user);
         $listeSite = $siteRepository->findAll();
-
 
         $date = new \DateTime();
 
@@ -56,12 +54,9 @@ class SortieController extends AbstractController
     {
 
         $site = $request->get('site');
-
         $dateStart = $request->get('date-start');
         $dateEnd = $request->get('date-end');
-
         $barreRecherche = $request->get('rechercher');
-
         $organisateur = $request->get('orga');
         $inscrit = $request->get('inscrit');
         $nonInscrit = $request->get('nonInscrit');
@@ -101,10 +96,6 @@ class SortieController extends AbstractController
         $sortieForm = $this->createForm(SortieType::class, $sortie);
 
         $sortieForm->handleRequest($request);
-
-        // recuperer les valeurs mises dans le form !!
-        // $nom = $sortieForm->get('nom')->getData();
-        // sauf que je veux pas verifier apres avoir submit mais apres avoir cliqué sur le lien ajouter un lieu
 
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
             $etatCreer = $etatRepository->find(1);
@@ -245,7 +236,6 @@ class SortieController extends AbstractController
         $date = new \DateTime();
 
         if ($date < $dateCloture and $sortiesParticipation->getParticipant()->contains($user) and $sortiesParticipation->getEtatE()->getId() == 2){
-
 
             $sortiesParticipation->removeParticipant($user);
 
