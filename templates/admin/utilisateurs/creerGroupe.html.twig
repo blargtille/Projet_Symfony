@@ -6,9 +6,14 @@
 
     <div>
         {{ form_start(groupeForm) }}
+        {{ form_row(groupeForm.nom) }}
 
+        <br><br>
+        {{ form_row(groupeForm.Utilisateurs) }}
         {{ form_widget(groupeForm) }}
 
+        <br>
+        <br>
         <button type="submit">Enregistrer</button>
 
         <button type="button"><a href="{{ path('admin_utilisateurs') }}">Annuler</a></button>
